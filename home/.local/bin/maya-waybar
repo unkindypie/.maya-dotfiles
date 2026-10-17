@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+set -euo pipefail
+# A fresh non-KooL session may not import Wayland variables into systemd.
+export XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+if [[ -z ${WAYLAND_DISPLAY:-} || ! -S "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" ]]; then
+  for socket in "$XDG_RUNTIME_DIR"/wayland-[0-9]*; do
+    [[ -S "$socket" && "$socket" != *.lock ]] || continue
+    export WAYLAND_DISPLAY="${socket##*/}"
+    break
+  done
+fi
+[[ -n ${WAYLAND_DISPLAY:-} ]] || exit 1
+exec waybar -c "$HOME/.config/waybar/config" -s "$HOME/.config/waybar/style.css"

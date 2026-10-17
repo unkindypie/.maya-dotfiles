@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+set -o pipefail
+
+SCRIPT_DIR=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+STATE_FILE=${TMUX_SESSIONIZER_STATE_FILE:-"$SCRIPT_DIR/tmux-sessionizer-recent.tsv"}
+
+discover_directories() {
+    local roots=(
+        "$HOME/Desktop/node" "$HOME/Desktop/python" /mnt/ml
+        "$HOME/Desktop/frontend" "$HOME/Desktop/infra" "$HOME/Desktop/flutter"
+        "$HOME/Desktop/wp" "$HOME/Desktop/dotnet" "$HOME/Desktop/cpp"
+    )
+
+    find "${roots[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
+        | grep -vE '/\.'
+    printf '%s\n' "$HOME/scripts" "$HOME/notes"
+    # >>> maya-nvim directory >>>
+    printf '%s\n' "$HOME/maya-nvim"
+    # <<< maya-nvim directory <<<
+}
+
+order_by_recency() {
+    if [[ -f $STATE_FILE ]]; then
+        awk -F '\t' '
+            FNR == NR { last_used[$2] = $1; next }
+            { printf "%s\t%s\n", ($0 in last_used ? last_used[$0] : "0000000000000000000"), $0 }
+        ' "$STATE_FILE" -
+    else
+        awk '{ printf "0000000000000000000\t%s\n", $0 }'
+    fi \
+        | sort -t $'\t' -k1,1r -k2,2 \
+        | cut -f2-
+}
+
+decorate_by_recency() {
+    local -a directories
+    local index last_index heart
+
+    mapfile -t directories
+    last_index=$((${#directories[@]} - 1))
+
+    for index in "${!directories[@]}"; do
+        case $index in
+            0) heart='💖' ;; # current favorite
+            1) heart='❤️' ;; # very recent
+            2) heart='🩷' ;; # recent
+            3) heart='🧡' ;; # warm
+            4) heart='💛' ;; # fading
+            5) heart='💚' ;; # older
+            6) heart='💙' ;; # cool
+            7) heart='💜' ;; # distant
+            *)
+                if [[ $index -eq $last_index ]]; then
+                    heart='💔' # oldest
+                else
+                    heart='🤍' # low priority
+                fi
+                ;;
+        esac
+        printf '%s %s\n' "$heart" "${directories[index]}"
+    done
+}
+
+record_use() {
+    local selected=$1 timestamp temporary_state
+    timestamp=$(date +%s%N)
+    temporary_state=$(mktemp "${STATE_FILE}.XXXXXX") || return 1
+
+    if [[ -f $STATE_FILE ]]; then
+        awk -F '\t' -v selected="$selected" '$2 != selected { print }' "$STATE_FILE" > "$temporary_state"
+    fi
+    printf '%s\t%s\n' "$timestamp" "$selected" >> "$temporary_state"
+    mv "$temporary_state" "$STATE_FILE"
+}
+
+main() {
+    local selected selected_name tmux_running
+
+    if [[ $# -eq 1 ]]; then
+        selected=$1
+    else
+        selected=$(discover_directories | sort -u | order_by_recency | decorate_by_recency | fzf)
+        selected=${selected#* }
+    fi
+
+    [[ -n $selected ]] || return 0
+    record_use "$selected"
+
+    selected_name=$(basename -- "$selected" | tr . _)
+    tmux_running=$(pgrep tmux || true)
+
+    if [[ -z ${TMUX:-} && -z $tmux_running ]]; then
+        tmux new-session -s "$selected_name" -c "$selected"
+        return 0
+    fi
+
+    if ! tmux has-session -t="$selected_name" 2>/dev/null; then
+        tmux new-session -ds "$selected_name" -c "$selected"
+    fi
+
+    tmux switch-client -t "$selected_name"
+}
+
+if [[ ${BASH_SOURCE[0]} == "$0" ]]; then
+    main "$@"
+fi

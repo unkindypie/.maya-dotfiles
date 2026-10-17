@@ -1,0 +1,5 @@
+# Preserve upstream and archived files byte-for-byte.
+home/.tmux/plugins/** -whitespace
+home/.config/kitty/kitty-themes/** -whitespace
+home/.local/share/fonts/** -whitespace
+reference/** -whitespace

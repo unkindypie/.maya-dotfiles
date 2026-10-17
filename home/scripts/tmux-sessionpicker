@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+
+selected=$(tmux list-sessions -F '#{session_name}' | grep -Ev '^[0-9]+$' | fzf)
+tmux switch-client -t $selected

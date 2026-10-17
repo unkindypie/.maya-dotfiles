@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+set -euo pipefail
+case "${1:-}" in
+ menu) command -v rofi >/dev/null && exec rofi -show drun; command -v fuzzel >/dev/null && exec fuzzel ;;
+ terminal) exec kitty ;;
+ files) exec xdg-open "$HOME" ;;
+ network) exec kitty -e nmtui ;;
+ volume-up) exec wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ ;;
+ volume-down) exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- ;;
+ mute) exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle ;;
+ mic) exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle ;;
+ bright-up) exec brightnessctl set +5% ;;
+ bright-down) exec brightnessctl set 5%- ;;
+ lock) command -v hyprlock >/dev/null && exec hyprlock; exec loginctl lock-session ;;
+ power) selection=$(printf 'Lock\nSuspend\nLog out\nReboot\nPower off' | rofi -dmenu -p Session)
+ case "$selection" in Lock) exec "$0" lock;; Suspend) exec systemctl suspend;; 'Log out') exec hyprctl dispatch exit;; Reboot) exec systemctl reboot;; 'Power off') exec systemctl poweroff;; esac ;;
+esac

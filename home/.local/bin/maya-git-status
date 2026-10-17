@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+pane=$(tmux display-message -p '#{pane_current_path}')
+if command -v gitmux >/dev/null; then exec gitmux; fi
+git -C "$pane" rev-parse --is-inside-work-tree >/dev/null 2>&1 || exit 0
+branch=$(git -C "$pane" symbolic-ref --quiet --short HEAD || git -C "$pane" rev-parse --short HEAD)
+printf '%s' "$branch"
+[[ -z $(git -C "$pane" status --porcelain 2>/dev/null) ]] || printf ' *'

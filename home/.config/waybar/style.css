@@ -1,0 +1,33 @@
+/* Maya Paper: warm white, quiet pastel surfaces, soft pink highlights. */
+@define-color paper #f4f0e5;
+@define-color ink #514740;
+@define-color muted #8b8077;
+@define-color pink #ecd0d8;
+@define-color pink_ink #835f70;
+@define-color line #dfd7ce;
+* { font-family: "JetBrainsMono Nerd Font", "sans-serif"; font-size: 12px; font-weight: 500; min-height: 0; border: none; box-shadow: none; }
+window#waybar { background: @paper; color: @ink; border: 1px solid @line; border-radius: 15px; }
+tooltip { background: #fbf8f0; color: @ink; border: 1px solid @line; border-radius: 10px; }
+.modules-left, .modules-center, .modules-right { padding: 3px 5px; }
+#workspaces, #window, #clock, #mpris, #cpu, #memory, #network, #backlight, #battery, #pulseaudio, #idle_inhibitor, #custom-notifications, #tray, #custom-menu, #custom-power { margin: 1px 2px; padding: 3px 8px; border-radius: 10px; }
+#workspaces { background: #eae5da; padding: 1px 3px; }
+#workspaces button { color: @muted; background: transparent; padding: 2px 8px; margin: 1px; border-radius: 8px; }
+#workspaces button.active { background: @pink; color: @pink_ink; }
+#workspaces button:hover { background: #f3e1e6; color: @pink_ink; }
+#workspaces button.urgent { background: #edbcc5; color: #794550; }
+#window { color: #75695e; }
+#clock { background: #fffbf4; color: #765b65; font-weight: 600; }
+#mpris { color: #7e718d; background: #ece6ef; }
+#cpu, #memory { color: #797369; }
+#network { background: #e1e9e4; color: #5b786b; }
+#backlight { color: #99825d; }
+#battery { color: #687d61; }
+#pulseaudio { background: #eee2e6; color: @pink_ink; }
+#pulseaudio.muted, #network.disconnected { color: @muted; }
+#idle_inhibitor.activated { background: @pink; color: @pink_ink; }
+#custom-menu, #custom-power { background: @pink; color: @pink_ink; padding: 3px 10px; }
+#custom-notifications { color: @pink_ink; }
+#tray { background: #fffbf4; }
+#tray image { -gtk-icon-effect: none; }
+#battery.warning { background: #f0e4cb; color: #8c7041; }
+#battery.critical, #temperature.critical { background: #edbcc5; color: #794550; }

@@ -1,0 +1,149 @@
+{
+  "layer": "top",
+  "position": "top",
+  "height": 34,
+  "spacing": 3,
+  "margin-top": 7,
+  "margin-left": 10,
+  "margin-right": 10,
+  "reload_style_on_change": true,
+  "modules-left": [
+    "custom/menu",
+    "hyprland/workspaces",
+    "hyprland/window"
+  ],
+  "modules-center": [
+    "clock"
+  ],
+  "modules-right": [
+    "mpris",
+    "cpu",
+    "memory",
+    "network",
+    "backlight",
+    "battery",
+    "pulseaudio",
+    "idle_inhibitor",
+    "custom/notifications",
+    "tray",
+    "custom/power"
+  ],
+  "custom/menu": {
+    "format": "󰣇",
+    "tooltip-format": "Applications · right-click for terminal",
+    "on-click": "~/.local/bin/maya-bar-action menu",
+    "on-click-right": "kitty"
+  },
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "●",
+      "default": "○",
+      "urgent": "!"
+    },
+    "on-click": "activate",
+    "sort-by-number": true
+  },
+  "hyprland/window": {
+    "max-length": 35,
+    "separate-outputs": true
+  },
+  "clock": {
+    "format": "{:%a  %d %b  ·  %H:%M}",
+    "tooltip-format": "<tt>{calendar}</tt>"
+  },
+  "mpris": {
+    "format": "{player_icon} {title}",
+    "format-paused": "⏸ {title}",
+    "player-icons": {
+      "default": "♪"
+    },
+    "max-length": 23
+  },
+  "cpu": {
+    "format": " {usage}%",
+    "interval": 5
+  },
+  "memory": {
+    "format": " {percentage}%",
+    "interval": 5
+  },
+  "network": {
+    "format-wifi": " {signalStrength}%",
+    "format-ethernet": "󰈀",
+    "format-disconnected": "󰖪",
+    "tooltip-format": "{ifname} · {ipaddr}",
+    "on-click": "~/.local/bin/maya-bar-action network"
+  },
+  "backlight": {
+    "format": "󰃠 {percent}%",
+    "on-scroll-up": "~/.local/bin/maya-bar-action bright-up",
+    "on-scroll-down": "~/.local/bin/maya-bar-action bright-down"
+  },
+  "battery": {
+    "format": "{icon} {capacity}%",
+    "format-charging": "󰂄 {capacity}%",
+    "format-icons": [
+      "󰁺",
+      "󰁼",
+      "󰁾",
+      "󰂀",
+      "󰁹"
+    ],
+    "states": {
+      "warning": 25,
+      "critical": 10
+    }
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-muted": "󰝟",
+    "format-icons": {
+      "default": [
+        "",
+        "",
+        ""
+      ]
+    },
+    "on-click": "~/.local/bin/maya-bar-action mute",
+    "on-click-right": "pavucontrol",
+    "on-click-middle": "~/.local/bin/maya-bar-action mic",
+    "on-scroll-up": "~/.local/bin/maya-bar-action volume-up",
+    "on-scroll-down": "~/.local/bin/maya-bar-action volume-down"
+  },
+  "idle_inhibitor": {
+    "format": "{icon}",
+    "format-icons": {
+      "activated": "󰅶",
+      "deactivated": "󰾪"
+    }
+  },
+  "custom/notifications": {
+    "exec-if": "command -v swaync-client",
+    "exec": "swaync-client -swb",
+    "return-type": "json",
+    "format": "{icon}",
+    "format-icons": {
+      "notification": "󰂚",
+      "none": "󰂜",
+      "dnd-notification": "󰂛",
+      "dnd-none": "󰪑",
+      "inhibited-notification": "󰂛",
+      "inhibited-none": "󰂜",
+      "dnd-inhibited-notification": "󰂛",
+      "dnd-inhibited-none": "󰂜"
+    },
+    "on-click": "swaync-client -t -sw",
+    "on-click-right": "swaync-client -d -sw"
+  },
+  "tray": {
+    "spacing": 6,
+    "icon-size": 16
+  },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip-format": "Session controls · right-click to lock",
+    "on-click": "~/.local/bin/maya-bar-action power",
+    "on-click-right": "~/.local/bin/maya-bar-action lock"
+  }
+}
