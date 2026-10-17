@@ -49,8 +49,8 @@ socket if your session has not imported WAYLAND_DISPLAY into systemd.
   Notebook/Lined Paper assets, generated alternative, and 110%/121% tiles.
   Current choice is Lined Paper at 121%, tint 0.35.
 - tmux config, reset bindings, light/dark variable, Python palette helper,
-  sessionizer/session picker, and the installed plugins vendored with licenses.
-  Plugin source revisions are recorded in dependencies.json. The theme works offline from the saved sources; tmux-thumbs may prompt to
+  sessionizer/session picker, and a pinned installer for tmux plugins.
+  Plugin URLs and revisions are recorded in dependencies.json; tmux-thumbs may prompt to
   download or compile its platform-specific executable on first use. Git status has a bundled fallback if gitmux
   is absent. Prefix is Ctrl-b; r reloads; f opens the sessionizer.
 - Exact personal `~/.config/mvim/init.lua` and lazy-lock.json. This is an override
@@ -67,12 +67,33 @@ Obsidian-specific tmux popups require your Neovim Obsidian commands and notes;
 those are personal workflow bindings, not supplied plugins.
 Sessionizer project roots can be edited in home/scripts/tmux-sessionizer.
 
+## Dependency installation
+
+The normal installer downloads missing Oh My Zsh, Zsh plugins, TPM and tmux
+plugins at the exact commits in dependencies.json. Git and internet are needed
+for a fresh setup. Each download is verified and installed atomically; failures
+leave no partial installation. Existing directories are preserved without fetch,
+checkout, reset or upgrade, including local edits and different revisions.
+The pins therefore specify fresh installs, not forced upgrades.
+
+Run `python3 scripts/install-dependencies.py` to install dependencies alone.
+Use `python3 install.py --skip-dependencies --without-mvim` for an offline,
+config-only installation when dependencies are already available. A custom theme
+directory alone is not a full Oh My Zsh installation; remove or move that partial
+directory before doing a fresh dependency install. Do not use config-only mode
+as the first step of a new installation.
+
+Upstream source trees are not tracked in the current checkout. Fonts, images,
+custom themes and personal configuration remain in Git. Previous commits still
+contain the old snapshots; history has not been rewritten.
+
 ## Zsh
 
 The common `.zshrc` includes your current tonotdo theme, remembered theme choices,
 plugins, aliases, history, guarded optional tools, and automatic interactive tmux.
-Oh My Zsh plus autosuggestions, syntax highlighting and Sobole are bundled with
-licenses and source revisions. Install `zsh` and optionally `lsd` / `fastfetch`.
+Oh My Zsh, autosuggestions and syntax highlighting are installed from the pinned
+Git URLs/revisions in dependencies.json. Sobole and the local agnosterzak theme
+remain bundled. Install `zsh` and optionally `lsd` / `fastfetch`.
 The installer does not change your login shell; use `chsh -s "$(command -v zsh)"`
 if desired. The Pokémon Fastfetch integration activates only when its optional
 external config exists.

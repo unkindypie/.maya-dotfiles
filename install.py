@@ -2,8 +2,9 @@
 """Install into the current user's home; back up replaced files first."""
 from pathlib import Path
 from datetime import datetime
-import argparse, shutil, subprocess, sys, re, os
+import argparse, shutil, subprocess, sys, re, os, runpy
 p = argparse.ArgumentParser()
+p.add_argument('--skip-dependencies', action='store_true', help='Skip dependency downloads (offline config-only install)')
 p.add_argument('--no-services', action='store_true', help='Copy files only (for tests/non-systemd hosts)')
 mvim = p.add_mutually_exclusive_group()
 mvim.add_argument('--with-mvim', dest='with_mvim', action='store_true', help='Install Maya Neovim and its launcher')
@@ -12,6 +13,10 @@ p.set_defaults(with_mvim=None)
 a = p.parse_args()
 root = Path(__file__).resolve().parent
 home = Path.home()
+if not a.skip_dependencies:
+    # Do this before copying custom themes, which also live under .oh-my-zsh.
+    deps = runpy.run_path(str(root / 'scripts/install-dependencies.py'))
+    deps['install_all'](root, home)
 if a.with_mvim is None:
     a.with_mvim = (sys.stdin.isatty() and
                    input('Install Maya Neovim (maya-nvim) too? [y/N] ').strip().lower() in ('y', 'yes'))

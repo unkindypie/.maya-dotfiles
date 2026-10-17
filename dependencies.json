@@ -5,31 +5,31 @@
       "commit": "e261deb1b47614eed3400089ce7197dc68acc4eb"
     },
     "tmux-sensible": {
-      "url": "https://git::@github.com/tmux-plugins/tmux-sensible",
+      "url": "https://github.com/tmux-plugins/tmux-sensible",
       "commit": "25cb91f42d020f675bb0a2ce3fbd3a5d96119efa"
     },
     "tmux-yank": {
-      "url": "https://git::@github.com/tmux-plugins/tmux-yank",
+      "url": "https://github.com/tmux-plugins/tmux-yank",
       "commit": "1b1a436e19f095ae8f825243dbe29800a8acd25c"
     },
     "tmux-thumbs": {
-      "url": "https://git::@github.com/fcsonline/tmux-thumbs",
+      "url": "https://github.com/fcsonline/tmux-thumbs",
       "commit": "ae91d5f7c0d989933e86409833c46a1eca521b6a"
     },
     "tmux-fzf": {
-      "url": "https://git::@github.com/sainnhe/tmux-fzf",
+      "url": "https://github.com/sainnhe/tmux-fzf",
       "commit": "231c835681ff47a17a99fb4f73307e67a25f52c0"
     },
     "tmux-battery": {
-      "url": "https://git::@github.com/tmux-plugins/tmux-battery",
+      "url": "https://github.com/tmux-plugins/tmux-battery",
       "commit": "5c52d4f7f80384de0781c2277a8989ba98fae507"
     },
     "tmux-fzf-url": {
-      "url": "https://git::@github.com/wfxr/tmux-fzf-url",
+      "url": "https://github.com/wfxr/tmux-fzf-url",
       "commit": "28ed7ce3c73a328d8463d4f4aaa6ccb851e520fa"
     },
     "catppuccin-tmux": {
-      "url": "https://git::@github.com/omerxx/catppuccin-tmux",
+      "url": "https://github.com/omerxx/catppuccin-tmux",
       "commit": "e30336b79986e87b1f99e6bd9ec83cffd1da2017"
     }
   },

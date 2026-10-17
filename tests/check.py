@@ -6,6 +6,8 @@ root = Path(__file__).resolve().parents[1]
 with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
     env = dict(os.environ, HOME=d)
     def run(*args):
+        if len(args) > 1 and args[1] == str(root / 'install.py'):
+            args = (*args, '--skip-dependencies')
         subprocess.run(args, env=env, check=True, stdout=subprocess.DEVNULL)
     target = Path(d)
     (target / '.zshrc').write_text('export EXAMPLE_API_TOKEN="test-only-credential"\n')

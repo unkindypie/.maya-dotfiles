@@ -13,7 +13,9 @@
   Terminal theme. See home/.config/kitty/kitty-themes/LICENSE.md.
 - reference/waybar-kool: LinuxBeginnings KooL Dots,
   https://github.com/LinuxBeginnings/Hyprland-Dots (GPL-3.0-or-later).
-- tmux plugin licenses are retained in each vendor directory. Exact URLs and
-  revisions are in dependencies.json. Some tmux bindings originated in KooL.
+- Oh My Zsh, Zsh and tmux plugin sources are downloaded by the dependency
+  installer with their upstream licenses. URLs and revisions are in
+  dependencies.json. Some tmux bindings originated in KooL. Sobole custom theme:
+  https://github.com/sobolevn/sobole-zsh-theme (WTFPL, retained in file header).
 - Fonts: Fantasque Sans Mono and JetBrains Mono Nerd Font distributions;
   bundled original license files accompany the font families.
