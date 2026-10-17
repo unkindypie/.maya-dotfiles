@@ -10,9 +10,10 @@ Clone this repository to `~/.maya-dotfiles` (another path also works), then:
 
 ```sh
 cd ~/.maya-dotfiles
-python3 install.py
-# For the full Maya Neovim distribution and mvim launcher:
-./bootstrap-mvim.sh
+python3 install.py  # asks whether to install Maya Neovim (default: no)
+# Explicit choices, including unattended installs:
+python3 install.py --with-mvim
+python3 install.py --without-mvim
 ```
 
 Install prerequisites first. Fedora example (package names may vary by release):
@@ -27,8 +28,11 @@ Use a running Hyprland session with a systemd user manager. PipeWire's PulseAudi
 compatibility service supplies Waybar audio. SwayNC and hyprlock are optional;
 notifications hide if SwayNC is absent. The lock action falls back to loginctl,
 which requires your session's lock handler. Backlight and battery modules hide
-when the hardware is absent. Nerd Fonts are bundled. No sudo/package changes
-are performed by install.py. Maya Neovim has its own dependency installer.
+when the hardware is absent. Nerd Fonts are bundled. The dotfiles installation itself does not change system packages. Choosing
+`--with-mvim` invokes Maya Neovim's dependency installer, which may request sudo
+or further choices. Non-interactive runs skip Maya Neovim unless `--with-mvim`
+is supplied. Existing Maya Neovim checkouts are reused; fresh clones use the
+revision in dependencies.json. Personal overrides are applied afterward.
 
 The enabled `maya-waybar.service` starts/restarts the bar independently of KooL.
 On a non-systemd installation use `python3 install.py --no-services` and add
@@ -51,7 +55,7 @@ socket if your session has not imported WAYLAND_DISPLAY into systemd.
   is absent. Prefix is Ctrl-b; r reloads; f opens the sessionizer.
 - Exact personal `~/.config/mvim/init.lua` and lazy-lock.json. This is an override
   for Maya Neovim, not a standalone Neovim init; bootstrap-mvim.sh installs its
-  upstream distribution. No private credentials or unrelated shell config.
+  upstream distribution. No private credentials.
 - The regular, bold, italic and bold-italic faces of the installed Nerd Fonts.
 - Original KooL Waybar config/modules/styles under reference/ for comparison;
   these are not installed and may refer to KooL-only programs.
@@ -62,6 +66,23 @@ not install KooL or change Hyprland keybindings, monitors or wallpaper.
 Obsidian-specific tmux popups require your Neovim Obsidian commands and notes;
 those are personal workflow bindings, not supplied plugins.
 Sessionizer project roots can be edited in home/scripts/tmux-sessionizer.
+
+## Zsh
+
+The common `.zshrc` includes your current tonotdo theme, remembered theme choices,
+plugins, aliases, history, guarded optional tools, and automatic interactive tmux.
+Oh My Zsh plus autosuggestions, syntax highlighting and Sobole are bundled with
+licenses and source revisions. Install `zsh` and optionally `lsd` / `fastfetch`.
+The installer does not change your login shell; use `chsh -s "$(command -v zsh)"`
+if desired. The Pokémon Fastfetch integration activates only when its optional
+external config exists.
+
+Keep credentials in `~/.config/zsh/secrets.zsh` (chmod 600), and machine-specific
+non-secret overrides in `~/.config/zsh/local.zsh`. Both are sourced but excluded
+from Git. The installer preserves recognized single-line credential assignments
+from an existing `.zshrc` in the private file before replacing it; multiline
+credentials must be moved manually. Backups of `.zshrc` get mode 600.
+Review any other private settings before migrating a different machine.
 
 ## Updates and ownership
 

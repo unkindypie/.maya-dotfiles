@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
+from_installer=false
+if [[ ${1:-} == --from-installer ]]; then
+  from_installer=true
+  shift
+fi
 root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
 if [[ ! -d "$HOME/maya-nvim/.git" ]]; then
   git clone https://github.com/unkindypie/maya-nvim.git "$HOME/maya-nvim"
@@ -8,4 +13,6 @@ if [[ ! -d "$HOME/maya-nvim/.git" ]]; then
 fi
 # Upstream installer installs Neovim, plugins and the mvim launcher.
 "$HOME/maya-nvim/install.sh" "$@"
-python3 "$root/install.py"
+if [[ $from_installer == false ]]; then
+  python3 "$root/install.py" --without-mvim
+fi

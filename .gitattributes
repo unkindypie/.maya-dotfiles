@@ -3,3 +3,4 @@ home/.tmux/plugins/** -whitespace
 home/.config/kitty/kitty-themes/** -whitespace
 home/.local/share/fonts/** -whitespace
 reference/** -whitespace
+home/.oh-my-zsh/** -whitespace

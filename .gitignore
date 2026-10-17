@@ -1,3 +1,11 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Never commit machine-local credentials.
+secrets.zsh
+local.zsh
+.env
+.env.*
+*.pem
+*.key

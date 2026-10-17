@@ -2,13 +2,43 @@
 """Install into the current user's home; back up replaced files first."""
 from pathlib import Path
 from datetime import datetime
-import argparse, shutil, subprocess
+import argparse, shutil, subprocess, sys, re, os
 p = argparse.ArgumentParser()
 p.add_argument('--no-services', action='store_true', help='Copy files only (for tests/non-systemd hosts)')
+mvim = p.add_mutually_exclusive_group()
+mvim.add_argument('--with-mvim', dest='with_mvim', action='store_true', help='Install Maya Neovim and its launcher')
+mvim.add_argument('--without-mvim', dest='with_mvim', action='store_false', help='Skip the optional Maya Neovim installation')
+p.set_defaults(with_mvim=None)
 a = p.parse_args()
 root = Path(__file__).resolve().parent
 home = Path.home()
+if a.with_mvim is None:
+    a.with_mvim = (sys.stdin.isatty() and
+                   input('Install Maya Neovim (maya-nvim) too? [y/N] ').strip().lower() in ('y', 'yes'))
+if a.with_mvim:
+    # Run before copying overrides so the saved personal config wins afterward.
+    subprocess.run(['bash', str(root / 'bootstrap-mvim.sh'), '--from-installer'], check=True)
 backup = home / '.local/state/maya-dotfiles/backups' / datetime.now().strftime('%Y%m%d-%H%M%S-%f')
+# Preserve single-line credential assignments before replacing a pre-existing zshrc.
+# Never print their values or copy them into the repository.
+zshrc = home / '.zshrc'
+if zshrc.is_file():
+    private = []
+    for line in zshrc.read_text().splitlines():
+        match = re.match(r'^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=', line)
+        if match and re.search(r'(?i)(token|secret|password|passwd|api_?key|account_sid|credential)', match[1]):
+            if line.rstrip().endswith('\\'):
+                raise SystemExit('Move multiline credentials to ~/.config/zsh/secrets.zsh before installing.')
+            private.append(line)
+    if private:
+        secrets = home / '.config/zsh/secrets.zsh'
+        secrets.parent.mkdir(parents=True, exist_ok=True)
+        current = secrets.read_text() if secrets.exists() else '# Machine-local credentials; never commit this file.\n'
+        additions = [line for line in private if line not in current.splitlines()]
+        fd = os.open(secrets, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o600)
+        with os.fdopen(fd, 'w') as f:
+            f.write(current.rstrip() + '\n' + ('\n'.join(additions) + '\n' if additions else ''))
+        secrets.chmod(0o600)
 for src in (root / 'home').rglob('*'):
     if not src.is_file(): continue
     rel = src.relative_to(root / 'home'); dst = home / rel
@@ -16,6 +46,7 @@ for src in (root / 'home').rglob('*'):
     if dst.exists() or dst.is_symlink():
         saved = backup / rel; saved.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(dst, saved, follow_symlinks=True)
+        if rel == Path('.zshrc'): saved.chmod(0o600)
         if dst.is_symlink(): dst.unlink()
     dst.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(src, dst)
