@@ -88,6 +88,9 @@ PathChanged=%h/.config/hypr/UserConfigs
 PathChanged=%h/.config/rofi
 PathChanged=%h/.config/rofi/config.rasi
 PathChanged=%h/.config/rofi/themes
+PathChanged=%h/.config/wofi
+PathChanged=%h/.config/wofi/config
+PathChanged=%h/.config/wofi/style.css
 Unit=maya-dotfiles-restore.service
 [Install]
 WantedBy=default.target

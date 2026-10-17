@@ -32,6 +32,9 @@ same file. Reload the application afterward. Run the installer to link new files
 
 - **Kitty:** `~/.config/kitty/kitty.conf`; paper texture/tint in
   `~/.local/share/kitty-personal/notebook.conf`.
+- **Wofi:** `~/.config/wofi/config` and `style.css`: paper panels, a pink search
+  strip, beveled rows and crisp offset shadows. Preview with `wofi --show drun`.
+  Your existing launcher shortcut still uses Rofi.
 - **Rofi:** `~/.config/rofi/themes/maya-paper.rasi` keeps KooL Style 4’s layout
   with paper surfaces, dusty pink selections and rose borders. It has no KooL or
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
@@ -83,7 +86,7 @@ their scripts and applications exist. Otherwise they hide. The network button
 opens NetworkManager's GUI. Original KooL Waybar files are archived in reference/.
 
 `maya-waybar.service` runs the bar; `maya-dotfiles.path` repairs replaced
-Kitty, Waybar, Rofi and Hyprland user-config symlinks. Vendor writes *through* a symlink
+Kitty, Waybar, Rofi, Wofi and Hyprland user-config symlinks. Vendor writes *through* a symlink
 also change the repo: inspect `git diff` after theme tools. Keep this repo in
 place. Backups live in `~/.local/state/maya-dotfiles/backups/`.
 

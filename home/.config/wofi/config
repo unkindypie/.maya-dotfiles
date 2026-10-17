@@ -1,0 +1,12 @@
+# Maya Paper Desktop — no KooL dependency.
+show=drun
+width=620
+height=470
+location=center
+prompt=󰄛  Applications · Search…
+allow_images=true
+image_size=24
+insensitive=true
+hide_scroll=true
+term=kitty
+gtk_dark=false

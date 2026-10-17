@@ -1,0 +1,60 @@
+/* Maya Paper Desktop: a pastel 90s panel with hard shadows and beveled edges. */
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    color: #3b302c;
+}
+window {
+    background: transparent;
+    border: none;
+}
+#outer-box {
+    margin: 12px;
+    padding: 14px;
+    background: #f4f0e5;
+    border: 3px solid #aa9588;
+    border-top-color: #fffdf7;
+    border-left-color: #fffdf7;
+    border-radius: 5px;
+    box-shadow: 6px 6px 0 rgba(87, 67, 58, 0.25);
+}
+#input {
+    margin: 0 0 12px;
+    padding: 12px;
+    color: #50313e;
+    background: #e6b5c6;
+    border: 2px solid #aa788c;
+    border-top-color: #ffe5ee;
+    border-left-color: #ffe5ee;
+    border-radius: 3px;
+    box-shadow: 2px 2px 0 #b7a495;
+}
+#input:focus { border-bottom-color: #a95878; }
+#scroll {
+    background: #fffbf4;
+    border: 2px solid #b3a594;
+    border-bottom-color: #fffdf7;
+    border-right-color: #fffdf7;
+    border-radius: 3px;
+    padding: 6px;
+}
+#inner-box { padding: 2px; background: transparent; }
+#entry {
+    margin: 2px;
+    padding: 9px 10px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+#entry:nth-child(even) { background: #f4f0e5; }
+#entry:selected {
+    background: #e6b5c6;
+    border-color: #aa788c;
+    border-top-color: #ffe5ee;
+    border-left-color: #ffe5ee;
+    box-shadow: 1px 1px 0 #b7a495;
+}
+#text { margin: 0 8px; background: transparent; }
+#text:selected { color: #50313e; }
+#img { margin-right: 8px; background: transparent; }
+#expander-box { background: #e8e0d2; border-radius: 3px; }
