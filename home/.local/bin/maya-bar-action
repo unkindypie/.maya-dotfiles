@@ -19,7 +19,7 @@ case "${1:-}" in
  mic) exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle ;;
  bright-up) exec brightnessctl set +5% ;;
  bright-down) exec brightnessctl set 5%- ;;
- lock) command -v hyprlock >/dev/null && exec hyprlock; exec loginctl lock-session ;;
+ lock) command -v hyprlock >/dev/null && exec "$HOME/.local/bin/maya-lock"; exec loginctl lock-session ;;
  power) selection=$(printf 'Lock\nSuspend\nLog out\nReboot\nPower off' | rofi -dmenu -p Session)
  case "$selection" in Lock) exec "$0" lock;; Suspend) exec systemctl suspend;; 'Log out') exec hyprctl dispatch exit;; Reboot) exec systemctl reboot;; 'Power off') exec systemctl poweroff;; esac ;;
 esac

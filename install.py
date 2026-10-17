@@ -67,6 +67,7 @@ if not zshrc.is_file() or zshrc.is_symlink() or zshrc.read_text() != loader:
 for src in (root / 'home').rglob('*'):
     if src.is_file():
         ensure_link(src, home / src.relative_to(root / 'home'), home, backup)
+subprocess.run([sys.executable, str(home / '.local/bin/maya-lock'), '--prepare'], check=True)
 if shutil.which('fc-cache'): subprocess.run(['fc-cache', '-f'], check=True)
 if not a.no_services:
     units = home / '.config/systemd/user'; units.mkdir(parents=True, exist_ok=True)

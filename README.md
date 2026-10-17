@@ -10,7 +10,7 @@ Works with KooL Fedora Hyprland; the main desktop components also work without K
 Install Git, Python 3, Zsh, Kitty, tmux, Waybar, fzf and a Nerd Font-capable
 Wayland desktop first. Fonts are bundled. For the bar controls, install
 `rofi-wayland`, `brightnessctl`, `wireplumber`, `pavucontrol`, `nm-connection-editor`
-and `playerctl`. SwayNC, hyprlock, lsd and fastfetch are optional.
+and `playerctl`. SwayNC, lsd and fastfetch are optional. Install hyprlock and hypridle for screen locking.
 
 ```sh
 cd ~/.maya-dotfiles
@@ -36,6 +36,13 @@ same file. Reload the application afterward. Run the installer to link new files
   with paper surfaces, dusty pink selections and rose borders. It has no KooL or
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
   their own themes.
+- **Lock/idle:** `~/.config/hypr/hyprlock.conf` and `hypridle.conf`. A cream card,
+  rose outlines and blurred current wallpaper; run `~/.local/bin/maya-lock` to lock.
+  Wallpaper follows awww/swww, Waypaper, then KooL’s cache, with plain paper as
+  fallback. Private wallpaper images stay outside Git. The idle warning remains
+  at 9 minutes and locking at 10; display-off/suspend stay disabled. KooL already
+  starts hypridle; on another setup add `exec-once = hypridle`. Restart hypridle
+  after changing idle settings.
 - **Waybar:** `~/.config/waybar/config` and `style.css`.
 - **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
   or `dark`, then press Ctrl-b r.

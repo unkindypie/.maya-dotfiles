@@ -1,0 +1,65 @@
+#!/usr/bin/env python3
+"""Refresh the wallpaper, then run Hyprlock with the personal paper theme."""
+from pathlib import Path
+import configparser, os, shutil, struct, subprocess, sys, tempfile, zlib
+
+
+def choose_wallpaper(home):
+    for command in ('awww', 'swww'):
+        if not shutil.which(command):
+            continue
+        try:
+            result = subprocess.run([command, 'query'], capture_output=True, text=True, timeout=2)
+            for line in result.stdout.splitlines():
+                if 'image: ' in line:
+                    p = Path(line.split('image: ', 1)[1].strip()).expanduser()
+                    if p.is_file(): return p
+        except (OSError, subprocess.TimeoutExpired):
+            pass
+    config = configparser.ConfigParser(interpolation=None)
+    try:
+        config.read(home / '.config/waypaper/config.ini')
+        for section in config.sections():
+            for key in ('wallpaper', 'wallpaper_path'):
+                for name in config.get(section, key, fallback='').splitlines():
+                    p = Path(os.path.expandvars(name.strip())).expanduser()
+                    if name.strip() and p.is_file(): return p
+    except (OSError, configparser.Error):
+        pass
+    for name in ('.config/hypr/wallpaper_effects/.wallpaper_current', '.config/rofi/.current_wallpaper'):
+        p = home / name
+        if p.is_file(): return p.resolve()
+    return None
+
+
+def prepare(home):
+    cache = home / '.cache/maya-lock'
+    cache.mkdir(parents=True, exist_ok=True)
+    wallpaper = choose_wallpaper(home)
+    if wallpaper is None:
+        # Plain paper fallback, generated from source; no wallpaper download needed.
+        wallpaper = cache / 'paper.png'
+        def chunk(kind, data):
+            return struct.pack('>I', len(data)) + kind + data + struct.pack('>I', zlib.crc32(kind + data))
+        wallpaper.write_bytes(b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', 1, 1, 8, 2, 0, 0, 0)) + chunk(b'IDAT', zlib.compress(b'\x00\xdf\xdb\xc3')) + chunk(b'IEND', b''))
+    target = cache / 'wallpaper'
+    with tempfile.TemporaryDirectory(dir=cache) as tmp:
+        link = Path(tmp) / 'image'
+        link.symlink_to(wallpaper.resolve())
+        os.replace(link, target)
+    return target
+
+
+def main():
+    prepare(Path.home())
+    if sys.argv[1:] == ['--prepare']:
+        return
+    if sys.argv[1:]:
+        raise SystemExit('Usage: maya-lock [--prepare]')
+    if subprocess.run(['pgrep', '-x', 'hyprlock'], stdout=subprocess.DEVNULL).returncode == 0:
+        return
+    os.execvp('hyprlock', ['hyprlock', '--config', str(Path.home() / '.config/hypr/hyprlock.conf')])
+
+
+if __name__ == '__main__':
+    main()
