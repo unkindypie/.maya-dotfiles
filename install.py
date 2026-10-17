@@ -12,6 +12,7 @@ mvim.add_argument('--without-mvim', dest='with_mvim', action='store_false', help
 p.set_defaults(with_mvim=None)
 a = p.parse_args()
 root = Path(__file__).resolve().parent
+subprocess.run([sys.executable, str(root / "scripts/generate-palette.py")], check=True)
 home = Path.home()
 if not a.skip_dependencies:
     # Do this before copying custom themes, which also live under .oh-my-zsh.

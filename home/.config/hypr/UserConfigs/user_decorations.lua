@@ -1,3 +1,5 @@
+local maya_colors = dofile((os.getenv("HOME") or "") .. "/.config/maya-theme/colors.lua")
+
 -- ==================================================
 --  KoolDots (2026)
 --  Project URL: https://github.com/LinuxBeginnings
@@ -76,8 +78,8 @@ if next(colors) then
   hl.config({
     general = {
       col = {
-        active_border = colors.color12 or "rgba(8db4ffff)",
-        inactive_border = colors.color10 or "rgba(5f6578ff)",
+        active_border = colors.color12 or maya_colors.fallback_blue,
+        inactive_border = colors.color10 or maya_colors.fallback_gray,
       },
     },
   })
@@ -85,8 +87,8 @@ if next(colors) then
   hl.config({
     decoration = {
       shadow = {
-        color = colors.color12 or "rgba(8db4ffff)",
-        color_inactive = colors.color10 or "rgba(5f6578ff)",
+        color = colors.color12 or maya_colors.fallback_blue,
+        color_inactive = colors.color10 or maya_colors.fallback_gray,
       },
     },
   })
@@ -94,11 +96,11 @@ if next(colors) then
   hl.config({
     group = {
       col = {
-        border_active = colors.color15 or "rgba(ffffffff)",
+        border_active = colors.color15 or maya_colors.ansi_bright_white,
       },
       groupbar = {
         col = {
-          active = colors.color0 or "rgba(0f111aff)",
+          active = colors.color0 or maya_colors.fallback_dark,
         },
       },
     },
@@ -109,7 +111,7 @@ end
 hl.config({
   general = {
     border_size = 2,
-    col = { active_border = "rgba(a95878ff)", inactive_border = "rgba(b3a594ff)" },
+    col = { active_border = maya_colors.rose, inactive_border = maya_colors.taupe },
   },
   decoration = {
     active_opacity = 1.0,
@@ -119,11 +121,9 @@ hl.config({
     dim_strength = 0.0,
     shadow = {
       enabled = true, range = 18, render_power = 3,
-      color = "rgba(57433a44)", color_inactive = "rgba(57433a14)", offset = "0 3",
+      color = maya_colors.focus_shadow, color_inactive = maya_colors.inactive_shadow, offset = "0 3",
     },
     blur = { enabled = true, size = 8, passes = 3 },
   },
 })
 
-hl.window_rule({ name = "maya-focused-border", match = { focus = true }, border_size = 4 })
-hl.window_rule({ name = "maya-inactive-border", match = { focus = false }, border_size = 2 })

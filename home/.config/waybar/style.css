@@ -1,57 +1,59 @@
+@import "palette.css";
+
 /* Maya Paper: warm paper, outlined pastel controls, gently raised retro panels. */
-@define-color paper #f4f0e5;
-@define-color ink #3b302c;
-@define-color muted #74675e;
-@define-color pink #e6b5c6;
-@define-color pink_ink #613e4c;
-@define-color line #aa9588;
+@define-color paper @maya_paper;
+@define-color ink @maya_ink;
+@define-color muted @maya_muted_ink;
+@define-color pink @maya_pink;
+@define-color pink_ink @maya_waybar_rose_ink;
+@define-color line @maya_border;
 * { font-family: "JetBrainsMono Nerd Font", "sans-serif"; font-size: 13px; font-weight: 600; min-height: 0; border: none; box-shadow: none; }
-window#waybar { background: @paper; color: @ink; border: 2px solid @line; border-radius: 12px; box-shadow: inset 1px 1px 0 #fffdf7, inset -1px -1px 0 #c4b4a7; }
-tooltip { background: #fbf8f0; color: @ink; border: 1px solid @line; border-radius: 10px; }
+window#waybar { background: @paper; color: @ink; border: 2px solid @line; border-radius: 12px; box-shadow: inset 1px 1px 0 @maya_bevel_white, inset -1px -1px 0 @maya_bar_shadow; }
+tooltip { background: @maya_tooltip_paper; color: @ink; border: 1px solid @line; border-radius: 10px; }
 .modules-left, .modules-center, .modules-right { padding: 3px 5px; }
 #workspaces, #window, #clock, #mpris, #cpu, #memory, #network, #backlight, #battery, #pulseaudio, #idle_inhibitor, #custom-notifications, #tray, #custom-menu, #custom-power { margin: 1px 2px; padding: 3px 8px; border-radius: 10px; }
-#workspaces { background: #eae5da; padding: 1px 3px; }
+#workspaces { background: @maya_workspace_surface; padding: 1px 3px; }
 #workspaces button { color: @muted; background: transparent; padding: 2px 8px; margin: 1px; border-radius: 8px; }
 #workspaces button.active { background: @pink; color: @pink_ink; }
-#workspaces button:hover { background: #f3e1e6; color: @pink_ink; }
-#workspaces button.urgent { background: #edbcc5; color: #794550; }
-#window { color: #635348; }
-#clock { background: #fffbf4; color: #654451; font-weight: 600; }
-#mpris { color: #63516f; background: #ece6ef; }
-#cpu, #memory { color: #62574b; }
-#network { background: #e1e9e4; color: #3d5d4d; }
-#backlight { color: #7e602d; }
-#battery { color: #4b643e; }
-#pulseaudio { background: #eee2e6; color: @pink_ink; }
+#workspaces button:hover { background: @maya_workspace_hover; color: @pink_ink; }
+#workspaces button.urgent { background: @maya_warning_pink; color: @maya_critical_ink; }
+#window { color: @maya_window_title_ink; }
+#clock { background: @maya_paper_white; color: @maya_clock_ink; font-weight: 600; }
+#mpris { color: @maya_lavender_ink; background: @maya_media_lavender; }
+#cpu, #memory { color: @maya_metrics_ink; }
+#network { background: @maya_sage; color: @maya_sage_ink; }
+#backlight { color: @maya_brightness_ink; }
+#battery { color: @maya_battery_ink; }
+#pulseaudio { background: @maya_password_pink; color: @pink_ink; }
 #pulseaudio.muted, #network.disconnected { color: @muted; }
 #idle_inhibitor.activated { background: @pink; color: @pink_ink; }
 #custom-menu, #custom-power { background: @pink; color: @pink_ink; padding: 3px 10px; }
 #custom-notifications { color: @pink_ink; }
-#tray { background: #fffbf4; }
+#tray { background: @maya_paper_white; }
 #tray image { -gtk-icon-effect: none; }
-#battery.warning { background: #f0e4cb; color: #8c7041; }
-#battery.critical, #temperature.critical { background: #edbcc5; color: #794550; }
+#battery.warning { background: @maya_battery_warning; color: @maya_battery_warning_ink; }
+#battery.critical, #temperature.critical { background: @maya_warning_pink; color: @maya_critical_ink; }
 
 /* Raised controls: crisp outlines and a light top edge, keeping the paper palette. */
 #clock, #mpris, #network, #pulseaudio, #tray, #custom-menu, #custom-power,
 #custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
     border: 1px solid @line;
-    border-top-color: #fffdf7;
-    border-left-color: #fffdf7;
-    box-shadow: 1px 1px 0 #b7a495;
+    border-top-color: @maya_bevel_white;
+    border-left-color: @maya_bevel_white;
+    box-shadow: 1px 1px 0 @maya_hard_shadow;
     border-radius: 7px;
 }
-#workspaces { border: 1px solid #b6a597; border-radius: 8px; }
+#workspaces { border: 1px solid @maya_workspace_border; border-radius: 8px; }
 #workspaces button { border: 1px solid transparent; border-radius: 6px; }
-#workspaces button.active { border: 1px solid #aa788c; box-shadow: inset 0 1px 0 #ffe5ee; }
+#workspaces button.active { border: 1px solid @maya_rose_border; box-shadow: inset 0 1px 0 @maya_pink_highlight; }
 #custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
     margin: 1px 2px;
     padding: 3px 9px;
-    color: #594738;
-    background: #ebe0cc;
+    color: @maya_control_ink;
+    background: @maya_control_paper;
 }
-#custom-kool-help { background: #e7e1ef; color: #63516f; }
-#custom-kool-settings { background: #eee1e5; color: @pink_ink; }
-#custom-kool-nightlight.on { background: #f3dba8; color: #6e4b22; border-bottom-color: #b4884b; }
+#custom-kool-help { background: @maya_lavender; color: @maya_lavender_ink; }
+#custom-kool-settings { background: @maya_settings_pink; color: @pink_ink; }
+#custom-kool-nightlight.on { background: @maya_nightlight; color: @maya_nightlight_ink; border-bottom-color: @maya_nightlight_border; }
 #custom-menu:hover, #custom-power:hover, #custom-kool-help:hover,
-#custom-kool-settings:hover, #custom-kool-nightlight:hover { background: #f5d5e1; }
+#custom-kool-settings:hover, #custom-kool-nightlight:hover { background: @maya_control_hover; }

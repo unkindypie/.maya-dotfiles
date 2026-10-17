@@ -42,3 +42,6 @@ local bind = user_keybinds_helper.bind
 -- Override the default browser binding in the optional Lua workflow too.
 user_keybinds_helper.unbind("SUPER", "B")
 bind("SUPER", "B", exec_cmd('"$HOME/.local/bin/maya-lock"'), { description = "Lock screen" })
+
+user_keybinds_helper.unbind("SUPER", "D")
+bind("SUPER", "D", exec_cmd('rofi -show drun -modi drun,filebrowser,run,window -config "$HOME/.config/rofi/config.rasi"'), { description = "Applications" })

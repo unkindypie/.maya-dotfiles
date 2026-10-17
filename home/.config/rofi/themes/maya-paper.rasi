@@ -1,3 +1,5 @@
+@import "~/.config/rofi/themes/maya-palette.rasi"
+
 /* ---- 💫 https://github.com/LinuxBeginnings 💫 ---- */
 /* Maya Paper: based on KooL Style 4; original layout by adi1090x. */
 /* credit: https://github.com/adi1090x/rofi */
@@ -17,14 +19,14 @@ configuration {
     me-accept-entry:            "MousePrimary";
 }
 
-/* ---- Load wallust colors ---- */
+/* ---- Shared personal palette ---- */
 * {
-    background: #f4f0e5;
-    foreground: #3b302c;
-    color0: #e8e0d2;
-    color12: #e6b5c6;
-    color11: #d8e3d5;
-    color13: #edbcc5;
+    background: @maya-paper;
+    foreground: @maya-ink;
+    color0: @maya-paper-inset;
+    color12: @maya-pink;
+    color11: @maya-active-sage;
+    color13: @maya-warning-pink;
     font: "JetBrainsMono Nerd Font 12";
 }
 
@@ -98,7 +100,7 @@ mainbox {
     border-radius:               0px 0px 0px 0px;
     border-color:                @border-color;
     background-color:            inherit;
-    children:                    [ "inputbar", "message", "custombox" ];
+    children:                    [ "titlebar", "inputbar", "message", "custombox" ];
 }
 
 /*****----- A Custom Box -----*****/
@@ -335,49 +337,49 @@ error-message {
 
 /* Personal paper palette and raised-panel outlines. */
 * {
-    border-color: #aa9588;
-    normal-foreground: #3b302c;
-    active-foreground: #4b643e;
-    selected-normal-foreground: #50313e;
-    selected-active-foreground: #50313e;
-    selected-urgent-foreground: #50313e;
+    border-color: @maya-border;
+    normal-foreground: @maya-ink;
+    active-foreground: @maya-battery-ink;
+    selected-normal-foreground: @maya-selection-ink;
+    selected-active-foreground: @maya-selection-ink;
+    selected-urgent-foreground: @maya-selection-ink;
 }
 window {
     width: 35%;
     border: 3px solid;
-    border-color: #a95878;
+    border-color: @maya-rose;
     border-radius: 12px;
-    background-color: #f4f0e5;
+    background-color: @maya-paper;
 }
 mainbox { padding: 16px; spacing: 12px; }
 custombox { spacing: 10px; background-color: transparent; }
 inputbar {
-    background-color: #fffbf4;
+    background-color: @maya-paper-white;
     border: 2px solid;
-    border-color: #b3a594;
+    border-color: @maya-taupe;
     border-radius: 7px;
 }
-entry { background-color: transparent; placeholder-color: #8b8077; }
-textbox-prompt-colon { str: "  "; text-color: #835f70; }
+entry { background-color: transparent; placeholder-color: @maya-faint-ink; }
+textbox-prompt-colon { str: "  "; text-color: @maya-rose-ink; }
 listview {
-    background-color: #fffbf4;
-    border-color: #b3a594;
+    background-color: @maya-paper-white;
+    border-color: @maya-taupe;
     border-radius: 7px;
     padding: 8px;
     spacing: 4px;
 }
 element { border: 2px solid; border-color: transparent; border-radius: 6px; padding: 9px; }
-element normal.active { text-color: #4b643e; }
+element normal.active { text-color: @maya-battery-ink; }
 element selected.normal, element selected.active, element selected.urgent {
-    background-color: #e6b5c6;
-    text-color: #50313e;
-    border-color: #a95878;
+    background-color: @maya-pink;
+    text-color: @maya-selection-ink;
+    border-color: @maya-rose;
 }
-element-text selected { background-color: transparent; text-color: #50313e; }
+element-text selected { background-color: transparent; text-color: @maya-selection-ink; }
 mode-switcher {
-    background-color: #e8e0d2;
+    background-color: @maya-paper-inset;
     border: 1px solid;
-    border-color: #b3a594;
+    border-color: @maya-taupe;
     border-radius: 7px;
     padding: 4px;
     spacing: 4px;
@@ -385,8 +387,60 @@ mode-switcher {
 button { padding: 0px 13px; border: 2px solid; border-color: transparent; border-radius: 6px; }
 button selected {
     border: 2px solid;
-    border-color: #a95878;
-    background-color: #e6b5c6;
-    text-color: #50313e;
+    border-color: @maya-rose;
+    background-color: @maya-pink;
+    text-color: @maya-selection-ink;
 }
-textbox { background-color: #e8e0d2; text-color: #3b302c; }
+textbox { background-color: @maya-paper-inset; text-color: @maya-ink; }
+
+/* Warm classic-macOS frame: slim shaded title bar and a right-hand status dot. */
+window {
+    border: 2px solid;
+    border-color: @maya-taupe;
+    border-radius: 9px;
+}
+mainbox { padding: 0px; spacing: 10px; }
+titlebar {
+    expand: false;
+    orientation: horizontal;
+    children: [ "textbox-cat", "textbox-title", "textbox-dot" ];
+    spacing: 8px;
+    padding: 5px 10px;
+    background-color: @maya-title-surface;
+    background-image: @maya-title-gradient;
+    border: 0px 0px 1px;
+    border-color: @maya-border;
+    border-radius: 7px 7px 0px 0px;
+}
+textbox-cat {
+    expand: false;
+    str: "󰄛";
+    font: "JetBrainsMono Nerd Font 13";
+    padding: 0px 2px;
+    background-color: transparent;
+    text-color: @maya-rose-ink;
+}
+textbox-title {
+    expand: true;
+    str: "Applications";
+    font: "JetBrainsMono Nerd Font 12";
+    padding: 0px;
+    background-color: transparent;
+    text-color: @maya-title-ink;
+    horizontal-align: 0.5;
+}
+textbox-dot {
+    expand: false;
+    str: "●";
+    font: "JetBrainsMono Nerd Font 13";
+    padding: 0px 2px;
+    background-color: transparent;
+    text-color: @maya-rose;
+}
+inputbar { margin: 0px 12px; border-radius: 3px; }
+message { margin: 0px 12px; }
+custombox { margin: 0px 12px 12px; }
+listview { border-radius: 3px; }
+mode-switcher { border-radius: 3px; }
+element { border-radius: 3px; }
+button, button selected { border-radius: 3px; }

@@ -11,5 +11,10 @@
 - Use portable paths, back up replaced files, and keep installation repeatable.
 - For installer changes run `python3 tests/check.py` and
   `python3 tests/check-dependencies.py`; check relevant syntax and `git diff --check`.
-- Check live appearance/services when changed. Commit verified work on `master`;
-  do not push or rewrite history unless requested. Keep README.md accurate.
+- Check live appearance/services when changed. Do not commit unless the user asks,
+  or a critical/breaking change needs a recovery checkpoint. Otherwise leave edits
+  uncommitted. Use `master`; never push or rewrite history unless requested.
+- Keep README.md accurate.
+
+- Shared colors live in `home/.config/maya-theme/palette.json`. Run
+  `python3 scripts/generate-palette.py`; do not hand-edit generated color files.

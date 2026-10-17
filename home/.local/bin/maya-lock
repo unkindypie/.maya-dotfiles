@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Refresh the wallpaper, then run Hyprlock with the personal paper theme."""
 from pathlib import Path
-import configparser, os, shutil, struct, subprocess, sys, tempfile, zlib
+import configparser, json, os, shutil, struct, subprocess, sys, tempfile, zlib
 
 
 def choose_wallpaper(home):
@@ -41,7 +41,10 @@ def prepare(home):
         wallpaper = cache / 'paper.png'
         def chunk(kind, data):
             return struct.pack('>I', len(data)) + kind + data + struct.pack('>I', zlib.crc32(kind + data))
-        wallpaper.write_bytes(b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', 1, 1, 8, 2, 0, 0, 0)) + chunk(b'IDAT', zlib.compress(b'\x00\xdf\xdb\xc3')) + chunk(b'IEND', b''))
+        palette = home / '.config/maya-theme/palette.json'
+        color = json.loads(palette.read_text())['colors']['novel_paper'] if palette.is_file() else '#dfdbc3'
+        pixel = b'\x00' + bytes.fromhex(color.removeprefix('#'))
+        wallpaper.write_bytes(b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', 1, 1, 8, 2, 0, 0, 0)) + chunk(b'IDAT', zlib.compress(pixel)) + chunk(b'IEND', b''))
     target = cache / 'wallpaper'
     with tempfile.TemporaryDirectory(dir=cache) as tmp:
         link = Path(tmp) / 'image'

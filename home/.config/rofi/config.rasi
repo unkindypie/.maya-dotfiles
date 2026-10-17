@@ -2,6 +2,8 @@
 configuration {
     font: "JetBrainsMono Nerd Font 12";
     terminal: "kitty";
+    disable-history: false;
+    sort: false;
     run-shell-command: "{terminal} -e {cmd}";
 }
 @theme "~/.config/rofi/themes/maya-paper.rasi"

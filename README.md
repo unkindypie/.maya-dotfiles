@@ -34,9 +34,12 @@ same file. Reload the application afterward. Run the installer to link new files
   `~/.local/share/kitty-personal/notebook.conf`.
 - **Wofi:** `~/.config/wofi/config` and `style.css`: paper panels, a pink search
   strip, beveled rows and crisp offset shadows. Preview with `wofi --show drun`.
-  Your existing launcher shortcut still uses Rofi.
+  This is an optional alternative; Super+D uses the familiar Rofi launcher.
 - **Rofi:** `~/.config/rofi/themes/maya-paper.rasi` keeps KooL Style 4’s layout
-  with paper surfaces, dusty pink selections and rose borders. It has no KooL or
+  with a slim classic-macOS-style frame, cat icon, right-hand rose dot,
+  paper surfaces and dusty pink selections.
+  Super+D preserves usage history/ranking and the apps/files/term/window tabs.
+  It has no KooL or
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
   their own themes.
 - **Lock/idle:** `~/.config/hypr/hyprlock.conf` and `hypridle.conf`. A layered 90s-style dialog,
@@ -62,7 +65,7 @@ same file. Reload the application afterward. Run the installer to link new files
   Neovim distribution. Install the linked Maya Neovim project to use it.
 - **Hyprland:** `~/.config/hypr/UserConfigs/` contains your custom hotkeys and
   settings. Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
-  full compositor opacity, no inactive dimming, 4px rose focus borders, 2px taupe inactive borders and
+  full compositor opacity, no inactive dimming, uniform 2px borders (rose when focused, taupe otherwise) and
   soft brown shadows (stronger when focused). Backdrop blur stays at size 8/3 passes.
   Reload with `hyprctl reload`. Kitty's own background opacity still applies.
 
@@ -108,3 +111,24 @@ git diff --check
 ```
 
 See ATTRIBUTION.md for asset sources and licenses.
+
+## Shared colors
+
+Edit `~/.config/maya-theme/palette.json` (linked to this repo). Different paper,
+pink and app-specific shades have separate names; no colors are forced to match.
+Exact duplicate values are rejected so the same color is defined only once.
+It supplies Waybar, Wofi, Rofi, Hyprlock, Hyprland and Kitty's personal Novel theme.
+
+```sh
+python3 scripts/generate-palette.py
+```
+
+This updates small native include files (and Wofi’s generated color header),
+not whole config templates. Wofi needs an inline header because its CSS imports
+resolve from the launch directory. Layouts
+remain directly editable. The installer also regenerates these files. Reload
+Waybar/Hyprland, restart Kitty or reload its config, and reopen launchers/the locker
+to apply. `python3 scripts/generate-palette.py --check` checks for stale includes.
+Edit the palette rather than generated files. Other Kitty themes, Wallust output,
+and tmux/mvim's separate palettes are unchanged. Palette values do not recolor
+the wallpaper or texture image itself.

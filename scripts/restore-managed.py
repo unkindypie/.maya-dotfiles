@@ -7,11 +7,11 @@ root = Path(__file__).resolve().parents[1]
 home = Path.home()
 backup = backup_root(home)
 waybar_changed = False
-managed = ['.config/waybar/config', '.config/waybar/style.css', '.config/kitty/kitty.conf', '.config/hypr/maya-appearance.conf', '.config/rofi/config.rasi', '.config/hypr/hyprlock.conf', '.config/hypr/hypridle.conf', '.config/wofi/config', '.config/wofi/style.css']
+managed = ['.config/waybar/config', '.config/waybar/style.css', '.config/kitty/kitty.conf', '.config/hypr/maya-appearance.conf', '.config/rofi/config.rasi', '.config/hypr/hyprlock.conf', '.config/hypr/hypridle.conf', '.config/wofi/config', '.config/wofi/style.css', '.config/waybar/palette.css']
 for name in managed:
     changed = ensure_link(root / 'home' / name, home / name, home, backup)
     waybar_changed |= changed and name.startswith('.config/waybar/')
-for folder in ['.local/share/kitty-personal', '.config/kitty/kitty-themes', '.config/hypr/UserConfigs', '.config/hypr/lua', '.config/rofi/themes']:
+for folder in ['.local/share/kitty-personal', '.config/kitty/kitty-themes', '.config/hypr/UserConfigs', '.config/hypr/lua', '.config/rofi/themes', '.config/maya-theme']:
     for src in (root / 'home' / folder).rglob('*'):
         if src.is_file():
             ensure_link(src, home / src.relative_to(root / 'home'), home, backup)
