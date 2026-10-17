@@ -35,7 +35,7 @@ configuration {
     selected:       @color12;
     active:         @color11;
     urgent:         @color13;
-    
+
     border-color:                @active;
     handle-color:                @selected;
     background-color:            @background;
@@ -60,7 +60,7 @@ configuration {
     alternate-urgent-foreground: @background;
     alternate-active-background: @active;
     alternate-active-foreground: @background;
-    
+
 
 }
 
@@ -183,7 +183,7 @@ listview {
     reverse:                     false;
     fixed-height:                true;
     fixed-columns:               true;
-    
+
     spacing:                     5px;
     margin:                      0px;
     padding:                     10px;
