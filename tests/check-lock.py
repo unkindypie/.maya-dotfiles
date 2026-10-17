@@ -23,4 +23,19 @@ with tempfile.TemporaryDirectory() as d, patch('shutil.which', return_value=None
         kool.parent.mkdir(parents=True)
         kool.symlink_to(wallpaper)
         assert lock['choose_wallpaper'](home) == wallpaper
-print('Waypaper, KooL fallback and plain-paper background checks passed; no lock invoked')
+info = runpy.run_path(str(root / 'home/.local/bin/maya-lock-info'))
+with tempfile.TemporaryDirectory() as d:
+    home = Path(d)
+    weather = home / '.cache/maya-lock/weather.txt'
+    weather.parent.mkdir(parents=True)
+    weather.write_text('<b>Sunny &amp; mild</b>')
+    assert info['weather'](home) == 'Sunny &amp; mild'
+    uptime = home / 'uptime'
+    uptime.write_text('90061.2 0')
+    battery = home / 'power/BAT0'
+    battery.mkdir(parents=True)
+    for name, value in {'type': 'Battery', 'capacity': '83', 'status': 'Discharging'}.items():
+        (battery / name).write_text(value)
+    assert info['system_info'](home / 'power', uptime) == 'Up 1d 1h 1m  ·  Battery 83% · Discharging'
+    assert info['system_info'](home / 'absent', uptime) == 'Up 1d 1h 1m'
+print('Wallpaper, weather escaping, battery and uptime checks passed; no lock invoked')

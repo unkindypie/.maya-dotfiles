@@ -1,0 +1,86 @@
+#!/usr/bin/env python3
+"""Small, escaped status labels for the paper lockscreen."""
+from pathlib import Path
+import fcntl, html, os, re, subprocess, sys, time, urllib.request
+
+
+def plain_weather(text):
+    return re.sub(r'\s+', ' ', html.unescape(re.sub(r'<[^>]*>', '', text))).strip()
+
+
+def weather(home):
+    for cache in (home / '.cache/maya-lock/weather.txt', home / '.cache/.weather_cache'):
+        try:
+            text = plain_weather(cache.read_text())
+            if text:
+                if len(text) > 64: text = text[:61] + '…'
+                if time.time() - cache.stat().st_mtime > 3600: text += ' (cached)'
+                return html.escape(text)
+        except OSError:
+            pass
+    return 'Weather unavailable offline'
+
+
+def system_info(power=Path('/sys/class/power_supply'), uptime=Path('/proc/uptime')):
+    parts = []
+    try:
+        minutes = int(float(uptime.read_text().split()[0])) // 60
+        days, hours, minutes = minutes // 1440, minutes // 60 % 24, minutes % 60
+        parts.append('Up ' + (f'{days}d ' if days else '') + (f'{hours}h ' if hours else '') + f'{minutes}m')
+    except (OSError, ValueError, IndexError):
+        pass
+    for battery in sorted(power.glob('*')):
+        try:
+            if (battery / 'type').read_text().strip() != 'Battery': continue
+            capacity = int((battery / 'capacity').read_text().strip())
+            status = (battery / 'status').read_text().strip()
+            parts.append(f'Battery {capacity}% · {status}')
+        except (OSError, ValueError):
+            pass
+    return html.escape('  ·  '.join(parts))
+
+
+def refresh_weather(home):
+    cache = home / '.cache/maya-lock'
+    cache.mkdir(parents=True, exist_ok=True)
+    # Avoid simultaneous refreshes from multiple lock requests/monitors.
+    with (cache / 'weather-refresh.lock').open('w') as lock:
+        try: fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError: return
+        target = cache / 'weather.txt'
+        if target.exists() and time.time() - target.stat().st_mtime < 300: return
+        text = ''
+        provider = home / '.config/hypr/UserScripts/Weather.py'
+        if provider.is_file():
+            # Preserve the existing KooL provider and its local location settings.
+            try:
+                subprocess.run([sys.executable, str(provider)], stdout=subprocess.DEVNULL,
+                               stderr=subprocess.DEVNULL, timeout=15, check=False)
+                old = home / '.cache/.weather_cache'
+                if old.is_file() and time.time() - old.stat().st_mtime < 600:
+                    text = plain_weather(old.read_text())
+            except (OSError, subprocess.TimeoutExpired):
+                pass
+        else:
+            # No KooL needed. wttr.in uses the requesting IP's approximate location.
+            try:
+                request = urllib.request.Request('https://wttr.in/?format=%c+%t+%C',
+                                                 headers={'User-Agent': 'curl/8 maya-lock'})
+                with urllib.request.urlopen(request, timeout=8) as response:
+                    text = plain_weather(response.read(4096).decode('utf-8'))
+                if any(word in text.lower() for word in ('unknown location', '<html', 'error', 'sorry')):
+                    text = ''
+            except (OSError, UnicodeError):
+                pass
+        if text:
+            temp = cache / 'weather.tmp'
+            temp.write_text(text + '\n')
+            os.replace(temp, target)
+
+
+if __name__ == '__main__':
+    command = sys.argv[1] if len(sys.argv) == 2 else ''
+    if command == 'weather': print(weather(Path.home()))
+    elif command == 'system': print(system_info())
+    elif command == 'refresh-weather': refresh_weather(Path.home())
+    else: raise SystemExit('Usage: maya-lock-info weather|system|refresh-weather')

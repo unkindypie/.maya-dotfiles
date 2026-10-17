@@ -58,6 +58,9 @@ def main():
         raise SystemExit('Usage: maya-lock [--prepare]')
     if subprocess.run(['pgrep', '-x', 'hyprlock'], stdout=subprocess.DEVNULL).returncode == 0:
         return
+    # Fetch status asynchronously; offline weather must never block locking.
+    subprocess.Popen([sys.executable, str(Path.home() / '.local/bin/maya-lock-info'), 'refresh-weather'],
+                     stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, start_new_session=True)
     os.execvp('hyprlock', ['hyprlock', '--config', str(Path.home() / '.config/hypr/hyprlock.conf')])
 
 
