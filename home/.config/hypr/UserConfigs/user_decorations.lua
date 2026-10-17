@@ -109,7 +109,7 @@ end
 hl.config({
   general = {
     border_size = 2,
-    col = { active_border = "rgba(b77f92ff)", inactive_border = "rgba(b3a594ff)" },
+    col = { active_border = "rgba(a95878ff)", inactive_border = "rgba(b3a594ff)" },
   },
   decoration = {
     active_opacity = 1.0,
@@ -124,3 +124,6 @@ hl.config({
     blur = { enabled = true, size = 8, passes = 3 },
   },
 })
+
+hl.window_rule({ name = "maya-focused-border", match = { focus = true }, border_size = 4 })
+hl.window_rule({ name = "maya-inactive-border", match = { focus = false }, border_size = 2 })
