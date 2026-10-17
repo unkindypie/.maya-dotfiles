@@ -36,15 +36,15 @@ same file. Reload the application afterward. Run the installer to link new files
   with paper surfaces, dusty pink selections and rose borders. It has no KooL or
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
   their own themes.
-- **Lock/idle:** `~/.config/hypr/hyprlock.conf` and `hypridle.conf`. A cream card,
-  rose outlines and blurred current wallpaper; **Super+B** or `~/.local/bin/maya-lock` locks.
+- **Lock/idle:** `~/.config/hypr/hyprlock.conf` and `hypridle.conf`. A layered 90s-style dialog,
+  beveled pink title bar and blurred current wallpaper; **Super+B** or `~/.local/bin/maya-lock` locks.
   Wallpaper follows awww/swww, Waypaper, then KooL’s cache, with plain paper as
   fallback. Private wallpaper images stay outside Git. The idle warning remains
   at 9 minutes and locking at 10; display-off/suspend stay disabled. KooL already
   starts hypridle; on another setup add `exec-once = hypridle`. Restart hypridle
   after changing idle settings. Weather has its own bottom-left card; battery and
-  uptime share a bottom-right card. Both use compact Waybar-style beveled borders. The login panel has no
-  blurred shadow and a soft pink password field. Long weather text wraps to fit. Weather
+  uptime share a bottom-right card. Both have pastel title strips and crisp offset shadows. The login dialog has
+  a backing sheet, recessed clock display and soft pink password field. Long weather text wraps to fit. Weather
   refreshes in the background using KooL’s existing provider when present;
   otherwise wttr.in uses your approximate IP location. Cached weather stays
   available offline and is marked when stale. No location/cache data is committed.
