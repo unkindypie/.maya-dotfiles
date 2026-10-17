@@ -22,3 +22,6 @@
 
 - Hyprland UserConfigs and the Lua keybinding helper retain LinuxBeginnings /
   KooL GPL-3.0-or-later headers, with personal settings and hotkey modifications.
+
+- Maya Paper Rofi theme adapts LinuxBeginnings KooL Style 4, credited to
+  https://github.com/adi1090x/rofi . Original headers and layout credit retained.

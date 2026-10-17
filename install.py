@@ -84,6 +84,9 @@ PathChanged=%h/.config/kitty/kitty.conf
 PathChanged=%h/.local/share/kitty-personal
 PathChanged=%h/.config/hypr
 PathChanged=%h/.config/hypr/UserConfigs
+PathChanged=%h/.config/rofi
+PathChanged=%h/.config/rofi/config.rasi
+PathChanged=%h/.config/rofi/themes
 Unit=maya-dotfiles-restore.service
 [Install]
 WantedBy=default.target

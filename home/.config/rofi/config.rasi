@@ -1,0 +1,7 @@
+/* Personal launcher; no Wallust or KooL theme imports. */
+configuration {
+    font: "JetBrainsMono Nerd Font 12";
+    terminal: "kitty";
+    run-shell-command: "{terminal} -e {cmd}";
+}
+@theme "~/.config/rofi/themes/maya-paper.rasi"
