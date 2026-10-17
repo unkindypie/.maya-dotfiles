@@ -82,6 +82,8 @@ PathChanged=%h/.config/waybar/style.css
 PathChanged=%h/.config/kitty
 PathChanged=%h/.config/kitty/kitty.conf
 PathChanged=%h/.local/share/kitty-personal
+PathChanged=%h/.config/hypr
+PathChanged=%h/.config/hypr/UserConfigs
 Unit=maya-dotfiles-restore.service
 [Install]
 WantedBy=default.target

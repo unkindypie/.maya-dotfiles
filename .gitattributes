@@ -4,3 +4,5 @@ home/.config/kitty/kitty-themes/** -whitespace
 home/.local/share/fonts/** -whitespace
 reference/** -whitespace
 home/.oh-my-zsh/** -whitespace
+home/.config/hypr/UserConfigs/** -whitespace
+home/.config/hypr/lua/** -whitespace

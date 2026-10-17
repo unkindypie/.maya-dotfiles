@@ -19,3 +19,6 @@
   https://github.com/sobolevn/sobole-zsh-theme (WTFPL, retained in file header).
 - Fonts: Fantasque Sans Mono and JetBrains Mono Nerd Font distributions;
   bundled original license files accompany the font families.
+
+- Hyprland UserConfigs and the Lua keybinding helper retain LinuxBeginnings /
+  KooL GPL-3.0-or-later headers, with personal settings and hotkey modifications.
