@@ -22,7 +22,7 @@ Install prerequisites first. Fedora example (package names may vary by release):
 ```sh
 sudo dnf install waybar kitty tmux python3 git fzf wl-clipboard \
   rofi-wayland brightnessctl wireplumber pulseaudio-utils pavucontrol \
-  NetworkManager-tui playerctl fontconfig
+  nm-connection-editor playerctl fontconfig
 ```
 
 Use a running Hyprland session with a systemd user manager. PipeWire's PulseAudio
@@ -75,6 +75,9 @@ does not change Hyprland keybindings, monitors or wallpaper.
 Obsidian-specific tmux popups require your Neovim Obsidian commands and notes;
 those are personal workflow bindings, not supplied plugins.
 Sessionizer project roots can be edited in home/scripts/tmux-sessionizer.
+
+The network button opens NetworkManager’s graphical connection editor
+(`nm-connection-editor`), with GNOME network settings as a fallback.
 
 ## Dependency installation
 
