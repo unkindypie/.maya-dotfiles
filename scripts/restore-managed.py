@@ -3,9 +3,11 @@
 from pathlib import Path
 import subprocess
 from links import backup_root, ensure_link
+from kool import repair_dropdown
 root = Path(__file__).resolve().parents[1]
 home = Path.home()
 backup = backup_root(home)
+repair_dropdown(home, backup)
 waybar_changed = False
 managed = ['.config/waybar/config', '.config/waybar/style.css', '.config/kitty/kitty.conf', '.config/hypr/maya-appearance.conf', '.config/rofi/config.rasi', '.config/hypr/hyprlock.conf', '.config/hypr/hypridle.conf', '.config/wofi/config', '.config/wofi/style.css', '.config/waybar/palette.css']
 for name in managed:

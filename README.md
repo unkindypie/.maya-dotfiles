@@ -75,7 +75,7 @@ same file. Reload the application afterward. Run the installer to link new files
   or Escape to discard. Requires `hyprshot` and `swappy`.
 - **Hyprland:** `~/.config/hypr/UserConfigs/` contains your custom hotkeys and
   settings. `Startup_Apps.conf` launches Vesktop, Telegram, Chrome with its last
-  session, and one Kitty on workspace 2 at login. Vesktop opens on workspace 3;
+  session on workspace 1, and one Kitty on workspace 2 at login. Vesktop opens on workspace 3;
   later Kitty windows open on the current workspace. On a non-KooL setup, source
   `Startup_Apps.conf` and `WorkSpaceRules.conf` explicitly to enable these.
   Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
@@ -103,7 +103,13 @@ Waybar optionally shows KooL's help, settings and blue-light filter buttons when
 their scripts and applications exist. Otherwise they hide. The network button
 opens NetworkManager's GUI. Original KooL Waybar files are archived in reference/.
 
-`maya-waybar.service` runs the bar; `maya-dotfiles.path` repairs replaced
+`maya-waybar.service` runs the bar; `waybar.service` aliases it so KooL startup
+and refresh use the same instance. The installer and link recovery also patch
+KooL’s dropdown discovery to match only its dedicated terminal class, preventing
+it from hiding another app during login. Original scripts are backed up; upstream
+source trees are not stored here.
+
+`maya-dotfiles.path` repairs replaced
 Kitty, Waybar, Rofi, Wofi, SwayNC and Hyprland user-config symlinks. Vendor writes *through* a symlink
 also change the repo: inspect `git diff` after theme tools. Keep this repo in
 place. Backups live in `~/.local/state/maya-dotfiles/backups/`.

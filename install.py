@@ -35,7 +35,9 @@ if a.with_mvim:
     subprocess.run(['bash', str(root / 'bootstrap-mvim.sh'), '--from-installer'], check=True)
 sys.path.insert(0, str(root / 'scripts'))
 from links import backup_root, ensure_link, save_existing
+from kool import repair_dropdown
 backup = backup_root(home)
+repair_dropdown(home, backup)
 # Preserve single-line credential assignments before replacing a pre-existing zshrc.
 # Never print their values or copy them into the repository.
 zshrc = home / '.zshrc'
@@ -117,6 +119,8 @@ WantedBy=default.target
     def ctl(*args, check=True): subprocess.run(['systemctl', '--user', *args], check=check)
     ctl('disable', '--now', 'kitty-notebook.path', check=False)
     ctl('disable', '--now', 'waybar.service', check=False)
+    # KooL explicitly starts waybar.service even when it is disabled.
+    ensure_link(units / 'maya-waybar.service', units / 'waybar.service', home, backup)
     ctl('daemon-reload')
     ctl('import-environment', 'WAYLAND_DISPLAY', 'XDG_CURRENT_DESKTOP', check=False)
     subprocess.run(['pkill', '-x', 'waybar'], check=False)
