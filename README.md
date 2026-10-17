@@ -66,8 +66,16 @@ same file. Reload the application afterward. Run the installer to link new files
   assignments are migrated during installation; move multiline secrets manually.
 - **Maya Neovim:** `~/.config/mvim/init.lua` is a personal override, not a complete
   Neovim distribution. Install the linked Maya Neovim project to use it.
+- **Screenshots:** Hyprshot captures into Swappy for highlighting and annotation.
+  Super+S selects a region; existing Print shortcuts also open the editor.
+  Nothing is saved automatically. In Swappy use Ctrl+C to copy, Ctrl+S to save,
+  or Escape to discard. Requires `hyprshot` and `swappy`.
 - **Hyprland:** `~/.config/hypr/UserConfigs/` contains your custom hotkeys and
-  settings. Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
+  settings. `Startup_Apps.conf` launches Vesktop, Telegram, Chrome with its last
+  session, and one Kitty on workspace 2 at login. Vesktop opens on workspace 3;
+  later Kitty windows open on the current workspace. On a non-KooL setup, source
+  `Startup_Apps.conf` and `WorkSpaceRules.conf` explicitly to enable these.
+  Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
   full compositor opacity, no inactive dimming, uniform 2px borders (rose when focused, taupe otherwise) and
   soft brown shadows (stronger when focused). Backdrop blur stays at size 8/3 passes.
   Reload with `hyprctl reload`. Kitty's own background opacity still applies.
