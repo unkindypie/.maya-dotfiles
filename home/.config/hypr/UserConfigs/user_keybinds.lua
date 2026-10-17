@@ -38,3 +38,7 @@ end
 local exec_cmd = user_keybinds_helper.exec_cmd
 local bind = user_keybinds_helper.bind
 
+
+-- Override the default browser binding in the optional Lua workflow too.
+user_keybinds_helper.unbind("SUPER", "B")
+bind("SUPER", "B", exec_cmd('"$HOME/.local/bin/maya-lock"'), { description = "Lock screen" })

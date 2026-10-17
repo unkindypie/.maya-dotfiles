@@ -37,7 +37,7 @@ same file. Reload the application afterward. Run the installer to link new files
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
   their own themes.
 - **Lock/idle:** `~/.config/hypr/hyprlock.conf` and `hypridle.conf`. A cream card,
-  rose outlines and blurred current wallpaper; run `~/.local/bin/maya-lock` to lock.
+  rose outlines and blurred current wallpaper; **Super+B** or `~/.local/bin/maya-lock` locks.
   Wallpaper follows awww/swww, Waypaper, then KooL’s cache, with plain paper as
   fallback. Private wallpaper images stay outside Git. The idle warning remains
   at 9 minutes and locking at 10; display-off/suspend stay disabled. KooL already
