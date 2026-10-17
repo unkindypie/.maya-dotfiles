@@ -16,7 +16,7 @@ local maya_colors = dofile((os.getenv("HOME") or "") .. "/.config/maya-theme/col
 -- Source reference from UserDecorations.conf (hyprlang):
 -- source = $HOME/.config/hypr/wallust/wallust-hyprland.conf
 -- general {
--- border_size = 2
+-- border_size = 3
 -- gaps_in = 2
 -- gaps_out = 4
 -- col.active_border = $color12
@@ -110,8 +110,11 @@ end
 -- Raised paper treatment, after wallpaper-derived colors.
 hl.config({
   general = {
-    border_size = 2,
-    col = { active_border = maya_colors.rose, inactive_border = maya_colors.taupe },
+    border_size = 3,
+    col = {
+      active_border = { colors = { maya_colors.rose, maya_colors.pink, maya_colors.lavender_border, maya_colors.rose }, angle = 45 },
+      inactive_border = { colors = { maya_colors.sage_border, maya_colors.paper_inset, maya_colors.taupe }, angle = 135 },
+    },
   },
   decoration = {
     active_opacity = 1.0,
@@ -120,8 +123,8 @@ hl.config({
     dim_inactive = false,
     dim_strength = 0.0,
     shadow = {
-      enabled = true, range = 18, render_power = 3,
-      color = maya_colors.focus_shadow, color_inactive = maya_colors.inactive_shadow, offset = "0 3",
+      enabled = true, range = 26, render_power = 2,
+      color = maya_colors.focus_shadow, color_inactive = maya_colors.sheet_shadow, offset = "0 5",
     },
     blur = { enabled = true, size = 8, passes = 3 },
   },

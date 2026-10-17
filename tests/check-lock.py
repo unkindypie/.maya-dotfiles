@@ -39,6 +39,10 @@ with tempfile.TemporaryDirectory() as d:
     battery.mkdir(parents=True)
     for name, value in {'type': 'Battery', 'capacity': '83', 'status': 'Discharging'}.items():
         (battery / name).write_text(value)
-    assert info['system_info'](home / 'power', uptime) == 'Up 1d 1h 1m\nBattery 83% · Discharging'
-    assert info['system_info'](home / 'absent', uptime) == 'Up 1d 1h 1m'
+    assert info['system_info'](home / 'power', uptime) == '󰥔  Up 1d 1h 1m\n  83% · Discharging'
+    (battery / 'status').write_text('Charging')
+    assert '83% · ϟ Charging' in info['system_info'](home / 'power', uptime)
+    (battery / 'capacity').write_text('5')
+    assert '  5%' in info['system_info'](home / 'power', uptime)
+    assert info['system_info'](home / 'absent', uptime) == '󰥔  Up 1d 1h 1m'
 print('Wallpaper, weather escaping, battery and uptime checks passed; no lock invoked')

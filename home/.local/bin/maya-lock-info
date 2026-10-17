@@ -26,7 +26,7 @@ def system_info(power=Path('/sys/class/power_supply'), uptime=Path('/proc/uptime
     try:
         minutes = int(float(uptime.read_text().split()[0])) // 60
         days, hours, minutes = minutes // 1440, minutes // 60 % 24, minutes % 60
-        parts.append('Up ' + (f'{days}d ' if days else '') + (f'{hours}h ' if hours else '') + f'{minutes}m')
+        parts.append('󰥔  Up ' + (f'{days}d ' if days else '') + (f'{hours}h ' if hours else '') + f'{minutes}m')
     except (OSError, ValueError, IndexError):
         pass
     for battery in sorted(power.glob('*')):
@@ -34,7 +34,10 @@ def system_info(power=Path('/sys/class/power_supply'), uptime=Path('/proc/uptime
             if (battery / 'type').read_text().strip() != 'Battery': continue
             capacity = int((battery / 'capacity').read_text().strip())
             status = (battery / 'status').read_text().strip()
-            parts.append(f'Battery {capacity}% · {status}')
+            # Nerd Font battery level plus a separate charging/full indicator.
+            icon = '' if capacity <= 10 else '' if capacity <= 30 else '' if capacity <= 60 else '' if capacity <= 85 else ''
+            state = 'ϟ Charging' if status == 'Charging' else '✓ Full' if status == 'Full' else status
+            parts.append(f'{icon}  {capacity}% · {state}')
         except (OSError, ValueError):
             pass
     return html.escape('\n'.join(parts))

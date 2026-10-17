@@ -42,6 +42,9 @@ same file. Reload the application afterward. Run the installer to link new files
   It has no KooL or
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
   their own themes.
+- **Wallpaper (KooL):** press **Super+W** to open the wallpaper picker. It reads
+  `~/Pictures/wallpapers/` (including subfolders), or `wallpapers/` inside your
+  XDG Pictures directory if customized. Add images there to list them in the picker.
 - **Lock/idle:** `~/.config/hypr/hyprlock.conf` and `hypridle.conf`. A layered 90s-style dialog,
   beveled pink title bar and blurred current wallpaper; **Super+B** or `~/.local/bin/maya-lock` locks.
   Wallpaper follows awww/swww, Waypaper, then KooL’s cache, with plain paper as
@@ -59,7 +62,7 @@ same file. Reload the application afterward. Run the installer to link new files
   `swaync-client -rs`. Quick actions retain KooL integrations; locking uses Maya lock.
 - **Waybar:** `~/.config/waybar/config` and `style.css`.
 - **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
-  or `dark`, then press Ctrl-b r.
+  or `dark`, then press Ctrl-b r. Light mode uses a compact single-row bar with rounded ends.
 - **Zsh:** `~/.config/zsh/shared.zsh`. The local `~/.zshrc` loads this plus private
   `secrets.zsh` and machine-specific `local.zsh` in the same directory.
   Secrets stay outside Git with permissions 600. Recognized credential
@@ -76,8 +79,9 @@ same file. Reload the application afterward. Run the installer to link new files
   later Kitty windows open on the current workspace. On a non-KooL setup, source
   `Startup_Apps.conf` and `WorkSpaceRules.conf` explicitly to enable these.
   Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
-  full compositor opacity, no inactive dimming, uniform 2px borders (rose when focused, taupe otherwise) and
-  soft brown shadows (stronger when focused). Backdrop blur stays at size 8/3 passes.
+  full compositor opacity, no inactive dimming, uniform 3px borders (rose/pink/lavender when focused, sage/paper/taupe otherwise),
+  smooth border color transitions with fixed gradient directions, and layered brown shadows
+  (stronger when focused). Backdrop blur stays at size 8/3 passes.
   Reload with `hyprctl reload`. Kitty's own background opacity still applies.
 
 KooL already loads UserConfigs. On a non-KooL Hyprland setup, add near the end of

@@ -45,3 +45,21 @@ if get("@theme_mode") == "light":
                 f"#[fg={accent},bg={background}] "
             )
         subprocess.run(["tmux", "set-option", "-g", option, value], check=True)
+
+# Keep the rounded bar compact: tmux cannot add pixel-sized vertical padding.
+base_format = get('@maya_original_status_format')
+if not base_format:
+    base_format = get('status-format[0]')
+    subprocess.run(['tmux', 'set-option', '-g', '@maya_original_status_format', base_format], check=True)
+if get('@theme_mode') == 'light':
+    outer = '#dfdbc3'  # Novel paper outside the rounded status background.
+    for option, edge in [('status-left', ''), ('status-right', '')]:
+        value = get(option)
+        cap = f'#[fg={background},bg={outer}]{edge}#[bg={background}]'
+        value = cap + value if option == 'status-left' else value + cap
+        subprocess.run(['tmux', 'set-option', '-g', option, value], check=True)
+    subprocess.run(['tmux', 'set-option', '-g', 'status', 'on'], check=True)
+    subprocess.run(['tmux', 'set-option', '-g', 'status-format[0]', base_format], check=True)
+else:
+    subprocess.run(['tmux', 'set-option', '-g', 'status', 'on'], check=True)
+    subprocess.run(['tmux', 'set-option', '-g', 'status-format[0]', base_format], check=True)
