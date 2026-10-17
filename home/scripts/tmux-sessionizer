@@ -14,7 +14,7 @@ discover_directories() {
 
     find "${roots[@]}" -mindepth 1 -maxdepth 1 -type d 2>/dev/null \
         | grep -vE '/\.'
-    printf '%s\n' "$HOME/scripts" "$HOME/notes"
+    printf '%s\n' "$HOME/scripts" "$HOME/notes" "$HOME/.maya-dotfiles"
     # >>> maya-nvim directory >>>
     printf '%s\n' "$HOME/maya-nvim"
     # <<< maya-nvim directory <<<
