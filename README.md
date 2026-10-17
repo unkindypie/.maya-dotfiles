@@ -43,7 +43,7 @@ same file. Reload the application afterward. Run the installer to link new files
   Neovim distribution. Install the linked Maya Neovim project to use it.
 - **Hyprland:** `~/.config/hypr/UserConfigs/` contains your custom hotkeys and
   settings. Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
-  full compositor opacity, 8% inactive dimming, dusty pink/taupe borders and
+  full compositor opacity, no inactive dimming, dusty pink/taupe borders and
   soft brown shadows (stronger when focused). Backdrop blur stays at size 8/3 passes.
   Reload with `hyprctl reload`. Kitty's own background opacity still applies.
 

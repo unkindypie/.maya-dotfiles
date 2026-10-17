@@ -25,7 +25,7 @@
 -- active_opacity = 1.0
 -- inactive_opacity = 0.9
 -- fullscreen_opacity = 1.0
--- dim_inactive = true
+-- dim_inactive = false
 -- dim_strength = 0.1
 -- dim_special = 0.8
 -- shadow {
@@ -115,8 +115,8 @@ hl.config({
     active_opacity = 1.0,
     inactive_opacity = 1.0,
     fullscreen_opacity = 1.0,
-    dim_inactive = true,
-    dim_strength = 0.08,
+    dim_inactive = false,
+    dim_strength = 0.0,
     shadow = {
       enabled = true, range = 18, render_power = 3,
       color = "rgba(57433a44)", color_inactive = "rgba(57433a14)", offset = "0 3",
