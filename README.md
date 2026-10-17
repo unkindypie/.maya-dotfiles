@@ -42,7 +42,9 @@ same file. Reload the application afterward. Run the installer to link new files
   fallback. Private wallpaper images stay outside Git. The idle warning remains
   at 9 minutes and locking at 10; display-off/suspend stay disabled. KooL already
   starts hypridle; on another setup add `exec-once = hypridle`. Restart hypridle
-  after changing idle settings. Weather, battery and uptime are included. Weather
+  after changing idle settings. Weather has its own bottom-left card; battery and
+  uptime share a bottom-right card. Both use Waybar-style raised borders and
+  warm shadows. Long weather text wraps to fit. Weather
   refreshes in the background using KooL’s existing provider when present;
   otherwise wttr.in uses your approximate IP location. Cached weather stays
   available offline and is marked when stale. No location/cache data is committed.

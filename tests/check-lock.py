@@ -30,12 +30,15 @@ with tempfile.TemporaryDirectory() as d:
     weather.parent.mkdir(parents=True)
     weather.write_text('<b>Sunny &amp; mild</b>')
     assert info['weather'](home) == 'Sunny &amp; mild'
+    weather.write_text('A long location name with cloudy conditions and a detailed weather description ' * 3)
+    lines = info['weather'](home).splitlines()
+    assert len(lines) <= 3 and all(len(line) <= 44 for line in lines)
     uptime = home / 'uptime'
     uptime.write_text('90061.2 0')
     battery = home / 'power/BAT0'
     battery.mkdir(parents=True)
     for name, value in {'type': 'Battery', 'capacity': '83', 'status': 'Discharging'}.items():
         (battery / name).write_text(value)
-    assert info['system_info'](home / 'power', uptime) == 'Up 1d 1h 1m  ·  Battery 83% · Discharging'
+    assert info['system_info'](home / 'power', uptime) == 'Up 1d 1h 1m\nBattery 83% · Discharging'
     assert info['system_info'](home / 'absent', uptime) == 'Up 1d 1h 1m'
 print('Wallpaper, weather escaping, battery and uptime checks passed; no lock invoked')

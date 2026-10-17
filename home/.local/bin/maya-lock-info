@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Small, escaped status labels for the paper lockscreen."""
 from pathlib import Path
-import fcntl, html, os, re, subprocess, sys, time, urllib.request
+import fcntl, html, os, re, subprocess, sys, time, textwrap, urllib.request
 
 
 def plain_weather(text):
@@ -13,9 +13,9 @@ def weather(home):
         try:
             text = plain_weather(cache.read_text())
             if text:
-                if len(text) > 64: text = text[:61] + '…'
                 if time.time() - cache.stat().st_mtime > 3600: text += ' (cached)'
-                return html.escape(text)
+                lines = textwrap.wrap(text, width=44, max_lines=3, placeholder='…')
+                return html.escape('\n'.join(lines))
         except OSError:
             pass
     return 'Weather unavailable offline'
@@ -37,7 +37,7 @@ def system_info(power=Path('/sys/class/power_supply'), uptime=Path('/proc/uptime
             parts.append(f'Battery {capacity}% · {status}')
         except (OSError, ValueError):
             pass
-    return html.escape('  ·  '.join(parts))
+    return html.escape('\n'.join(parts))
 
 
 def refresh_weather(home):
