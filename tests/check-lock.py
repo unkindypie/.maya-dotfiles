@@ -32,7 +32,7 @@ with tempfile.TemporaryDirectory() as d:
     assert info['weather'](home) == 'Sunny &amp; mild'
     weather.write_text('A long location name with cloudy conditions and a detailed weather description ' * 3)
     lines = info['weather'](home).splitlines()
-    assert len(lines) <= 3 and all(len(line) <= 44 for line in lines)
+    assert len(lines) <= 3 and all(len(line) <= 42 for line in lines)
     uptime = home / 'uptime'
     uptime.write_text('90061.2 0')
     battery = home / 'power/BAT0'

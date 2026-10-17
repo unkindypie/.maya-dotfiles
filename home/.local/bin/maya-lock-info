@@ -14,7 +14,7 @@ def weather(home):
             text = plain_weather(cache.read_text())
             if text:
                 if time.time() - cache.stat().st_mtime > 3600: text += ' (cached)'
-                lines = textwrap.wrap(text, width=44, max_lines=3, placeholder='…')
+                lines = textwrap.wrap(text, width=42, max_lines=3, placeholder='…')
                 return html.escape('\n'.join(lines))
         except OSError:
             pass
