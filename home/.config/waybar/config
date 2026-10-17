@@ -32,7 +32,7 @@
     "custom/power"
   ],
   "custom/menu": {
-    "format": "󰣇",
+    "format": "",
     "tooltip-format": "Applications · right-click for terminal",
     "on-click": "~/.local/bin/maya-bar-action menu",
     "on-click-right": "kitty"
