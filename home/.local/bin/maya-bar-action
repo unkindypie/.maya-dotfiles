@@ -20,6 +20,6 @@ case "${1:-}" in
  bright-up) exec brightnessctl set +5% ;;
  bright-down) exec brightnessctl set 5%- ;;
  lock) command -v hyprlock >/dev/null && exec "$HOME/.local/bin/maya-lock"; exec loginctl lock-session ;;
- power) selection=$(printf 'Lock\nSuspend\nLog out\nReboot\nPower off' | rofi -dmenu -p Session)
- case "$selection" in Lock) exec "$0" lock;; Suspend) exec systemctl suspend;; 'Log out') exec hyprctl dispatch exit;; Reboot) exec systemctl reboot;; 'Power off') exec systemctl poweroff;; esac ;;
+ power) selection=$(printf '󰌾  Lock\n󰒲  Suspend\n󰍃  Log out\n󰜉  Reboot\n󰐥  Power off' | rofi -dmenu -p Session)
+ case "$selection" in "󰌾  Lock") exec "$0" lock;; "󰒲  Suspend") exec systemctl suspend;; "󰍃  Log out") exec hyprctl dispatch exit;; "󰜉  Reboot") exec systemctl reboot;; "󰐥  Power off") exec systemctl poweroff;; esac ;;
 esac
