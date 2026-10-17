@@ -61,9 +61,17 @@ socket if your session has not imported WAYLAND_DISPLAY into systemd.
 - Original KooL Waybar config/modules/styles under reference/ for comparison;
   these are not installed and may refer to KooL-only programs.
 
-The portable Waybar replaces KooL-only widgets (theme controls, updater, weather
-wrapper, layout menus, Cava and hints) with independent core controls. It does
-not install KooL or change Hyprland keybindings, monitors or wallpaper.
+Waybar uses outlined, gently raised paper/pastel controls with soft pink highlights.
+When KooL scripts are installed, it also exposes:
+- Help (question mark): quick tips; right-click for the keybinding list (requires yad).
+- Settings (gear): KooL's existing quick-settings menu (uses rofi on this installation).
+- Night light (sun): KooL's Hyprsunset blue-light filter toggle and status.
+
+These optional buttons hide when their script/application dependencies are absent;
+no KooL installation is required for the rest of the bar. They call installed
+scripts rather than copying vendor code. Other KooL widgets (updater, weather,
+layout menus and Cava) remain replaced by independent core controls. This setup
+does not change Hyprland keybindings, monitors or wallpaper.
 Obsidian-specific tmux popups require your Neovim Obsidian commands and notes;
 those are personal workflow bindings, not supplied plugins.
 Sessionizer project roots can be edited in home/scripts/tmux-sessionizer.

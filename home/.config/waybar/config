@@ -1,7 +1,7 @@
 {
   "layer": "top",
   "position": "top",
-  "height": 34,
+  "height": 42,
   "spacing": 3,
   "margin-top": 7,
   "margin-left": 10,
@@ -10,6 +10,8 @@
   "modules-left": [
     "custom/menu",
     "hyprland/workspaces",
+    "custom/kool-help",
+    "custom/kool-settings",
     "hyprland/window"
   ],
   "modules-center": [
@@ -21,6 +23,7 @@
     "memory",
     "network",
     "backlight",
+    "custom/kool-nightlight",
     "battery",
     "pulseaudio",
     "idle_inhibitor",
@@ -145,5 +148,31 @@
     "tooltip-format": "Session controls · right-click to lock",
     "on-click": "~/.local/bin/maya-bar-action power",
     "on-click-right": "~/.local/bin/maya-bar-action lock"
+  },
+  "custom/kool-help": {
+    "exec-if": "test -x \"$HOME/.config/hypr/scripts/KeyHints.sh\" && command -v yad >/dev/null",
+    "exec": "printf '󰋖'",
+    "interval": 60,
+    "format": "{}",
+    "tooltip-format": "KooL help · click: quick tips · right-click: keybindings",
+    "on-click": "\"$HOME/.config/hypr/scripts/KeyHints.sh\"",
+    "on-click-right": "test ! -x \"$HOME/.config/hypr/scripts/KeyBinds.sh\" || \"$HOME/.config/hypr/scripts/KeyBinds.sh\""
+  },
+  "custom/kool-settings": {
+    "exec-if": "test -x \"$HOME/.config/hypr/scripts/Kool_Quick_Settings.sh\" && command -v rofi >/dev/null",
+    "exec": "printf ''",
+    "interval": 60,
+    "format": "{}",
+    "tooltip-format": "KooL quick settings",
+    "on-click": "\"$HOME/.config/hypr/scripts/Kool_Quick_Settings.sh\""
+  },
+  "custom/kool-nightlight": {
+    "exec-if": "test -x \"$HOME/.config/hypr/scripts/Hyprsunset.sh\" && command -v hyprsunset >/dev/null",
+    "exec": "\"$HOME/.config/hypr/scripts/Hyprsunset.sh\" status",
+    "interval": 3,
+    "return-type": "json",
+    "format": "{text}",
+    "tooltip-format": "KooL blue-light filter · click to toggle",
+    "on-click": "\"$HOME/.config/hypr/scripts/Hyprsunset.sh\" toggle"
   }
 }

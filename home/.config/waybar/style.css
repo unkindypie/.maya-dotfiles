@@ -1,12 +1,12 @@
-/* Maya Paper: warm white, quiet pastel surfaces, soft pink highlights. */
+/* Maya Paper: warm paper, outlined pastel controls, gently raised retro panels. */
 @define-color paper #f4f0e5;
-@define-color ink #514740;
-@define-color muted #8b8077;
-@define-color pink #ecd0d8;
-@define-color pink_ink #835f70;
-@define-color line #dfd7ce;
-* { font-family: "JetBrainsMono Nerd Font", "sans-serif"; font-size: 12px; font-weight: 500; min-height: 0; border: none; box-shadow: none; }
-window#waybar { background: @paper; color: @ink; border: 1px solid @line; border-radius: 15px; }
+@define-color ink #3b302c;
+@define-color muted #74675e;
+@define-color pink #e6b5c6;
+@define-color pink_ink #613e4c;
+@define-color line #aa9588;
+* { font-family: "JetBrainsMono Nerd Font", "sans-serif"; font-size: 13px; font-weight: 600; min-height: 0; border: none; box-shadow: none; }
+window#waybar { background: @paper; color: @ink; border: 2px solid @line; border-radius: 12px; box-shadow: inset 1px 1px 0 #fffdf7, inset -1px -1px 0 #c4b4a7; }
 tooltip { background: #fbf8f0; color: @ink; border: 1px solid @line; border-radius: 10px; }
 .modules-left, .modules-center, .modules-right { padding: 3px 5px; }
 #workspaces, #window, #clock, #mpris, #cpu, #memory, #network, #backlight, #battery, #pulseaudio, #idle_inhibitor, #custom-notifications, #tray, #custom-menu, #custom-power { margin: 1px 2px; padding: 3px 8px; border-radius: 10px; }
@@ -15,13 +15,13 @@ tooltip { background: #fbf8f0; color: @ink; border: 1px solid @line; border-radi
 #workspaces button.active { background: @pink; color: @pink_ink; }
 #workspaces button:hover { background: #f3e1e6; color: @pink_ink; }
 #workspaces button.urgent { background: #edbcc5; color: #794550; }
-#window { color: #75695e; }
-#clock { background: #fffbf4; color: #765b65; font-weight: 600; }
-#mpris { color: #7e718d; background: #ece6ef; }
-#cpu, #memory { color: #797369; }
-#network { background: #e1e9e4; color: #5b786b; }
-#backlight { color: #99825d; }
-#battery { color: #687d61; }
+#window { color: #635348; }
+#clock { background: #fffbf4; color: #654451; font-weight: 600; }
+#mpris { color: #63516f; background: #ece6ef; }
+#cpu, #memory { color: #62574b; }
+#network { background: #e1e9e4; color: #3d5d4d; }
+#backlight { color: #7e602d; }
+#battery { color: #4b643e; }
 #pulseaudio { background: #eee2e6; color: @pink_ink; }
 #pulseaudio.muted, #network.disconnected { color: @muted; }
 #idle_inhibitor.activated { background: @pink; color: @pink_ink; }
@@ -31,3 +31,27 @@ tooltip { background: #fbf8f0; color: @ink; border: 1px solid @line; border-radi
 #tray image { -gtk-icon-effect: none; }
 #battery.warning { background: #f0e4cb; color: #8c7041; }
 #battery.critical, #temperature.critical { background: #edbcc5; color: #794550; }
+
+/* Raised controls: crisp outlines and a light top edge, keeping the paper palette. */
+#clock, #mpris, #network, #pulseaudio, #tray, #custom-menu, #custom-power,
+#custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
+    border: 1px solid @line;
+    border-top-color: #fffdf7;
+    border-left-color: #fffdf7;
+    box-shadow: 1px 1px 0 #b7a495;
+    border-radius: 7px;
+}
+#workspaces { border: 1px solid #b6a597; border-radius: 8px; }
+#workspaces button { border: 1px solid transparent; border-radius: 6px; }
+#workspaces button.active { border: 1px solid #aa788c; box-shadow: inset 0 1px 0 #ffe5ee; }
+#custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
+    margin: 1px 2px;
+    padding: 3px 9px;
+    color: #594738;
+    background: #ebe0cc;
+}
+#custom-kool-help { background: #e7e1ef; color: #63516f; }
+#custom-kool-settings { background: #eee1e5; color: @pink_ink; }
+#custom-kool-nightlight.on { background: #f3dba8; color: #6e4b22; border-bottom-color: #b4884b; }
+#custom-menu:hover, #custom-power:hover, #custom-kool-help:hover,
+#custom-kool-settings:hover, #custom-kool-nightlight:hover { background: #f5d5e1; }
