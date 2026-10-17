@@ -10,10 +10,6 @@ plugins=(git)
 plugins+=(zsh-autosuggestions zsh-syntax-highlighting)
 [[ -f "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
 
-# Machine-local settings and secrets are intentionally not tracked in Git.
-[[ -f "$HOME/.config/zsh/local.zsh" ]] && source "$HOME/.config/zsh/local.zsh"
-[[ -f "$HOME/.config/zsh/secrets.zsh" ]] && source "$HOME/.config/zsh/secrets.zsh"
-
 if [[ -n "$TMUX" ]] && (( $+commands[fastfetch] )); then
   if (( $+commands[pokemon-colorscripts] )) && [[ -f "$HOME/.config/fastfetch/config-pokemon.jsonc" ]]; then
     pokemon-colorscripts --no-title -r 1-3 | fastfetch -c "$HOME/.config/fastfetch/config-pokemon.jsonc" --logo-type file-raw --logo-height 10 --logo-width 5 --logo -

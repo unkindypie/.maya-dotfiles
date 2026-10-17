@@ -2,7 +2,8 @@
 
 Personal paper / warm-white / pastel desktop with soft pink Waybar highlights.
 No KooL dependency. This repository is the source of truth; edit files under
-`home/`, then run `python3 install.py` to apply them.
+`home/`, or edit the installed symlinks directly: both edit the same files.
+Rerun `python3 install.py` when adding new files. Reload applications as needed.
 
 ## Install on a fresh Hyprland desktop
 
@@ -89,7 +90,7 @@ contain the old snapshots; history has not been rewritten.
 
 ## Zsh
 
-The common `.zshrc` includes your current tonotdo theme, remembered theme choices,
+The linked `~/.config/zsh/shared.zsh` includes your current tonotdo theme, remembered theme choices,
 plugins, aliases, history, guarded optional tools, and automatic interactive tmux.
 Oh My Zsh, autosuggestions and syntax highlighting are installed from the pinned
 Git URLs/revisions in dependencies.json. Sobole and the local agnosterzak theme
@@ -98,6 +99,8 @@ The installer does not change your login shell; use `chsh -s "$(command -v zsh)"
 if desired. The Pokémon Fastfetch integration activates only when its optional
 external config exists.
 
+`~/.zshrc` is a small local loader, not a link into Git. Put shared shell edits
+in `~/.config/zsh/shared.zsh` (linked to the repo). Loader edits remain local.
 Keep credentials in `~/.config/zsh/secrets.zsh` (chmod 600), and machine-specific
 non-secret overrides in `~/.config/zsh/local.zsh`. Both are sourced but excluded
 from Git. The installer preserves recognized single-line credential assignments
@@ -108,11 +111,15 @@ Review any other private settings before migrating a different machine.
 ## Updates and ownership
 
 `maya-dotfiles.path` watches Kitty/Waybar config replacements and runs
-scripts/restore-managed.py. That restores owned entry points and Kitty assets
+scripts/restore-managed.py. That restores symlinks for owned entry points and Kitty assets
 from this repository, including after directory replacement. The supervised
 Waybar restarts if KooL kills it, and always loads the restored configuration.
 This intentionally takes precedence over KooL's Kitty/Waybar theme pickers.
-Edit the repo and reinstall rather than editing installed copies.
+Editing a correctly linked config updates the repo immediately. Recovery does
+not reset those edits. Replaced files are backed up before relinking. Symlinks
+cannot protect against vendor writes through the link: such writes also modify
+the repo. Review `git diff` after using vendor theme tools; Git provides recovery
+for committed versions. Do not treat this as protection against every vendor write.
 The previous kitty-notebook watcher is superseded and disabled.
 The protection covers the inspected KooL update/theme behavior; deleting this
 repository or disabling these services removes it. Other Waybar launchers can
@@ -125,12 +132,14 @@ systemctl --user disable --now maya-dotfiles.path maya-waybar.service
 ```
 
 Installer backups of replaced files live in ~/.local/state/maya-dotfiles/backups/.
-No destructive cleanup is performed. tmux and mvim copies update on installation;
-the continuous guard restores Kitty/Waybar only.
+All tracked files under home/ are installed as individual symlinks, including
+tmux, mvim, helpers, fonts and assets. Private files stay local. The continuous
+guard repairs Kitty/Waybar links only. Existing differing configs are backed up
+before initial linking; review backups for any local changes you want to retain.
 
 ## Palette switches
 
-Edit home/.tmux.theme.conf: `@theme_mode` is light or dark. Reinstall and Ctrl-b r.
+Edit home/.tmux.theme.conf: `@theme_mode` is light or dark. Press Ctrl-b r to reload.
 Waybar is the paper palette regardless of desktop themes.
 Edit home/.local/share/kitty-personal/notebook.conf for image/tint settings.
 

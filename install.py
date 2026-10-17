@@ -2,10 +2,10 @@
 """Install into the current user's home; back up replaced files first."""
 from pathlib import Path
 from datetime import datetime
-import argparse, shutil, subprocess, sys, re, os, runpy
+import argparse, shutil, subprocess, sys, re, os, runpy, tempfile
 p = argparse.ArgumentParser()
 p.add_argument('--skip-dependencies', action='store_true', help='Skip dependency downloads (offline config-only install)')
-p.add_argument('--no-services', action='store_true', help='Copy files only (for tests/non-systemd hosts)')
+p.add_argument('--no-services', action='store_true', help='Install links without systemd services')
 mvim = p.add_mutually_exclusive_group()
 mvim.add_argument('--with-mvim', dest='with_mvim', action='store_true', help='Install Maya Neovim and its launcher')
 mvim.add_argument('--without-mvim', dest='with_mvim', action='store_false', help='Skip the optional Maya Neovim installation')
@@ -21,9 +21,20 @@ if a.with_mvim is None:
     a.with_mvim = (sys.stdin.isatty() and
                    input('Install Maya Neovim (maya-nvim) too? [y/N] ').strip().lower() in ('y', 'yes'))
 if a.with_mvim:
+    # Upstream installers may write in place. Detach our links first so they
+    # cannot modify the committed personal overrides through a symlink.
+    for name in ['init.lua', 'lazy-lock.json']:
+        dst = home / '.config/mvim' / name
+        if dst.is_symlink() and dst.resolve().is_relative_to(root / 'home'):
+            with tempfile.TemporaryDirectory(dir=dst.parent) as tmp:
+                copy = Path(tmp) / name
+                shutil.copy2(dst, copy)
+                os.replace(copy, dst)
     # Run before copying overrides so the saved personal config wins afterward.
     subprocess.run(['bash', str(root / 'bootstrap-mvim.sh'), '--from-installer'], check=True)
-backup = home / '.local/state/maya-dotfiles/backups' / datetime.now().strftime('%Y%m%d-%H%M%S-%f')
+sys.path.insert(0, str(root / 'scripts'))
+from links import backup_root, ensure_link, save_existing
+backup = backup_root(home)
 # Preserve single-line credential assignments before replacing a pre-existing zshrc.
 # Never print their values or copy them into the repository.
 zshrc = home / '.zshrc'
@@ -44,17 +55,18 @@ if zshrc.is_file():
         with os.fdopen(fd, 'w') as f:
             f.write(current.rstrip() + '\n' + ('\n'.join(additions) + '\n' if additions else ''))
         secrets.chmod(0o600)
+# The only local entry point is .zshrc; common shell config is linked separately.
+loader = (root / 'scripts/zshrc-loader.zsh').read_text()
+if not zshrc.is_file() or zshrc.is_symlink() or zshrc.read_text() != loader:
+    if zshrc.exists() or zshrc.is_symlink():
+        save_existing(zshrc, home, backup)
+        if zshrc.is_symlink():
+            zshrc.unlink()
+    zshrc.write_text(loader)
+    zshrc.chmod(0o600)
 for src in (root / 'home').rglob('*'):
-    if not src.is_file(): continue
-    rel = src.relative_to(root / 'home'); dst = home / rel
-    if dst.is_file() and not dst.is_symlink() and dst.read_bytes() == src.read_bytes(): continue
-    if dst.exists() or dst.is_symlink():
-        saved = backup / rel; saved.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(dst, saved, follow_symlinks=True)
-        if rel == Path('.zshrc'): saved.chmod(0o600)
-        if dst.is_symlink(): dst.unlink()
-    dst.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copy2(src, dst)
+    if src.is_file():
+        ensure_link(src, home / src.relative_to(root / 'home'), home, backup)
 if shutil.which('fc-cache'): subprocess.run(['fc-cache', '-f'], check=True)
 if not a.no_services:
     units = home / '.config/systemd/user'; units.mkdir(parents=True, exist_ok=True)
