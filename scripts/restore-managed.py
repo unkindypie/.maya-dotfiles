@@ -11,10 +11,13 @@ managed = ['.config/waybar/config', '.config/waybar/style.css', '.config/kitty/k
 for name in managed:
     changed = ensure_link(root / 'home' / name, home / name, home, backup)
     waybar_changed |= changed and name.startswith('.config/waybar/')
-for folder in ['.local/share/kitty-personal', '.config/kitty/kitty-themes', '.config/hypr/UserConfigs', '.config/hypr/lua', '.config/rofi/themes', '.config/maya-theme']:
+for folder in ['.local/share/kitty-personal', '.config/kitty/kitty-themes', '.config/hypr/UserConfigs', '.config/hypr/lua', '.config/rofi/themes', '.config/swaync']:
     for src in (root / 'home' / folder).rglob('*'):
         if src.is_file():
             ensure_link(src, home / src.relative_to(root / 'home'), home, backup)
+for src in (root / 'color-palette').iterdir():
+    if src.is_file():
+        ensure_link(src, home / '.config/maya-theme' / src.name, home, backup)
 if waybar_changed:
     subprocess.run(['systemctl', '--user', '--no-block', 'try-restart',
                     'maya-waybar.service'], stdout=subprocess.DEVNULL,

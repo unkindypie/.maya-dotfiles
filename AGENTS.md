@@ -14,7 +14,9 @@
 - Check live appearance/services when changed. Do not commit unless the user asks,
   or a critical/breaking change needs a recovery checkpoint. Otherwise leave edits
   uncommitted. Use `master`; never push or rewrite history unless requested.
+- Use action-driven Conventional Commit subjects: `feat:`, `fix:`, `docs:`,
+  `refactor:`, `style:` or `chore:` followed by a concise imperative description.
 - Keep README.md accurate.
 
-- Shared colors live in `home/.config/maya-theme/palette.json`. Run
+- Shared colors live in `color-palette/palette.json`. Run
   `python3 scripts/generate-palette.py`; do not hand-edit generated color files.

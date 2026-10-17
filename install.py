@@ -68,6 +68,9 @@ if not zshrc.is_file() or zshrc.is_symlink() or zshrc.read_text() != loader:
 for src in (root / 'home').rglob('*'):
     if src.is_file():
         ensure_link(src, home / src.relative_to(root / 'home'), home, backup)
+for src in (root / 'color-palette').iterdir():
+    if src.is_file():
+        ensure_link(src, home / '.config/maya-theme' / src.name, home, backup)
 subprocess.run([sys.executable, str(home / '.local/bin/maya-lock'), '--prepare'], check=True)
 if shutil.which('fc-cache'): subprocess.run(['fc-cache', '-f'], check=True)
 if not a.no_services:
@@ -89,6 +92,9 @@ PathChanged=%h/.config/hypr/UserConfigs
 PathChanged=%h/.config/rofi
 PathChanged=%h/.config/rofi/config.rasi
 PathChanged=%h/.config/rofi/themes
+PathChanged=%h/.config/swaync
+PathChanged=%h/.config/swaync/config.json
+PathChanged=%h/.config/swaync/style.css
 PathChanged=%h/.config/wofi
 PathChanged=%h/.config/wofi/config
 PathChanged=%h/.config/wofi/style.css

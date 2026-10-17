@@ -23,6 +23,15 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
         assert (target / name).is_symlink()
         assert (target / name).resolve() == root / 'home' / name
         assert (target / name).read_bytes() == (root / 'home' / name).read_bytes()
+    for src in (root / 'color-palette').iterdir():
+        installed = target / '.config/maya-theme' / src.name
+        assert installed.is_symlink()
+        assert installed.resolve() == src
+    palette_link = target / '.config/maya-theme/palette.json'
+    palette_link.unlink()
+    palette_link.write_text('{}')
+    run('python3', str(root / 'scripts/restore-managed.py'))
+    assert palette_link.resolve() == root / 'color-palette/palette.json'
     # Simulate KooL replacing a managed entry point with a symlink.
     config = target / '.config/waybar/config'
     config.unlink()

@@ -54,6 +54,9 @@ same file. Reload the application afterward. Run the installer to link new files
   refreshes in the background using KooL’s existing provider when present;
   otherwise wttr.in uses your approximate IP location. Cached weather stays
   available offline and is marked when stale. No location/cache data is committed.
+- **SwayNC:** `~/.config/swaync/`: opaque paper cards, a cat title strip,
+  rose controls and beveled borders. Reload with `swaync-client -R` and
+  `swaync-client -rs`. Quick actions retain KooL integrations; locking uses Maya lock.
 - **Waybar:** `~/.config/waybar/config` and `style.css`.
 - **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
   or `dark`, then press Ctrl-b r.
@@ -89,7 +92,7 @@ their scripts and applications exist. Otherwise they hide. The network button
 opens NetworkManager's GUI. Original KooL Waybar files are archived in reference/.
 
 `maya-waybar.service` runs the bar; `maya-dotfiles.path` repairs replaced
-Kitty, Waybar, Rofi, Wofi and Hyprland user-config symlinks. Vendor writes *through* a symlink
+Kitty, Waybar, Rofi, Wofi, SwayNC and Hyprland user-config symlinks. Vendor writes *through* a symlink
 also change the repo: inspect `git diff` after theme tools. Keep this repo in
 place. Backups live in `~/.local/state/maya-dotfiles/backups/`.
 
@@ -114,10 +117,15 @@ See ATTRIBUTION.md for asset sources and licenses.
 
 ## Shared colors
 
-Edit `~/.config/maya-theme/palette.json` (linked to this repo). Different paper,
+Edit [`color-palette/palette.json`](color-palette/palette.json) in the repo root.
+The installed `~/.config/maya-theme/` files link to `color-palette/`. Different paper,
 pink and app-specific shades have separate names; no colors are forced to match.
-Exact duplicate values are rejected so the same color is defined only once.
-It supplies Waybar, Wofi, Rofi, Hyprlock, Hyprland and Kitty's personal Novel theme.
+Exact duplicates and unreviewed near-duplicates are rejected. A conservative
+Oklab distance check (<0.02) flags similar opaque shades. Two documented
+exceptions preserve terminal white versus warm paper and lavender versus pink;
+alpha variants remain separate. Run `python3 scripts/generate-palette.py --audit`
+to review them. The palette has 59 colors, reduced from 80.
+It supplies Waybar, Wofi, Rofi, SwayNC, Hyprlock, Hyprland and Kitty's personal Novel theme.
 
 ```sh
 python3 scripts/generate-palette.py

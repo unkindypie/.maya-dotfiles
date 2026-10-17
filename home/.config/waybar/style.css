@@ -8,19 +8,19 @@
 @define-color pink_ink @maya_waybar_rose_ink;
 @define-color line @maya_border;
 * { font-family: "JetBrainsMono Nerd Font", "sans-serif"; font-size: 13px; font-weight: 600; min-height: 0; border: none; box-shadow: none; }
-window#waybar { background: @paper; color: @ink; border: 2px solid @line; border-radius: 12px; box-shadow: inset 1px 1px 0 @maya_bevel_white, inset -1px -1px 0 @maya_bar_shadow; }
-tooltip { background: @maya_tooltip_paper; color: @ink; border: 1px solid @line; border-radius: 10px; }
+window#waybar { background: @paper; color: @ink; border: 2px solid @line; border-radius: 12px; box-shadow: inset 1px 1px 0 @maya_paper_white, inset -1px -1px 0 @maya_bar_shadow; }
+tooltip { background: @maya_paper_white; color: @ink; border: 1px solid @line; border-radius: 10px; }
 .modules-left, .modules-center, .modules-right { padding: 3px 5px; }
 #workspaces, #window, #clock, #mpris, #cpu, #memory, #network, #backlight, #battery, #pulseaudio, #idle_inhibitor, #custom-notifications, #tray, #custom-menu, #custom-power { margin: 1px 2px; padding: 3px 8px; border-radius: 10px; }
-#workspaces { background: @maya_workspace_surface; padding: 1px 3px; }
+#workspaces { background: @maya_paper_inset; padding: 1px 3px; }
 #workspaces button { color: @muted; background: transparent; padding: 2px 8px; margin: 1px; border-radius: 8px; }
 #workspaces button.active { background: @pink; color: @pink_ink; }
-#workspaces button:hover { background: @maya_workspace_hover; color: @pink_ink; }
+#workspaces button:hover { background: @maya_password_pink; color: @pink_ink; }
 #workspaces button.urgent { background: @maya_warning_pink; color: @maya_critical_ink; }
 #window { color: @maya_window_title_ink; }
-#clock { background: @maya_paper_white; color: @maya_clock_ink; font-weight: 600; }
-#mpris { color: @maya_lavender_ink; background: @maya_media_lavender; }
-#cpu, #memory { color: @maya_metrics_ink; }
+#clock { background: @maya_paper_white; color: @maya_waybar_rose_ink; font-weight: 600; }
+#mpris { color: @maya_lavender_ink; background: @maya_lavender; }
+#cpu, #memory { color: @maya_window_title_ink; }
 #network { background: @maya_sage; color: @maya_sage_ink; }
 #backlight { color: @maya_brightness_ink; }
 #battery { color: @maya_battery_ink; }
@@ -31,29 +31,29 @@ tooltip { background: @maya_tooltip_paper; color: @ink; border: 1px solid @line;
 #custom-notifications { color: @pink_ink; }
 #tray { background: @maya_paper_white; }
 #tray image { -gtk-icon-effect: none; }
-#battery.warning { background: @maya_battery_warning; color: @maya_battery_warning_ink; }
+#battery.warning { background: @maya_nightlight; color: @maya_battery_warning_ink; }
 #battery.critical, #temperature.critical { background: @maya_warning_pink; color: @maya_critical_ink; }
 
 /* Raised controls: crisp outlines and a light top edge, keeping the paper palette. */
 #clock, #mpris, #network, #pulseaudio, #tray, #custom-menu, #custom-power,
 #custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
     border: 1px solid @line;
-    border-top-color: @maya_bevel_white;
-    border-left-color: @maya_bevel_white;
-    box-shadow: 1px 1px 0 @maya_hard_shadow;
+    border-top-color: @maya_paper_white;
+    border-left-color: @maya_paper_white;
+    box-shadow: 1px 1px 0 @maya_taupe;
     border-radius: 7px;
 }
-#workspaces { border: 1px solid @maya_workspace_border; border-radius: 8px; }
+#workspaces { border: 1px solid @maya_taupe; border-radius: 8px; }
 #workspaces button { border: 1px solid transparent; border-radius: 6px; }
 #workspaces button.active { border: 1px solid @maya_rose_border; box-shadow: inset 0 1px 0 @maya_pink_highlight; }
 #custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
     margin: 1px 2px;
     padding: 3px 9px;
-    color: @maya_control_ink;
-    background: @maya_control_paper;
+    color: @maya_title_ink;
+    background: @maya_paper_inset;
 }
 #custom-kool-help { background: @maya_lavender; color: @maya_lavender_ink; }
-#custom-kool-settings { background: @maya_settings_pink; color: @pink_ink; }
-#custom-kool-nightlight.on { background: @maya_nightlight; color: @maya_nightlight_ink; border-bottom-color: @maya_nightlight_border; }
+#custom-kool-settings { background: @maya_password_pink; color: @pink_ink; }
+#custom-kool-nightlight.on { background: @maya_nightlight; color: @maya_nightlight_ink; border-bottom-color: @maya_caps_lock; }
 #custom-menu:hover, #custom-power:hover, #custom-kool-help:hover,
 #custom-kool-settings:hover, #custom-kool-nightlight:hover { background: @maya_control_hover; }

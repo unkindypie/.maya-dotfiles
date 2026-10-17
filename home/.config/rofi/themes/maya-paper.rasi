@@ -406,7 +406,7 @@ titlebar {
     children: [ "textbox-cat", "textbox-title", "textbox-dot" ];
     spacing: 8px;
     padding: 5px 10px;
-    background-color: @maya-title-surface;
+    background-color: @maya-paper-inset;
     background-image: @maya-title-gradient;
     border: 0px 0px 1px;
     border-color: @maya-border;
