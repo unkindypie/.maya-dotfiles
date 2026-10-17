@@ -105,12 +105,22 @@ if next(colors) then
   })
 end
 
--- Same focus treatment for KooL's optional Lua workflow.
-hl.config({ decoration = {
-  active_opacity = 1.0,
-  inactive_opacity = 1.0,
-  fullscreen_opacity = 1.0,
-  dim_inactive = true,
-  dim_strength = 0.22,
-  blur = { enabled = true, size = 8, passes = 3 },
-} })
+-- Raised paper treatment, after wallpaper-derived colors.
+hl.config({
+  general = {
+    border_size = 2,
+    col = { active_border = "rgba(b77f92ff)", inactive_border = "rgba(b3a594ff)" },
+  },
+  decoration = {
+    active_opacity = 1.0,
+    inactive_opacity = 1.0,
+    fullscreen_opacity = 1.0,
+    dim_inactive = true,
+    dim_strength = 0.08,
+    shadow = {
+      enabled = true, range = 18, render_power = 3,
+      color = "rgba(57433a44)", color_inactive = "rgba(57433a14)", offset = "0 3",
+    },
+    blur = { enabled = true, size = 8, passes = 3 },
+  },
+})
