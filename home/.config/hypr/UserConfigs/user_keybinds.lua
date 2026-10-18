@@ -59,3 +59,8 @@ for n = 1, 10 do
   h.bind("SUPER SHIFT", key, hl.dsp.window.move({ workspace = n }))
   h.bind("SUPER CTRL", key, hl.dsp.window.move({ workspace = n, follow = false }))
 end
+
+-- Emoji picker replaces the default split-ratio shortcut.
+h.unbind("SUPER ALT", "E")
+h.unbind("SUPER", "M")
+h.bind("SUPER", "M", h.exec_cmd('$HOME/.config/hypr/scripts/RofiEmoji.sh'), { description = "Emoji picker" })

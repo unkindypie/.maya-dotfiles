@@ -11,7 +11,7 @@
 window#waybar { background: @paper; color: @ink; border: 2px solid @line; border-radius: 12px; box-shadow: inset 1px 1px 0 @maya_paper_white, inset -1px -1px 0 @maya_bar_shadow; }
 tooltip { background: @maya_paper_white; color: @ink; border: 1px solid @line; border-radius: 10px; }
 .modules-left, .modules-center, .modules-right { padding: 3px 5px; }
-#workspaces, #window, #clock, #mpris, #cpu, #memory, #network, #backlight, #battery, #pulseaudio, #idle_inhibitor, #custom-notifications, #tray, #custom-menu, #custom-power { margin: 1px 2px; padding: 3px 8px; border-radius: 10px; }
+#workspaces, #window, #clock, #custom-keyboard-layout, #mpris, #cpu, #memory, #network, #backlight, #battery, #pulseaudio, #idle_inhibitor, #custom-notifications, #tray, #custom-menu, #custom-power { margin: 1px 2px; padding: 3px 8px; border-radius: 10px; }
 #workspaces { background: @maya_paper_inset; padding: 1px 3px; }
 #workspaces button { color: @muted; background: transparent; padding: 2px 8px; margin: 1px; border-radius: 8px; }
 #workspaces button.active { background: @pink; color: @pink_ink; }
@@ -19,6 +19,7 @@ tooltip { background: @maya_paper_white; color: @ink; border: 1px solid @line; b
 #workspaces button.urgent { background: @maya_warning_pink; color: @maya_critical_ink; }
 #window { color: @maya_window_title_ink; }
 #clock { background: @maya_paper_white; color: @maya_waybar_rose_ink; font-weight: 600; }
+#custom-keyboard-layout { background: @maya_paper_white; color: @maya_waybar_rose_ink; min-width: 20px; }
 #mpris { color: @maya_lavender_ink; background: @maya_lavender; }
 #cpu, #memory { color: @maya_window_title_ink; }
 #network { background: @maya_sage; color: @maya_sage_ink; }
@@ -35,7 +36,7 @@ tooltip { background: @maya_paper_white; color: @ink; border: 1px solid @line; b
 #battery.critical, #temperature.critical { background: @maya_warning_pink; color: @maya_critical_ink; }
 
 /* Raised controls: crisp outlines and a light top edge, keeping the paper palette. */
-#clock, #mpris, #network, #pulseaudio, #tray, #custom-menu, #custom-power,
+#clock, #custom-keyboard-layout, #mpris, #network, #pulseaudio, #tray, #custom-menu, #custom-power,
 #custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
     border: 1px solid @line;
     border-top-color: @maya_paper_white;

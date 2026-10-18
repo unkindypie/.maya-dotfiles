@@ -1,0 +1,30 @@
+#!/usr/bin/env python3
+"""Report the active Hyprland keyboard layout for Waybar."""
+import json
+import subprocess
+
+# XKB country layouts use ISO country codes; non-country layouts get a globe.
+COUNTRY_LAYOUTS = frozenset("""
+al am at au az ba bd be bg br bt bw by ca cd ch cm cn cz de dk dz ee es et fi
+fo fr gb ge gh gn gr hr hu id ie il in iq ir is it jp ke kg kh kr kz la lk
+lt lv ma md me mk ml mm mn mt mv my ng nl no np ph pk pl pt ro rs ru se si
+sk sn sy th tj tm tr tw tz ua us uz vn za
+""".split())
+
+
+def layout_flag(layout):
+    if layout in COUNTRY_LAYOUTS:
+        return ''.join(chr(0x1F1E6 + ord(letter) - ord('a')) for letter in layout)
+    return '🌐'
+
+
+try:
+    result = subprocess.run(['hyprctl', 'devices', '-j'], capture_output=True,
+                            text=True, timeout=2, check=True)
+    keyboards = json.loads(result.stdout)['keyboards']
+    keyboard = next(k for k in keyboards if k.get('main'))
+    layouts = keyboard['layout'].split(',')
+    layout = layouts[keyboard['active_layout_index']].strip()
+    print(json.dumps({'text': f'{layout_flag(layout)} {layout}', 'tooltip': keyboard['active_keymap']}))
+except (OSError, subprocess.SubprocessError, ValueError, KeyError, IndexError, StopIteration):
+    print(json.dumps({'text': '?', 'tooltip': 'Keyboard layout unavailable'}))

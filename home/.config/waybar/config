@@ -15,7 +15,8 @@
     "hyprland/window"
   ],
   "modules-center": [
-    "clock"
+    "clock",
+    "custom/keyboard-layout"
   ],
   "modules-right": [
     "mpris",
@@ -174,5 +175,11 @@
     "format": "{text}",
     "tooltip-format": "KooL blue-light filter · click to toggle",
     "on-click": "\"$HOME/.config/hypr/scripts/Hyprsunset.sh\" toggle"
+  },
+  "custom/keyboard-layout": {
+    "exec": "~/.local/bin/maya-keyboard-layout",
+    "return-type": "json",
+    "format": "{text}",
+    "interval": 1
   }
 }

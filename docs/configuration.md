@@ -17,6 +17,7 @@ same file. Reload the application afterward. Run the installer to link new files
   It has no KooL or
   Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
   their own themes.
+- **Emoji picker (KooL):** **Super+M** opens the Rofi emoji picker.
 - **Wallpaper (KooL):** press **Super+W** to open the wallpaper picker. It reads
   `~/Pictures/wallpapers/` (including subfolders), or `wallpapers/` inside your
   XDG Pictures directory if customized. Add images there to list them in the picker.
@@ -35,7 +36,9 @@ same file. Reload the application afterward. Run the installer to link new files
 - **SwayNC:** `~/.config/swaync/`: opaque paper cards, a cat title strip,
   rose controls and beveled borders. Reload with `swaync-client -R` and
   `swaync-client -rs`. Quick actions retain KooL integrations; locking uses Maya lock.
-- **Waybar:** `~/.config/waybar/config` and `style.css`.
+- **Waybar:** `~/.config/waybar/config` and `style.css`. The current keyboard
+  layout with a flag (`🇺🇸 us` / `🇺🇦 ua`) appears just to the right of the date, refreshing every second
+  from Hyprland’s active keyboard. Non-country layouts show a globe. SwayNC suppresses KooL’s layout-change popups.
 - **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
   or `dark`, then press Ctrl-b r. Light mode uses a compact single-row bar with rounded ends.
 - **Zsh:** `~/.config/zsh/shared.zsh`. The local `~/.zshrc` loads this plus private

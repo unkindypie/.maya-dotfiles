@@ -90,5 +90,11 @@
       ]
     }
   },
-  "ignore-gtk-theme": true
+  "ignore-gtk-theme": true,
+  "notification-visibility": {
+    "keyboard-layout": {
+      "state": "ignored",
+      "summary": "^\\s*kb_layout:.*$"
+    }
+  }
 }
