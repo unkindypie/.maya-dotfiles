@@ -1,5 +1,8 @@
 # Asset and configuration sources
 
+Third-party notices below take precedence over the project default license.
+See [licensing details](docs/licensing.md) for scope and upstream references.
+
 - Notebook: HQvectors; Lined Paper: Are Sundnes. Downloaded from
   https://www.transparenttextures.com/notebook.html and
   https://www.transparenttextures.com/lined-paper.html . Transparent Textures /
@@ -24,4 +27,6 @@
   KooL GPL-3.0-or-later headers, with personal settings and hotkey modifications.
 
 - Maya Paper Rofi theme adapts LinuxBeginnings KooL Style 4, credited to
-  https://github.com/adi1090x/rofi . Original headers and layout credit retained.
+  https://github.com/adi1090x/rofi . Its upstream LICENSE grants GPL version 3;
+  no later-version grant is assumed for that source. Original headers and layout
+  credit retained. See https://github.com/adi1090x/rofi/blob/master/LICENSE .
