@@ -5,6 +5,7 @@
 
 ---@type MayaConfig
 return {
+	transparent_background = true,
 	pokemon_sound_on_start_volume_percentage = 50, -- 0–100; 0 mutes playback.
 	reopen_tabs = true, -- Restore saved files, tabs, and splits for this folder.
 	pokemon_sound_on_start = true, -- Play the dashboard Pokémon cry.
@@ -41,11 +42,6 @@ return {
 	},
 	setup = function()
 		local function terminal_background()
-			for _, group in ipairs({ "Normal", "NormalNC" }) do
-				local hl = vim.api.nvim_get_hl(0, { name = group, link = false })
-				hl.bg = "#dfdbc3"
-				vim.api.nvim_set_hl(0, group, hl)
-			end
 			-- Keep hidden and ignored explorer entries readable on the light background.
 			vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#5c6a72" })
 			vim.api.nvim_set_hl(0, "SnacksPickerPathIgnored", { fg = "#716b60", italic = true })
