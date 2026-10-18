@@ -1,0 +1,12 @@
+-- Personal application workspace and rendering rules.
+hl.window_rule({ match = { class = "^(.*telegram.*)$" }, workspace = "3" })
+hl.window_rule({ match = { class = "^(.*Slack.*)$" }, workspace = "3" })
+hl.window_rule({ match = { class = "^(.*[dD]iscord.*)$" }, workspace = "3" })
+hl.window_rule({ match = { class = "^(.*beekeeper.*)$" }, workspace = "7" })
+hl.window_rule({ match = { class = "^(.*Insomnia.*)$" }, workspace = "6" })
+hl.window_rule({ match = { class = "^(.*obsidian.*)$" }, workspace = "8" })
+hl.window_rule({ match = { title = "^(YouTube Music)$" }, workspace = "10" })
+hl.window_rule({ match = { class = "^([Vv]esktop|dev\\.vencord\\.Vesktop)$" }, workspace = "3" })
+hl.window_rule({ match = { class = "^([Vv]esktop|dev\\.vencord\\.Vesktop)$" }, opacity = "1.0 override 1.0 override 1.0 override" })
+hl.window_rule({ match = { class = "^([Vv]esktop|dev\\.vencord\\.Vesktop)$" }, opaque = true })
+hl.window_rule({ match = { class = "^([Vv]esktop|dev\\.vencord\\.Vesktop)$" }, no_blur = true })

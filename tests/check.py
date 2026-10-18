@@ -15,6 +15,14 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
         subprocess.run(args, env=env, check=True, stdout=subprocess.DEVNULL)
     (target / '.zshrc').write_text('export EXAMPLE_API_TOKEN="test-only-credential"\n')
     run('python3', str(root / 'install.py'), '--no-services', '--without-mvim')
+    # Validate the standalone Lua entry point without relying on installed KooL.
+    if shutil.which('Hyprland'):
+        validation_env = dict(env, XDG_CONFIG_HOME=str(target / '.config'))
+        validation = subprocess.run(
+            ['Hyprland', '--verify-config', '-c', str(target / '.config/hypr/hyprland.lua')],
+            env=validation_env, text=True, capture_output=True)
+        assert validation.returncode == 0 and 'config ok' in validation.stdout, validation.stdout + validation.stderr
+    assert (target / '.config/hypr/hyprland.lua').is_symlink()
     secret = target / '.config/zsh/secrets.zsh'
     assert 'test-only-credential' in secret.read_text()
     assert secret.stat().st_mode & 0o777 == 0o600
@@ -32,6 +40,11 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
     palette_link.write_text('{}')
     run('python3', str(root / 'scripts/restore-managed.py'))
     assert palette_link.resolve() == root / 'color-palette/palette.json'
+    entry = target / '.config/hypr/hyprland.lua'
+    entry.unlink()
+    entry.write_text('-- vendor replacement')
+    run('python3', str(root / 'scripts/restore-managed.py'))
+    assert entry.resolve() == root / 'home/.config/hypr/hyprland.lua'
     # Simulate KooL replacing a managed entry point with a symlink.
     config = target / '.config/waybar/config'
     config.unlink()

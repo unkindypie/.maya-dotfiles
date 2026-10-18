@@ -126,7 +126,14 @@ hl.config({
       enabled = true, range = 26, render_power = 2,
       color = maya_colors.focus_shadow, color_inactive = maya_colors.sheet_shadow, offset = "0 5",
     },
-    blur = { enabled = true, size = 8, passes = 3 },
+    blur = { enabled = true, size = 8, passes = 3, ignore_opacity = false },
   },
 })
 
+-- Animate compositor opacity; only focused windows ignore app alpha.
+hl.window_rule({
+  match = { class = ".*" },
+  opacity = "1.0 override 0.9 override 1.0 override",
+})
+hl.window_rule({ match = { focus = true }, force_rgbx = true })
+hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 6, bezier = "default" })

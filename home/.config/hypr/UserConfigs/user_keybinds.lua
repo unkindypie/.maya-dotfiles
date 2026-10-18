@@ -1,47 +1,59 @@
--- User keybind overrides (auto-generated).
--- Add keybinds with bind("MODS", "KEY", fn, opts).
--- Example:
--- bind("SUPER", "Z", exec_cmd("ghostty"), { description = "Launch ghostty" })
--- Helper functions live in ~/.config/hypr/lua/user_keybinds_helper.lua so they can be updated separately.
-local user_keybinds_helper = nil
-do
-  local source = (debug.getinfo(1, "S") or {}).source or ""
-  local source_path = source:match("^@(.+)$")
-  local source_dir = source_path and source_path:match("^(.*)/[^/]+$") or nil
-  local home = os.getenv("HOME") or ""
-  local candidate_paths = {
-    source_dir and (source_dir .. "/../lua/user_keybinds_helper.lua") or nil,
-    home ~= "" and (home .. "/.config/hypr/lua/user_keybinds_helper.lua") or nil,
-    home ~= "" and (home .. "/.config/hypr/user_keybinds_helper.lua") or nil,
-  }
+-- Personal shortcuts; legacy .conf is retained only for rollback.
+local h = require("lua.user_keybinds_helper")
+h.unbind("SUPER", "S")
+h.bind("SUPER", "S", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m region"), { description = "" })
+h.bind("SUPER", "I", h.dispatch("exec", "google-chrome-stable"), { description = "" })
+h.unbind("SUPER", "O")
+h.bind("SUPER", "O", h.dispatch("exec", "thunar"), { description = "" })
+h.unbind("SUPER SHIFT", "left")
+h.unbind("SUPER SHIFT", "right")
+h.unbind("SUPER SHIFT", "up")
+h.unbind("SUPER SHIFT", "down")
+h.unbind("SUPER CTRL", "left")
+h.unbind("SUPER CTRL", "right")
+h.unbind("SUPER CTRL", "up")
+h.unbind("SUPER CTRL", "down")
+h.bind("SUPER CTRL", "left", h.dispatch("resizeactive", "-50 0"), { description = "Resize left (-50)" })
+h.bind("SUPER CTRL", "right", h.dispatch("resizeactive", "50 0"), { description = "Resize right (+50)" })
+h.bind("SUPER CTRL", "up", h.dispatch("resizeactive", "0 -50"), { description = "Resize up (-50)" })
+h.bind("SUPER CTRL", "down", h.dispatch("resizeactive", "0 50"), { description = "Resize down (+50)" })
+h.bind("SUPER SHIFT", "left", h.dispatch("movewindow", "l"), { description = "Move window left" })
+h.bind("SUPER SHIFT", "right", h.dispatch("movewindow", "r"), { description = "Move window right" })
+h.bind("SUPER SHIFT", "up", h.dispatch("movewindow", "u"), { description = "Move window up" })
+h.bind("SUPER SHIFT", "down", h.dispatch("movewindow", "d"), { description = "Move window down" })
+h.bind("SUPER", "J", h.dispatch("layoutmsg", "togglesplit"), { description = "" })
+h.unbind("SUPER", "F")
+h.bind("SUPER", "F", h.dispatch("fullscreen", ""), { description = "Fullscreen" })
+h.bind("SUPER", "V", h.dispatch("togglefloating", ""), { description = "Float current window" })
+h.unbind("SUPER", "B")
+h.bind("SUPER", "B", h.dispatch("exec", "$HOME/.local/bin/maya-lock"), { description = "Lock screen" })
+h.unbind("SUPER", "D")
+h.bind("SUPER", "D", h.dispatch("exec", "rofi -show drun -modi drun,filebrowser,run,window -config $HOME/.config/rofi/config.rasi"), { description = "Applications" })
+h.unbind("ALT SHIFT", "S")
+h.bind("ALT SHIFT", "S", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m region"), { description = "Capture and annotate" })
+h.unbind("SUPER", "Print")
+h.bind("SUPER", "Print", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m output -m active"), { description = "Capture and annotate" })
+h.unbind("SUPER SHIFT", "Print")
+h.bind("SUPER SHIFT", "Print", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m region"), { description = "Capture and annotate" })
+h.unbind("SUPER CTRL", "Print")
+h.bind("SUPER CTRL", "Print", h.dispatch("exec", "sleep 5 && $HOME/.local/bin/maya-screenshot -m output -m active"), { description = "Capture and annotate" })
+h.unbind("SUPER CTRL SHIFT", "Print")
+h.bind("SUPER CTRL SHIFT", "Print", h.dispatch("exec", "sleep 10 && $HOME/.local/bin/maya-screenshot -m output -m active"), { description = "Capture and annotate" })
+h.unbind("ALT", "Print")
+h.bind("ALT", "Print", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m window -m active"), { description = "Capture and annotate" })
+h.unbind("SUPER SHIFT", "S")
+h.bind("SUPER SHIFT", "S", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m region"), { description = "Capture and annotate" })
 
-  local tried_paths = {}
-  for _, helper_path in ipairs(candidate_paths) do
-    if helper_path then
-      table.insert(tried_paths, helper_path)
-      local f = io.open(helper_path, "r")
-      if f then
-        f:close()
-        local loaded_ok, loaded_helpers = pcall(dofile, helper_path)
-        if loaded_ok and type(loaded_helpers) == "table" and loaded_helpers.bind then
-          user_keybinds_helper = loaded_helpers
-          break
-        end
-      end
-    end
-  end
-
-  if not user_keybinds_helper then
-    error("Failed to load user_keybinds_helper.lua from: " .. table.concat(tried_paths, ", "))
-  end
+-- Preserve both existing keyboard-layout switching shortcuts.
+h.bind("ALT", "SHIFT_L", h.exec_cmd('$HOME/.config/hypr/scripts/KeyboardLayout.sh switch'),
+       { locked = true, non_consuming = true, description = "Switch keyboard layout globally" })
+h.bind("SHIFT", "ALT_L", h.exec_cmd('$HOME/.config/hypr/scripts/Tak0-Per-Window-Switch.sh'),
+       { locked = true, non_consuming = true, description = "Switch keyboard layout per-window" })
+-- Register workspace number keys and shifted symbols through KooL's helper.
+for n = 1, 10 do
+  local key = "code:" .. (n + 9)
+  for _, mods in ipairs({"SUPER", "SUPER SHIFT", "SUPER CTRL"}) do h.unbind(mods, key) end
+  h.bind("SUPER", key, hl.dsp.focus({ workspace = n }))
+  h.bind("SUPER SHIFT", key, hl.dsp.window.move({ workspace = n }))
+  h.bind("SUPER CTRL", key, hl.dsp.window.move({ workspace = n, follow = false }))
 end
-local exec_cmd = user_keybinds_helper.exec_cmd
-local bind = user_keybinds_helper.bind
-
-
--- Override the default browser binding in the optional Lua workflow too.
-user_keybinds_helper.unbind("SUPER", "B")
-bind("SUPER", "B", exec_cmd('"$HOME/.local/bin/maya-lock"'), { description = "Lock screen" })
-
-user_keybinds_helper.unbind("SUPER", "D")
-bind("SUPER", "D", exec_cmd('rofi -show drun -modi drun,filebrowser,run,window -config "$HOME/.config/rofi/config.rasi"'), { description = "Applications" })

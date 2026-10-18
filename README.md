@@ -73,29 +73,32 @@ same file. Reload the application afterward. Run the installer to link new files
   Super+S selects a region; existing Print shortcuts also open the editor.
   Nothing is saved automatically. In Swappy use Ctrl+C to copy, Ctrl+S to save,
   or Escape to discard. Requires `hyprshot` and `swappy`.
-- **Hyprland:** `~/.config/hypr/UserConfigs/` contains your custom hotkeys and
-  settings. `Startup_Apps.conf` launches Vesktop, Telegram, Chrome with its last
-  session on workspace 1, and one Kitty on workspace 2 at login. Vesktop opens on workspace 3;
-  later Kitty windows open on the current workspace. On a non-KooL setup, source
-  `Startup_Apps.conf` and `WorkSpaceRules.conf` explicitly to enable these.
-  Focus appearance is in `~/.config/hypr/maya-appearance.conf`:
-  full compositor opacity, no inactive dimming, uniform 3px borders (rose/pink/lavender when focused, sage/paper/taupe otherwise),
-  smooth border color transitions with fixed gradient directions, and layered brown shadows
-  (stronger when focused). Backdrop blur stays at size 8/3 passes.
-  Reload with `hyprctl reload`. Kitty's own background opacity still applies.
+- **Hyprland:** `~/.config/hypr/hyprland.lua` is the active entry point.
+  It loads installed KooL Lua modules when available, then our native Lua
+  `UserConfigs/user_*.lua` overrides. Without KooL it provides basic terminal,
+  close-window and workspace bindings before loading the personal settings.
+  `user_startup.lua` launches Vesktop, Telegram, Chrome with its last session on
+  workspace 1, and one Kitty on workspace 2. Startup runs only at login.
+  Vesktop opens on workspace 3; later Kitty windows stay on the current workspace.
+  Edit `user_keybinds.lua` for shortcuts, `user_window_rules.lua` for workspace
+  assignments, `user_settings.lua` for input settings, and `monitors.lua` for displays.
+  Personal settings retain this laptop’s monitor and keyboard choices.
+  Some shortcuts require KooL scripts, Chrome, Thunar or hyprshot.
+  Appearance is in `user_decorations.lua`, animation timing in `user_animations.lua`:
+  uniform 3px pastel borders, fixed gradient directions, layered brown shadows,
+  and no inactive dimming. Windows fade over 600 ms from 90% compositor opacity
+  when unfocused to fully solid when focused. Unfocused windows retain app alpha
+  and background blur at size 8/3 passes; the app-alpha override switches immediately.
+  Reload with `hyprctl reload`. Shared colors still come from the palette generator.
 
-KooL already loads UserConfigs. On a non-KooL Hyprland setup, add near the end of
-your config:
-
-```conf
-source = ~/.config/hypr/maya-appearance.conf
-# Optional personal hotkeys/workspace assignments:
-source = ~/.config/hypr/UserConfigs/UserKeybinds.conf
-```
-
-The other UserConfigs preserve this laptop's settings and KooL integrations;
-do not source them all on an unrelated machine. Some hotkeys need Chrome,
-Thunar or hyprshot. Obsidian tmux popups require your own Neovim Obsidian setup.
+The old `.conf` Hyprland files remain as rollback references; the Lua entry point
+never sources them. Hyprlock and Hypridle still use their own `.conf` formats.
+Hyprland 0.56 supports switching an existing session with `hyprctl reload full-reset`
+after installing the Lua entry point. Normal edits only need `hyprctl reload`.
+For rollback, remove the installed `hyprland.lua` symlink and run
+`hyprctl reload full-reset` to use the preserved `hyprland.conf` again. Disable
+`maya-dotfiles.path` first so link recovery does not restore the Lua entry point.
+Back up custom configs before installation; the installer also backs up files it replaces.
 
 ## KooL integration and protection
 
