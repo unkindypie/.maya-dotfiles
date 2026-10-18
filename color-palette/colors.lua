@@ -36,7 +36,7 @@ return {
   nightlight = "rgb(f3dba8)",
   nightlight_ink = "rgb(6e4b22)",
   novel_ink = "rgb(3b2322)",
-  novel_paper = "rgb(dfdbc3)",
+  novel_paper = "rgb(fff5dc)",
   novel_selection = "rgb(a4a390)",
   paper = "rgb(f4f0e5)",
   paper_inset = "rgb(e8e0d2)",

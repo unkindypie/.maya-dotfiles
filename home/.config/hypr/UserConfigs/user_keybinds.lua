@@ -2,7 +2,9 @@
 local h = require("lua.user_keybinds_helper")
 h.unbind("SUPER", "S")
 h.bind("SUPER", "S", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m region"), { description = "" })
-h.bind("SUPER", "I", h.dispatch("exec", "google-chrome-stable"), { description = "" })
+-- Replace the KooL master-layout shortcut before assigning Chrome.
+h.unbind("SUPER", "I")
+h.bind("SUPER", "I", h.dispatch("exec", "google-chrome-stable"), { description = "Open Chrome" })
 h.unbind("SUPER", "O")
 h.bind("SUPER", "O", h.dispatch("exec", "thunar"), { description = "" })
 h.unbind("SUPER SHIFT", "left")

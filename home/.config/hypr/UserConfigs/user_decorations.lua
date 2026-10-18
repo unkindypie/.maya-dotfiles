@@ -130,10 +130,9 @@ hl.config({
   },
 })
 
--- Animate compositor opacity; only focused windows ignore app alpha.
+-- Kitty supplies an opaque surface; animate only compositor opacity.
 hl.window_rule({
   match = { class = ".*" },
   opacity = "1.0 override 0.9 override 1.0 override",
 })
-hl.window_rule({ match = { focus = true }, force_rgbx = true })
 hl.animation({ leaf = "fadeSwitch", enabled = true, speed = 6, bezier = "default" })

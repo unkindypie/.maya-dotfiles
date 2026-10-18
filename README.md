@@ -31,7 +31,9 @@ Installed files are symlinks into `home/`: editing either location changes the
 same file. Reload the application afterward. Run the installer to link new files.
 
 - **Kitty:** `~/.config/kitty/kitty.conf`; paper texture/tint in
-  `~/.local/share/kitty-personal/notebook.conf`.
+  `~/.local/share/kitty-personal/notebook.conf`. The custom Novel theme and notebook
+  texture are tracked in this repo. Its brighter cream background is
+  `novel_paper` in `color-palette/palette.json`; edit that color and regenerate.
 - **Wofi:** `~/.config/wofi/config` and `style.css`: paper panels, a pink search
   strip, beveled rows and crisp offset shadows. Preview with `wofi --show drun`.
   This is an optional alternative; Super+D uses the familiar Rofi launcher.
@@ -87,8 +89,9 @@ same file. Reload the application afterward. Run the installer to link new files
   Appearance is in `user_decorations.lua`, animation timing in `user_animations.lua`:
   uniform 3px pastel borders, fixed gradient directions, layered brown shadows,
   and no inactive dimming. Windows fade over 600 ms from 90% compositor opacity
-  when unfocused to fully solid when focused. Unfocused windows retain app alpha
-  and background blur at size 8/3 passes; the app-alpha override switches immediately.
+  when unfocused to fully solid when focused. Kitty supplies an opaque background and Hyprland animates its opacity,
+  so focus changes have no abrupt app-alpha switch. Unfocused windows retain
+  background blur at size 8/3 passes.
   Reload with `hyprctl reload`. Shared colors still come from the palette generator.
 
 The old `.conf` Hyprland files remain as rollback references; the Lua entry point
