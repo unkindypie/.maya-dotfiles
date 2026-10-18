@@ -42,6 +42,12 @@ same file. Reload the application afterward. Run the installer to link new files
   and windows; the indicator refreshes immediately
   after the switch takes effect. Per-window layout restoration is disabled.
   Non-country layouts show a globe. SwayNC suppresses KooL’s layout-change popups.
+- **btop:** `~/.config/btop/btop.conf` selects the repo’s `maya-paper` theme.
+  Dark ink and rose/sage/lavender graphs contrast with Kitty’s cream paper.
+  CPU/GPU information stays at the top, with memory, network and processes below.
+  Terminal background is preserved; process-list fading is disabled for readability.
+  Theme colors are generated from the `btop` mapping in `color-palette/palette.json`.
+  Restart btop after palette changes.
 - **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
   or `dark`, then press Ctrl-b r. Light mode uses a compact single-row bar with rounded ends.
 - **Zsh:** `~/.config/zsh/shared.zsh`. The local `~/.zshrc` loads this plus private

@@ -63,6 +63,11 @@ def render(root):
         if len(colors[name]) != 7:
             raise ValueError(f'Kitty requires an opaque color: {name}')
         kitty += f'{option} {colors[name]}\n'
+    btop = '# Generated from color-palette/palette.json. Do not edit.\n# Maya Paper: dark ink and muted accents for cream terminals.\n'
+    for option, name in palette.get('btop', {}).items():
+        if not re.fullmatch(r'[a-z][a-z0-9_]*', option) or len(colors[name]) != 7:
+            raise ValueError(f'Invalid btop color: {option}')
+        btop += f'theme[{option}]="{colors[name]}"\n'
     wofi_path = root / 'home/.config/wofi/style.css'
     wofi_body = wofi_path.read_text()
     wofi_body = re.sub(r'/\* BEGIN GENERATED PALETTE \*/.*?/\* END GENERATED PALETTE \*/\n*', '', wofi_body, flags=re.S)
@@ -76,6 +81,7 @@ def render(root):
         'color-palette/colors.conf': conf,
         'color-palette/colors.lua': lua,
         'color-palette/kitty.conf': kitty,
+        'home/.config/btop/themes/maya-paper.theme': btop,
     }
 
 

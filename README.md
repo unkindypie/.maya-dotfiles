@@ -2,7 +2,7 @@
 
 **Neovim config: [Maya Neovim](https://github.com/unkindypie/maya-nvim/)**
 
-Paper colors, pastels and soft pink highlights for Waybar, Kitty, tmux and Zsh.
+Paper colors, pastels and soft pink highlights for Waybar, Kitty, btop, tmux and Zsh.
 Works with KooL Fedora Hyprland; the main desktop components also work without KooL.
 
 ![Maya desktop with the pastel Waybar and cream notebook Kitty terminals](assets/screenshots/maya-desktop.png)
@@ -60,6 +60,7 @@ reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
 - SwayNC / SwayNotificationCenter **0.12.6** — notification center.
 - lsd **1.2.0** — styled directory listings.
 - fastfetch **2.68.1** — terminal system information.
+- btop **1.4.7** — system monitor with the included high-contrast paper theme.
 - hyprshot **1.3.0** and Swappy **1.5.1** — required for the screenshot and
   annotation shortcuts.
 
@@ -118,7 +119,7 @@ Oklab distance check (<0.02) flags similar opaque shades. Two documented
 exceptions preserve terminal white versus warm paper and lavender versus pink;
 alpha variants remain separate. Run `python3 scripts/generate-palette.py --audit`
 to review them. The palette has 59 colors, reduced from 80.
-It supplies Waybar, Wofi, Rofi, SwayNC, Hyprlock, Hyprland and Kitty's personal Novel theme.
+It supplies Waybar, Wofi, Rofi, SwayNC, Hyprlock, Hyprland, btop and Kitty's personal Novel theme.
 
 ```sh
 python3 scripts/generate-palette.py
