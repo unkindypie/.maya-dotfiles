@@ -46,11 +46,17 @@ h.bind("ALT", "Print", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m w
 h.unbind("SUPER SHIFT", "S")
 h.bind("SUPER SHIFT", "S", h.dispatch("exec", "$HOME/.local/bin/maya-screenshot -m region"), { description = "Capture and annotate" })
 
--- Preserve both existing keyboard-layout switching shortcuts.
-h.bind("ALT", "SHIFT_L", h.exec_cmd('$HOME/.config/hypr/scripts/KeyboardLayout.sh switch'),
-       { locked = true, non_consuming = true, description = "Switch keyboard layout globally" })
-h.bind("SHIFT", "ALT_L", h.exec_cmd('$HOME/.config/hypr/scripts/Tak0-Per-Window-Switch.sh'),
-       { locked = true, non_consuming = true, description = "Switch keyboard layout per-window" })
+-- Global layout switching in either Alt+Shift press order.
+-- Remove KooL's per-window handler and its malformed plain-modifier bindings.
+for _, key in ipairs({"SHIFT_L", "ALT_L", "Shift_L", "Alt_L"}) do h.unbind("", key) end
+h.unbind("ALT_L", "SHIFT_L")
+h.unbind("SHIFT_L", "ALT_L")
+h.unbind("ALT", "SHIFT_L")
+h.unbind("SHIFT", "ALT_L")
+for _, chord in ipairs({ {"ALT", "SHIFT_L"}, {"SHIFT", "ALT_L"} }) do
+  h.bind(chord[1], chord[2], h.exec_cmd('$HOME/.local/bin/maya-keyboard-layout --next'),
+         { locked = true, non_consuming = true, description = "Switch keyboard layout globally" })
+end
 -- Register workspace number keys and shifted symbols through KooL's helper.
 for n = 1, 10 do
   local key = "code:" .. (n + 9)

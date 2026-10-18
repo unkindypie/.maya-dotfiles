@@ -68,8 +68,19 @@ args = parser.parse_args()
 
 try:
     if args.next:
-        response = request('/switchxkblayout current next').strip()
-        raise SystemExit(0 if response == 'ok' else 1)
+        keyboards = json.loads(request('j/devices'))['keyboards']
+        active = next(k for k in keyboards if k.get('main'))
+        layouts = active['layout'].split(',')
+        target = layouts[(active['active_layout_index'] + 1) % len(layouts)]
+        # Keep physical and virtual keyboards in sync when the active device changes.
+        for keyboard in keyboards:
+            available = keyboard['layout'].split(',')
+            if target in available:
+                index = available.index(target)
+                response = request(f"/switchxkblayout {keyboard['name']} {index}").strip()
+                if response != 'ok':
+                    raise SystemExit(1)
+        raise SystemExit(0)
     if args.watch:
         watch()
     else:

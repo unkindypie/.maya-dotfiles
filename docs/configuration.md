@@ -38,8 +38,9 @@ same file. Reload the application afterward. Run the installer to link new files
   `swaync-client -rs`. Quick actions retain KooL integrations; locking uses Maya lock.
 - **Waybar:** `~/.config/waybar/config` and `style.css`. The current keyboard
   layout with a flag (`🇺🇸 us` / `🇺🇦 ua`) appears just to the right of the date, updating directly
-  from Hyprland’s layout-change events. Click the flag to cycle to the next layout; the indicator refreshes immediately
-  after the switch takes effect.
+  from Hyprland’s layout-change events. Click the flag or press Alt+Shift to cycle layouts globally across all keyboards
+  and windows; the indicator refreshes immediately
+  after the switch takes effect. Per-window layout restoration is disabled.
   Non-country layouts show a globe. SwayNC suppresses KooL’s layout-change popups.
 - **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
   or `dark`, then press Ctrl-b r. Light mode uses a compact single-row bar with rounded ends.

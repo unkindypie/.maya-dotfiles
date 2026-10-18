@@ -1,7 +1,7 @@
 -- Personal keyboard, monitor and layout settings.
 hl.env("LIBVA_DRIVER_NAME", "radeonsi")
 hl.config({
-  input = { kb_layout = "us,ua", kb_options = "grp:alt_shift_toggle" },
+  input = { kb_layout = "us,ua", kb_options = "" },
   general = { gaps_in = 4, gaps_out = 6 },
   cursor = { no_hardware_cursors = 1 },
 })
