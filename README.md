@@ -5,12 +5,11 @@
 Paper colors, pastels and soft pink highlights for Waybar, Kitty, tmux and Zsh.
 Works with KooL Fedora Hyprland; the main desktop components also work without KooL.
 
+![Maya desktop with the pastel Waybar and cream notebook Kitty terminals](assets/screenshots/maya-desktop.png)
+
 ## Install
 
-Install Git, Python 3, Zsh, Kitty, tmux, Waybar, fzf and a Nerd Font-capable
-Wayland desktop first. Fonts are bundled. For the bar controls, install
-`rofi-wayland`, `brightnessctl`, `wireplumber`, `pavucontrol`, `nm-connection-editor`
-and `playerctl`. SwayNC, lsd and fastfetch are optional. Install hyprlock and hypridle for screen locking.
+Works well on top of [Fedora Hyprland](https://github.com/LinuxBeginnings/Fedora-Hyprland), but should work on other wayland installation:
 
 ```sh
 cd ~/.maya-dotfiles
@@ -24,6 +23,48 @@ own dependency installer, which may ask for sudo or additional choices.
 Missing Oh My Zsh and tmux plugins download at the revisions in dependencies.json.
 Existing installations and local changes are preserved. A fresh install needs
 internet; use `--skip-dependencies` for an offline install with dependencies ready.
+
+Install the following dependencies first. These are the versions installed on the
+reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
+
+**Core tools and desktop:**
+
+- Git **2.56.0**
+- Python **3.14.8**
+- Zsh **5.9**
+- Kitty **0.47.1**
+- tmux **3.7c**
+- Waybar **0.15.0** (Fedora build `0.15.0^2.git1684389`)
+- fzf **0.74.4**
+- Hyprland **0.56.2** — the reference Wayland desktop for the included Lua config.
+- Nerd Fonts — bundled Fantasque Sans Mono from Nerd Fonts **3.3.0** and
+  JetBrains Mono from Nerd Fonts **3.4.0**; no separate font download needed.
+
+**Launcher and bar controls:**
+
+- Rofi **2.0.0**, with Wayland support (`rofi` on this Fedora setup;
+  some distributions name the Wayland package `rofi-wayland`).
+- brightnessctl **0.5.1**
+- WirePlumber **0.5.18** (provides `wpctl`)
+- pavucontrol **6.2**
+- nm-connection-editor **1.36.0**
+- playerctl **2.4.1**
+
+**Screen locking:**
+
+- hyprlock **0.9.6**
+- hypridle **0.1.8**
+
+**Optional integrations:**
+
+- SwayNC / SwayNotificationCenter **0.12.6** — notification center.
+- lsd **1.2.0** — styled directory listings.
+- fastfetch **2.68.1** — terminal system information.
+- hyprshot **1.3.0** and Swappy **1.5.1** — required for the screenshot and
+  annotation shortcuts.
+
+The installer’s Git-based dependencies are pinned separately by commit in
+[`dependencies.json`](dependencies.json). Existing installations are preserved.
 
 ## Edit your configs
 
@@ -116,7 +157,7 @@ it from hiding another app during login. Original scripts are backed up; upstrea
 source trees are not stored here.
 
 `maya-dotfiles.path` repairs replaced
-Kitty, Waybar, Rofi, Wofi, SwayNC and Hyprland user-config symlinks. Vendor writes *through* a symlink
+Kitty, Waybar, Rofi, Wofi, SwayNC and Hyprland user-config symlinks. Vendor writes _through_ a symlink
 also change the repo: inspect `git diff` after theme tools. Keep this repo in
 place. Backups live in `~/.local/state/maya-dotfiles/backups/`.
 
