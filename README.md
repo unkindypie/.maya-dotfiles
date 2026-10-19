@@ -75,7 +75,7 @@ customization, shortcuts, and reload instructions.
 
 ## KooL integration and protection
 
-Waybar optionally shows KooL's help, settings and blue-light filter buttons when
+Waybar optionally shows KooL's help, Hyprland layout, settings and blue-light filter buttons when
 their scripts and applications exist. Otherwise they hide. The network button
 opens NetworkManager's GUI. Original KooL Waybar files are archived in reference/.
 

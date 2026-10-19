@@ -37,7 +37,7 @@ tooltip { background: @maya_paper_white; color: @ink; border: 1px solid @line; b
 
 /* Raised controls: crisp outlines and a light top edge, keeping the paper palette. */
 #clock, #custom-keyboard-layout, #mpris, #network, #pulseaudio, #tray, #custom-menu, #custom-power,
-#custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
+#custom-kool-help, #custom-kool-layout, #custom-kool-settings, #custom-kool-nightlight {
     border: 1px solid @line;
     border-top-color: @maya_paper_white;
     border-left-color: @maya_paper_white;
@@ -47,14 +47,15 @@ tooltip { background: @maya_paper_white; color: @ink; border: 1px solid @line; b
 #workspaces { border: 1px solid @maya_taupe; border-radius: 8px; }
 #workspaces button { border: 1px solid transparent; border-radius: 6px; }
 #workspaces button.active { border: 1px solid @maya_rose_border; box-shadow: inset 0 1px 0 @maya_pink_highlight; }
-#custom-kool-help, #custom-kool-settings, #custom-kool-nightlight {
+#custom-kool-help, #custom-kool-layout, #custom-kool-settings, #custom-kool-nightlight {
     margin: 1px 2px;
     padding: 3px 9px;
     color: @maya_title_ink;
     background: @maya_paper_inset;
 }
 #custom-kool-help { background: @maya_lavender; color: @maya_lavender_ink; }
+#custom-kool-layout { background: @maya_sage; color: @maya_sage_ink; }
 #custom-kool-settings { background: @maya_password_pink; color: @pink_ink; }
 #custom-kool-nightlight.on { background: @maya_nightlight; color: @maya_nightlight_ink; border-bottom-color: @maya_caps_lock; }
 #custom-menu:hover, #custom-power:hover, #custom-kool-help:hover,
-#custom-kool-settings:hover, #custom-kool-nightlight:hover { background: @maya_control_hover; }
+#custom-kool-layout:hover, #custom-kool-settings:hover, #custom-kool-nightlight:hover { background: @maya_control_hover; }

@@ -36,7 +36,9 @@ same file. Reload the application afterward. Run the installer to link new files
 - **SwayNC:** `~/.config/swaync/`: opaque paper cards, a cat title strip,
   rose controls and beveled borders. Reload with `swaync-client -R` and
   `swaync-client -rs`. Quick actions retain KooL integrations; locking uses Maya lock.
-- **Waybar:** `~/.config/waybar/config` and `style.css`. The current keyboard
+- **Waybar:** `~/.config/waybar/config` and `style.css`. When KooL’s layout scripts
+  and their dependencies are installed, the layout icon beside `?` opens its
+  Hyprland layout menu (Dwindle, Scrolling, Monocle, Master); right-click cycles layouts. The current keyboard
   layout with a flag (`🇺🇸 us` / `🇺🇦 ua`) appears just to the right of the date, updating directly
   from Hyprland’s layout-change events. Click the flag or press Alt+Shift to cycle layouts globally across all keyboards
   and windows; the indicator refreshes immediately

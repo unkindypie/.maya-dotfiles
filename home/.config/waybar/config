@@ -11,6 +11,7 @@
     "custom/menu",
     "hyprland/workspaces",
     "custom/kool-help",
+    "custom/kool-layout",
     "custom/kool-settings",
     "hyprland/window"
   ],
@@ -183,5 +184,16 @@
     "on-click": "~/.local/bin/maya-keyboard-layout --next",
     "exec-on-event": false,
     "restart-interval": 1
+  },
+  "custom/kool-layout": {
+    "exec-if": "test -x \"$HOME/.config/hypr/scripts/HyprLayoutModule.sh\" && test -x \"$HOME/.config/hypr/scripts/ChangeLayout.sh\" && command -v rofi >/dev/null && command -v jq >/dev/null && command -v hyprctl >/dev/null",
+    "exec": "\"$HOME/.config/hypr/scripts/HyprLayoutModule.sh\" status",
+    "return-type": "json",
+    "interval": 2,
+    "signal": 8,
+    "format": "{text}",
+    "on-click": "\"$HOME/.config/hypr/scripts/HyprLayoutModule.sh\" menu",
+    "on-click-right": "\"$HOME/.config/hypr/scripts/HyprLayoutModule.sh\" next",
+    "escape": true
   }
 }
