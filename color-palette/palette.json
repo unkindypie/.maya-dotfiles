@@ -109,7 +109,8 @@
           ],
           "reason": "Retain separate tmux plugin roles while matching the shared theme."
         }
-      ]
+      ],
+      "kitty_background_tint": 0.35
     },
     "dark": {
       "colors": {
@@ -282,7 +283,8 @@
           ],
           "reason": "Retain separate tmux plugin roles while matching the shared theme."
         }
-      ]
+      ],
+      "kitty_background_tint": 0.78
     }
   },
   "kitty": {

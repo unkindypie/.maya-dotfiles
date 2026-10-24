@@ -27,6 +27,7 @@ manifest = json.loads((root / 'color-palette/palette.json').read_text())
 assert manifest['default'] == 'light'
 assert set(manifest['themes']['light']['colors']) == set(manifest['themes']['dark']['colors'])
 for name, profile in manifest['themes'].items():
+    assert f"background_tint {profile['kitty_background_tint']}" in (root / f'color-palette/profiles/{name}/kitty.conf').read_text()
     c=profile['colors']
     for fg,bg in [('novel_ink','novel_paper'),('ink','paper')]:
         assert contrast(c[fg],c[bg]) >= 7, (name, fg,bg)

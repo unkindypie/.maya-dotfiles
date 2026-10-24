@@ -59,7 +59,10 @@ def render(root, mode="light"):
     rasi = '/* Generated from color-palette/palette.json. Do not edit. */\n* {\n' + ''.join(f'    maya-{n.replace(chr(95), chr(45))}: {css(v)};\n' for n,v in colors.items()) + '}\n'
     rasi = rasi[:-2] + '    maya-title-gradient: linear-gradient(to bottom, ' + colors['paper_white'] + ', ' + colors['title_gradient_end'] + ');\n}\n'
     lua = '-- Generated from palette.json. Do not edit.\nreturn {\n' + ''.join(f'  {n} = "{native(v)}",\n' for n,v in colors.items()) + '}\n'
-    kitty = header
+    tint = selected.get('kitty_background_tint', 0.35)
+    if isinstance(tint, bool) or not isinstance(tint, (int, float)) or not 0 <= tint <= 1:
+        raise ValueError(f'Invalid Kitty background tint for {mode}')
+    kitty = header + f'background_tint {tint}\n'
     for option, name in palette['kitty'].items():
         if not re.fullmatch(r'(background|foreground|cursor|selection_background|selection_foreground|color(?:[0-9]|1[0-5]))', option):
             raise ValueError(f'Invalid Kitty option: {option}')

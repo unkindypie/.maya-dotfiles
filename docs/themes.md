@@ -60,7 +60,10 @@ Both generated Wofi stylesheets contain exactly the same layout body.
   through their supported interfaces. Sessions and apps are not terminated.
 - Rofi, Wofi and Hyprlock read the selected profile when next opened. Existing
   launchers or an already displayed lockscreen may need reopening.
-- Kitty retains its notebook texture, opacity and focus animation. tmux uses the
+- Kitty retains its notebook texture, opacity and focus animation. Dark uses a
+  stronger background-color tint (`0.78`, versus Light’s original `0.35`) so the
+  notebook lines remain subtle behind text. Adjust `kitty_background_tint` in
+  each palette profile to tune this. tmux uses the
   same rounded status layout in both modes; btop keeps its CPU/GPU layout.
 - Zsh prompt colors, syntax highlighting and fzf colors refresh at the next prompt.
   After first installing this feature, existing shells need reopening once to load
