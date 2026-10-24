@@ -1,64 +1,289 @@
 {
-  "colors": {
-    "active_sage": "#d8e3d5",
-    "ansi_black": "#000000",
-    "ansi_blue": "#0000cc",
-    "ansi_bright_black": "#7f7f7f",
-    "ansi_bright_white": "#ffffff",
-    "ansi_cyan": "#0087cc",
-    "ansi_green": "#009600",
-    "ansi_magenta": "#cc00cc",
-    "ansi_red": "#cc0000",
-    "ansi_white": "#cccccc",
-    "ansi_yellow": "#d06b00",
-    "bar_shadow": "#c4b4a7",
-    "battery_ink": "#4b643e",
-    "battery_warning_ink": "#8c7041",
-    "border": "#aa9588",
-    "brightness_ink": "#7e602d",
-    "caps_lock": "#b48d54",
-    "control_hover": "#f5d5e1",
-    "critical_ink": "#794550",
-    "failure": "#b55b70",
-    "failure_ink": "#9f435a",
-    "faint_ink": "#8b8077",
-    "fallback_blue": "#8db4ff",
-    "fallback_dark": "#0f111a",
-    "fallback_gray": "#5f6578",
-    "focus_shadow": "#51474044",
-    "inactive_shadow": "#51474014",
-    "ink": "#3b302c",
-    "lavender": "#e7e1ef",
-    "lavender_border": "#a195b2",
-    "lavender_highlight": "#f8f2ff",
-    "lavender_ink": "#63516f",
-    "muted_ink": "#74675e",
-    "nightlight": "#f3dba8",
-    "nightlight_ink": "#6e4b22",
-    "novel_ink": "#3b2322",
-    "novel_paper": "#fff5dc",
-    "novel_selection": "#a4a390",
-    "paper": "#f4f0e5",
-    "paper_inset": "#e8e0d2",
-    "paper_white": "#fffbf4",
-    "password_pink": "#eee2e6",
-    "pink": "#e6b5c6",
-    "pink_highlight": "#ffe5ee",
-    "rose": "#a95878",
-    "rose_border": "#aa788c",
-    "rose_ink": "#835f70",
-    "sage": "#e1e9e4",
-    "sage_border": "#9aa99b",
-    "sage_ink": "#3d5d4d",
-    "selection_ink": "#50313e",
-    "sheet_shadow": "#51474038",
-    "success": "#819877",
-    "taupe": "#b3a594",
-    "title_gradient_end": "#d7cbc0",
-    "title_ink": "#514740",
-    "warning_pink": "#edbcc5",
-    "waybar_rose_ink": "#613e4c",
-    "window_title_ink": "#635348"
+  "default": "light",
+  "themes": {
+    "light": {
+      "colors": {
+        "active_sage": "#d8e3d5",
+        "ansi_black": "#000000",
+        "ansi_blue": "#0000cc",
+        "ansi_bright_black": "#7f7f7f",
+        "ansi_bright_white": "#ffffff",
+        "ansi_cyan": "#0087cc",
+        "ansi_green": "#009600",
+        "ansi_magenta": "#cc00cc",
+        "ansi_red": "#cc0000",
+        "ansi_white": "#cccccc",
+        "ansi_yellow": "#d06b00",
+        "bar_shadow": "#c4b4a7",
+        "battery_ink": "#4b643e",
+        "battery_warning_ink": "#8c7041",
+        "border": "#aa9588",
+        "brightness_ink": "#7e602d",
+        "caps_lock": "#b48d54",
+        "control_hover": "#f5d5e1",
+        "critical_ink": "#794550",
+        "failure": "#b55b70",
+        "failure_ink": "#9f435a",
+        "faint_ink": "#8b8077",
+        "fallback_blue": "#8db4ff",
+        "fallback_dark": "#0f111a",
+        "fallback_gray": "#5f6578",
+        "focus_shadow": "#51474044",
+        "inactive_shadow": "#51474014",
+        "ink": "#3b302c",
+        "lavender": "#e7e1ef",
+        "lavender_border": "#a195b2",
+        "lavender_highlight": "#f8f2ff",
+        "lavender_ink": "#63516f",
+        "muted_ink": "#74675e",
+        "nightlight": "#f3dba8",
+        "nightlight_ink": "#6e4b22",
+        "novel_ink": "#3b2322",
+        "novel_paper": "#fff5dc",
+        "novel_selection": "#a4a390",
+        "paper": "#f4f0e5",
+        "paper_inset": "#e8e0d2",
+        "paper_white": "#fffbf4",
+        "password_pink": "#eee2e6",
+        "pink": "#e6b5c6",
+        "pink_highlight": "#ffe5ee",
+        "rose": "#a95878",
+        "rose_border": "#aa788c",
+        "rose_ink": "#835f70",
+        "sage": "#e1e9e4",
+        "sage_border": "#9aa99b",
+        "sage_ink": "#3d5d4d",
+        "selection_ink": "#50313e",
+        "sheet_shadow": "#51474038",
+        "success": "#819877",
+        "taupe": "#b3a594",
+        "title_gradient_end": "#d7cbc0",
+        "title_ink": "#514740",
+        "warning_pink": "#edbcc5",
+        "waybar_rose_ink": "#613e4c",
+        "window_title_ink": "#635348",
+        "tmux_fill": "#c8c2ac",
+        "tmux_active_fill": "#dedac2",
+        "tmux_accent": "#b5aa96",
+        "tmux_prefix": "#fab387",
+        "tmux_outer": "#dfdbc3",
+        "tmux_aux_surface": "#313244",
+        "tmux_aux_overlay": "#585b70",
+        "tmux_aux_blue": "#89b4fa",
+        "tmux_aux_cyan": "#89dceb",
+        "tmux_aux_pink": "#f5c2e7"
+      },
+      "similarity_exceptions": [
+        {
+          "colors": [
+            "ansi_bright_white",
+            "paper_white"
+          ],
+          "reason": "Terminal bright white stays neutral; UI paper white stays warm."
+        },
+        {
+          "colors": [
+            "lavender",
+            "password_pink"
+          ],
+          "reason": "Keep violet media/help surfaces distinct from rose password/audio surfaces."
+        },
+        {
+          "colors": [
+            "taupe",
+            "tmux_accent"
+          ],
+          "reason": "Preserve existing Light tmux colors independently of terminal and UI roles."
+        },
+        {
+          "colors": [
+            "tmux_active_fill",
+            "tmux_outer"
+          ],
+          "reason": "Preserve existing Light tmux colors independently of terminal and UI roles."
+        },
+        {
+          "colors": [
+            "fallback_blue",
+            "tmux_aux_blue"
+          ],
+          "reason": "Retain separate tmux plugin roles while matching the shared theme."
+        }
+      ]
+    },
+    "dark": {
+      "colors": {
+        "active_sage": "#3c4b3d",
+        "ansi_black": "#38322e",
+        "ansi_blue": "#90b5e0",
+        "ansi_bright_black": "#a89c92",
+        "ansi_bright_white": "#fff5e9",
+        "ansi_cyan": "#83c5ca",
+        "ansi_green": "#a4c48b",
+        "ansi_magenta": "#c5a3db",
+        "ansi_red": "#ee9b94",
+        "ansi_white": "#d3c5b7",
+        "ansi_yellow": "#e7bc7d",
+        "bar_shadow": "#171412",
+        "battery_ink": "#b6d4a1",
+        "battery_warning_ink": "#f2c78e",
+        "border": "#8f7c70",
+        "brightness_ink": "#e2c691",
+        "caps_lock": "#d6ac6a",
+        "control_hover": "#674855",
+        "critical_ink": "#ffd8dc",
+        "failure": "#d78a9c",
+        "failure_ink": "#f0a5b0",
+        "faint_ink": "#c3ada0",
+        "fallback_blue": "#9bbbe6",
+        "fallback_dark": "#211e1c",
+        "fallback_gray": "#c0b6ad",
+        "focus_shadow": "#00000099",
+        "inactive_shadow": "#00000033",
+        "ink": "#f1e4d5",
+        "lavender": "#3c334a",
+        "lavender_border": "#ac94bc",
+        "lavender_highlight": "#685273",
+        "lavender_ink": "#dbc3ed",
+        "muted_ink": "#c9b7a5",
+        "nightlight": "#4c3b23",
+        "nightlight_ink": "#f7d4a3",
+        "novel_ink": "#f5e9d6",
+        "novel_paper": "#262321",
+        "novel_selection": "#61465a",
+        "paper": "#302b28",
+        "paper_inset": "#211b18",
+        "paper_white": "#403831",
+        "password_pink": "#4b303f",
+        "pink": "#62384d",
+        "pink_highlight": "#9b657d",
+        "rose": "#de9eb8",
+        "rose_border": "#b17991",
+        "rose_ink": "#f2c2d5",
+        "sage": "#283d35",
+        "sage_border": "#88a891",
+        "sage_ink": "#c4e1c7",
+        "selection_ink": "#ffe8f1",
+        "sheet_shadow": "#00000077",
+        "success": "#8cb48a",
+        "taupe": "#74675d",
+        "title_gradient_end": "#362329",
+        "title_ink": "#ead1bb",
+        "warning_pink": "#663c48",
+        "waybar_rose_ink": "#f6c8df",
+        "window_title_ink": "#d8c9bb",
+        "tmux_fill": "#40362f",
+        "tmux_active_fill": "#594537",
+        "tmux_accent": "#786455",
+        "tmux_prefix": "#75474d",
+        "tmux_outer": "#27211d",
+        "tmux_aux_surface": "#3e3538",
+        "tmux_aux_overlay": "#58454f",
+        "tmux_aux_blue": "#a2b9db",
+        "tmux_aux_cyan": "#a6d5d3",
+        "tmux_aux_pink": "#e3b6cb"
+      },
+      "similarity_exceptions": [
+        {
+          "colors": [
+            "ansi_white",
+            "window_title_ink"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "control_hover",
+            "novel_selection"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "fallback_dark",
+            "paper_inset"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "fallback_dark",
+            "tmux_outer"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "fallback_gray",
+            "muted_ink"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "ink",
+            "novel_ink"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "novel_paper",
+            "tmux_outer"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "paper_white",
+            "tmux_fill"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "pink",
+            "warning_pink"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "rose_ink",
+            "waybar_rose_ink"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "taupe",
+            "tmux_accent"
+          ],
+          "reason": "Separate Dark semantic roles: terminal ANSI colors, text, surfaces and tmux retain their app-specific contrast."
+        },
+        {
+          "colors": [
+            "fallback_blue",
+            "tmux_aux_blue"
+          ],
+          "reason": "Retain separate tmux plugin roles while matching the shared theme."
+        },
+        {
+          "colors": [
+            "paper_white",
+            "tmux_aux_surface"
+          ],
+          "reason": "Retain separate tmux plugin roles while matching the shared theme."
+        },
+        {
+          "colors": [
+            "tmux_fill",
+            "tmux_aux_surface"
+          ],
+          "reason": "Retain separate tmux plugin roles while matching the shared theme."
+        }
+      ]
+    }
   },
   "kitty": {
     "background": "novel_paper",
@@ -83,22 +308,6 @@
     "color15": "ansi_bright_white",
     "selection_foreground": "novel_paper"
   },
-  "similarity_exceptions": [
-    {
-      "colors": [
-        "ansi_bright_white",
-        "paper_white"
-      ],
-      "reason": "Terminal bright white stays neutral; UI paper white stays warm."
-    },
-    {
-      "colors": [
-        "lavender",
-        "password_pink"
-      ],
-      "reason": "Keep violet media/help surfaces distinct from rose password/audio surfaces."
-    }
-  ],
   "btop": {
     "main_bg": "novel_paper",
     "main_fg": "novel_ink",

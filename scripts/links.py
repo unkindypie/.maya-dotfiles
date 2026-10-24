@@ -33,3 +33,18 @@ def ensure_link(src, dst, home, backup):
         link.symlink_to(src.resolve())
         os.replace(link, dst)
     return True
+
+
+def ensure_alias(src, dst, home, backup):
+    """Link to a path without resolving its mode-selection symlink."""
+    src = Path(src).absolute()
+    if dst.is_symlink() and os.readlink(dst) == str(src):
+        return False
+    dst.parent.mkdir(parents=True, exist_ok=True)
+    if dst.exists() or dst.is_symlink():
+        save_existing(dst, home, backup)
+    with tempfile.TemporaryDirectory(prefix='.maya-link-', dir=dst.parent) as tmp:
+        link = Path(tmp) / 'link'
+        link.symlink_to(src)
+        os.replace(link, dst)
+    return True

@@ -7,7 +7,7 @@ render = runpy.run_path(str(root / 'scripts/generate-palette.py'))['render']
 outputs = render(root)
 for name, content in outputs.items():
     assert (root / name).read_text() == content, f'Stale palette: {name}'
-colors = json.loads((root / 'color-palette/palette.json').read_text())['colors']
+colors = json.loads((root / 'color-palette/palette.json').read_text())['themes']['light']['colors']
 for name in ['home/.config/swaync/style.css','home/.config/waybar/style.css','home/.config/wofi/style.css','home/.config/rofi/themes/maya-paper.rasi','home/.config/hypr/hyprlock.conf','home/.config/hypr/maya-appearance.conf']:
     text = (root / name).read_text()
     for token in re.findall(r'[@$]maya[_-]([a-z0-9_-]+)', text):
@@ -17,29 +17,29 @@ with tempfile.TemporaryDirectory() as d:
     temp = Path(d)
     palette = temp / 'color-palette/palette.json'
     palette.parent.mkdir(parents=True)
-    wofi = temp / 'home/.config/wofi/style.css'
+    wofi = temp / 'styles/wofi.css'
     wofi.parent.mkdir(parents=True)
     wofi.write_text('/* editable layout */\n')
     data = json.loads((root / 'color-palette/palette.json').read_text())
     changed = copy.deepcopy(data)
-    changed['colors']['paper'] = '#010203'
+    changed['themes']['light']['colors']['paper'] = '#010203'
     palette.write_text(json.dumps(changed))
     result = render(temp)
     assert '@define-color maya_paper #010203;' in result['home/.config/waybar/palette.css']
     assert '$maya_paper = rgb(010203)' in result['color-palette/colors.conf']
     assert 'maya-paper: #010203;' in result['home/.config/rofi/themes/maya-palette.rasi']
     assert 'paper = "rgb(010203)"' in result['color-palette/colors.lua']
-    changed['colors']['paper'] = changed['colors']['paper_white']
+    changed['themes']['light']['colors']['paper'] = changed['themes']['light']['colors']['paper_white']
     palette.write_text(json.dumps(changed))
     try: render(temp)
     except ValueError: pass
     else: raise AssertionError('Duplicate palette colors accepted')
-    changed['colors']['paper'] = '#fffbf3'
+    changed['themes']['light']['colors']['paper'] = '#fffbf3'
     palette.write_text(json.dumps(changed))
     try: render(temp)
     except ValueError: pass
     else: raise AssertionError('Unreviewed near-duplicate palette colors accepted')
-    changed['colors']['paper'] = 'not a color'
+    changed['themes']['light']['colors']['paper'] = 'not a color'
     palette.write_text(json.dumps(changed))
     try: render(temp)
     except ValueError: pass
@@ -51,10 +51,11 @@ print('Palette coverage, native formats, regeneration and invalid-input checks p
 if shutil.which('rofi'):
     with tempfile.TemporaryDirectory() as d:
         theme = Path(d) / 'theme.rasi'
-        text = (root / 'home/.config/rofi/themes/maya-paper.rasi').read_text()
-        text = text.replace('~/.config/rofi/themes/maya-palette.rasi',
-                            str(root / 'home/.config/rofi/themes/maya-palette.rasi'))
-        theme.write_text(text)
-        result = subprocess.run(['rofi', '-no-config', '-theme', str(theme), '-dump-theme'], capture_output=True, text=True)
-        assert result.returncode == 0 and 'titlebar {' in result.stdout and 'maya-paper:' in result.stdout and 'Applications' in result.stdout, result.stdout + result.stderr
-    print('Rofi effective theme contains the shared palette and custom titlebar')
+        for mode in ('light', 'dark'):
+            text = (root / 'home/.config/rofi/themes/maya-paper.rasi').read_text()
+            text = text.replace('~/.config/rofi/themes/maya-palette.rasi',
+                                str(root / f'color-palette/profiles/{mode}/rofi.rasi'))
+            theme.write_text(text)
+            result = subprocess.run(['rofi', '-no-config', '-theme', str(theme), '-dump-theme'], capture_output=True, text=True)
+            assert result.returncode == 0 and 'titlebar {' in result.stdout and 'maya-paper:' in result.stdout and 'Applications' in result.stdout, result.stdout + result.stderr
+    print('Rofi Light/Dark themes contain the shared palette and custom titlebar')

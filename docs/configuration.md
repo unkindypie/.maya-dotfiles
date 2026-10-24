@@ -5,9 +5,10 @@ same file. Reload the application afterward. Run the installer to link new files
 
 - **Kitty:** `~/.config/kitty/kitty.conf`; paper texture/tint in
   `~/.local/share/kitty-personal/notebook.conf`. The custom Novel theme and notebook
-  texture are tracked in this repo. Its brighter cream background is
-  `novel_paper` in `color-palette/palette.json`; edit that color and regenerate.
-- **Wofi:** `~/.config/wofi/config` and `style.css`: paper panels, a pink search
+  texture are tracked in this repo. Its Light cream and Dark charcoal backgrounds are `novel_paper` in
+  each profile in `color-palette/palette.json`; edit the palette and regenerate.
+- **Wofi:** `~/.config/wofi/config`; edit the shared stylesheet in `styles/wofi.css`
+  and regenerate both profiles with `python3 scripts/generate-palette.py`: paper panels, a pink search
   strip, beveled rows and crisp offset shadows. Preview with `wofi --show drun`.
   This is an optional alternative; Super+D uses the familiar Rofi launcher.
 - **Rofi:** `~/.config/rofi/themes/maya-paper.rasi` keeps KooL Style 4’s layout
@@ -45,19 +46,20 @@ same file. Reload the application afterward. Run the installer to link new files
   after the switch takes effect. Per-window layout restoration is disabled.
   Non-country layouts show a globe. SwayNC suppresses KooL’s layout-change popups.
 - **btop:** `~/.config/btop/btop.conf` selects the repo’s `maya-paper` theme.
-  Dark ink and rose/sage/lavender graphs contrast with Kitty’s cream paper.
+  Ink and rose/sage/lavender graphs follow the shared Light/Dark palette.
   CPU/GPU information stays at the top, with memory, network and processes below.
   Terminal background is preserved; process-list fading is disabled for readability.
   Theme colors are generated from the `btop` mapping in `color-palette/palette.json`.
-  Restart btop after palette changes.
-- **tmux:** `~/.tmux.conf`; set `@theme_mode` in `~/.tmux.theme.conf` to `light`
-  or `dark`, then press Ctrl-b r. Light mode uses a compact single-row bar with rounded ends.
+  The theme switch reloads btop 1.4.7+ live; reopen older versions after palette changes.
+- **tmux:** `~/.tmux.conf`; colors follow `maya-theme` with the same rounded
+  single-row bar in both modes. Ctrl-b r reloads config without changing the mode.
 - **Zsh:** `~/.config/zsh/shared.zsh`. The local `~/.zshrc` loads this plus private
   `secrets.zsh` and machine-specific `local.zsh` in the same directory.
   Secrets stay outside Git with permissions 600. Recognized credential
   assignments are migrated during installation; move multiline secrets manually.
 - **Maya Neovim:** `~/.config/mvim/init.lua` is a personal override, not a complete
-  Neovim distribution. Install [Maya Neovim](https://github.com/unkindypie/maya-nvim/) to use it.
+  Neovim distribution. Its `theme_background` follows the global Light/Dark switch
+  at startup and live, while the editor’s colorscheme stays separate. Install [Maya Neovim](https://github.com/unkindypie/maya-nvim/) to use it.
 - **Screenshots:** Hyprshot captures into Swappy for highlighting and annotation.
   Super+S selects a region; existing Print shortcuts also open the editor.
   Nothing is saved automatically. In Swappy use Ctrl+C to copy, Ctrl+S to save,
@@ -79,7 +81,8 @@ same file. Reload the application afterward. Run the installer to link new files
   when unfocused to fully solid when focused. Kitty supplies an opaque background and Hyprland animates its opacity,
   so focus changes have no abrupt app-alpha switch. Unfocused windows retain
   background blur at size 8/3 passes.
-  Reload with `hyprctl reload`. Shared colors still come from the palette generator.
+  Reload with `hyprctl reload`. Shared colors come from the palette generator,
+  independently of Wallust. See [Light/Dark theming](themes.md).
 
 The old `.conf` Hyprland files remain as rollback references; the Lua entry point
 never sources them. Hyprlock and Hypridle still use their own `.conf` formats.

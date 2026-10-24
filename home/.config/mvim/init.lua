@@ -1,7 +1,10 @@
 -- Personal overrides. Restart mvim after editing this file.
+-- Global Maya Light/Dark changes are watched live; no restart needed for those.
 -- Lua modules can live in lua/mvim/ and be loaded with require("mvim.name").
 -- vim.g.everforest_background = "soft"
 -- vim.opt.background = "light"
+
+local desktop_theme = require("mvim.desktop_theme")
 
 ---@type MayaConfig
 return {
@@ -11,9 +14,9 @@ return {
 	reopen_tabs = true, -- Restore saved files, tabs, and splits for this folder.
 	pokemon_sound_on_start = true, -- Play the dashboard Pokémon cry.
 	theme = "savq/melange-nvim",
+	theme_background = desktop_theme.mode(),
 	-- theme = "sainnhe/everforest",
 	options = {
-		background = "light",
 		-- relativenumber = true,
 		-- shiftwidth = 4,
 	},
@@ -42,6 +45,7 @@ return {
 		-- { import = "mvim.plugins" },
 	},
 	setup = function()
+		desktop_theme.setup()
 		local function terminal_background()
 			-- Keep hidden and ignored explorer entries readable on the light background.
 			vim.api.nvim_set_hl(0, "SnacksPickerPathHidden", { fg = "#5c6a72" })

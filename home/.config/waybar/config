@@ -13,6 +13,7 @@
     "custom/kool-help",
     "custom/kool-layout",
     "custom/kool-settings",
+    "custom/theme",
     "hyprland/window"
   ],
   "modules-center": [
@@ -195,5 +196,12 @@
     "on-click": "\"$HOME/.config/hypr/scripts/HyprLayoutModule.sh\" menu",
     "on-click-right": "\"$HOME/.config/hypr/scripts/HyprLayoutModule.sh\" next",
     "escape": true
+  },
+  "custom/theme": {
+    "exec": "~/.local/bin/maya-theme status --json",
+    "return-type": "json",
+    "format": "{text}",
+    "interval": 60,
+    "on-click": "~/.local/bin/maya-theme toggle"
   }
 }

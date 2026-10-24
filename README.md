@@ -3,6 +3,7 @@
 **Neovim config: [Maya Neovim](https://github.com/unkindypie/maya-nvim/)**
 
 Paper colors, pastels and soft pink highlights for Waybar, Kitty, btop, tmux and Zsh.
+**Light** is the default; **Dark** uses warm charcoal and cream with the same styles.
 Works with KooL Fedora Hyprland; the main desktop components also work without KooL.
 
 ![Maya desktop with the pastel Waybar and cream notebook Kitty terminals](assets/screenshots/maya-desktop.png)
@@ -22,7 +23,9 @@ own dependency installer, which may ask for sudo or additional choices.
 
 Missing Oh My Zsh and tmux plugins download at the revisions in dependencies.json.
 Existing installations and local changes are preserved. A fresh install needs
-internet; use `--skip-dependencies` for an offline install with dependencies ready.
+internet; use `--skip-dependencies` for an offline install with dependencies ready. Add
+`--no-theme-apply` to link profiles without changing toolkit preferences or
+reloading running apps.
 
 Install the following dependencies first. These are the versions installed on the
 reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
@@ -67,6 +70,23 @@ reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
 The installer’s Git-based dependencies are pinned separately by commit in
 [`dependencies.json`](dependencies.json). Existing installations are preserved.
 
+## Light and Dark
+
+Click the `day`/`night` button in Waybar, or run:
+
+```sh
+maya-theme light
+maya-theme dark
+maya-theme toggle
+maya-theme status
+```
+
+Your choice persists across login and reinstall. Theme changes preserve the wallpaper
+and let mvim follow the selected Light/Dark variant while keeping its colorscheme
+in its separate repository. Installed matching GTK/Qt
+theme pairs and the system color preference follow the selection; some apps need
+reopening. See [theme details](docs/themes.md).
+
 ## Edit your configs
 
 Installed configs are linked to `home/`, so edits stay in sync with this repo.
@@ -104,6 +124,9 @@ Disable other Waybar launchers if they create duplicate bars.
 ```sh
 python3 tests/check.py
 python3 tests/check-dependencies.py
+python3 tests/check-palette.py
+python3 tests/check-themes.py
+python3 tests/check-mvim-theme.py
 git diff --check
 ```
 
@@ -111,29 +134,24 @@ See ATTRIBUTION.md for asset sources and licenses.
 
 ## Shared colors
 
-Edit [`color-palette/palette.json`](color-palette/palette.json) in the repo root.
-The installed `~/.config/maya-theme/` files link to `color-palette/`. Different paper,
-pink and app-specific shades have separate names; no colors are forced to match.
-Exact duplicates and unreviewed near-duplicates are rejected. A conservative
-Oklab distance check (<0.02) flags similar opaque shades. Two documented
-exceptions preserve terminal white versus warm paper and lavender versus pink;
-alpha variants remain separate. Run `python3 scripts/generate-palette.py --audit`
-to review them. The palette has 59 colors, reduced from 80.
-It supplies Waybar, Wofi, Rofi, SwayNC, Hyprlock, Hyprland, btop and Kitty's personal Novel theme.
+[`color-palette/palette.json`](color-palette/palette.json) defines named `light` and
+`dark` profiles and shared app mappings. The current Light colors are retained.
+Generated profiles share layouts and are selected through the local
+`~/.config/maya-theme/current` link; switching does not rewrite tracked files.
 
 ```sh
 python3 scripts/generate-palette.py
+python3 scripts/generate-palette.py --check
+python3 scripts/generate-palette.py --audit
 ```
 
-This updates small native include files (and Wofi’s generated color header),
-not whole config templates. Wofi needs an inline header because its CSS imports
-resolve from the launch directory. Layouts
-remain directly editable. The installer also regenerates these files. Reload
-Waybar/Hyprland, restart Kitty or reload its config, and reopen launchers/the locker
-to apply. `python3 scripts/generate-palette.py --check` checks for stale includes.
-Edit the palette rather than generated files. Other Kitty themes, Wallust output,
-and tmux/mvim's separate palettes are unchanged. Palette values do not recolor
-the wallpaper or texture image itself.
+The generator checks both profiles for invalid, duplicate and unreviewed similar
+colors. App-specific near-color exceptions are documented per profile. It supplies
+Waybar, Wofi, Rofi, SwayNC, Hyprlock, Hyprland, btop, Kitty, shell colors and tmux.
+Wofi’s shared layout source is `styles/wofi.css`; the generator adds its required
+inline color header. Other component styles remain directly editable in `home/`.
+After editing palette values, regenerate and run `maya-theme apply` to reload.
+See the [theme guide](docs/themes.md) for toolkit integration and reload limits.
 
 ## License
 

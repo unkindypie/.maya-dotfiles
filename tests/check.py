@@ -11,7 +11,7 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
     env = dict(os.environ, HOME=str(target))
     def run(*args):
         if len(args) > 1 and args[1] == str(root / 'install.py'):
-            args = (*args, '--skip-dependencies')
+            args = (*args, '--skip-dependencies', '--no-theme-apply')
         subprocess.run(args, env=env, check=True, stdout=subprocess.DEVNULL)
     (target / '.zshrc').write_text('export EXAMPLE_API_TOKEN="test-only-credential"\n')
     run('python3', str(root / 'install.py'), '--no-services', '--without-mvim')
@@ -31,15 +31,19 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
         assert (target / name).is_symlink()
         assert (target / name).resolve() == root / 'home' / name
         assert (target / name).read_bytes() == (root / 'home' / name).read_bytes()
+    import sys
+    sys.path.insert(0, str(root / 'scripts'))
+    from themes import ALIASES
     for src in (root / 'color-palette').iterdir():
         installed = target / '.config/maya-theme' / src.name
         assert installed.is_symlink()
-        assert installed.resolve() == src
+        if '.config/maya-theme/' + src.name not in ALIASES:
+            assert installed.resolve() == src
     palette_link = target / '.config/maya-theme/palette.json'
     palette_link.unlink()
     palette_link.write_text('{}')
     run('python3', str(root / 'scripts/restore-managed.py'))
-    assert palette_link.resolve() == root / 'color-palette/palette.json'
+    assert palette_link.resolve() == root / 'color-palette/profiles/light/palette.json'
     entry = target / '.config/hypr/hyprland.lua'
     entry.unlink()
     entry.write_text('-- vendor replacement')

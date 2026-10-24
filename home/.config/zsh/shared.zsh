@@ -40,6 +40,20 @@ export PYENV_ROOT="$HOME/.pyenv"
 (( $+commands[pyenv] )) && eval "$(pyenv init -)"
 alias ps='eval "$(poetry env activate)" && clear'
 [[ -x "$HOME/.local/bin/mvim" ]] && alias mvim="$HOME/.local/bin/mvim"
+# Reload only generated color variables at the next prompt after a mode change.
+export MAYA_FZF_BASE_OPTS="${MAYA_FZF_BASE_OPTS-${FZF_DEFAULT_OPTS-}}"
+_maya_prompt_colors() {
+  local current="$HOME/.config/maya-theme/current"
+  local selected=$(readlink "$current" 2>/dev/null)
+  if [[ -n "$selected" && "$selected" != "${_MAYA_LAST_PROFILE-}" && -r "$current/shell.zsh" ]]; then
+    source "$current/shell.zsh"
+    typeset -g _MAYA_LAST_PROFILE="$selected"
+  fi
+}
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd _maya_prompt_colors
+_maya_prompt_colors
+
 if (( $+commands[tmux] )) && [[ -o interactive && -z "$TMUX" && "$TERM" != screen* && "$TERM" != tmux* ]]; then
   exec tmux
 fi

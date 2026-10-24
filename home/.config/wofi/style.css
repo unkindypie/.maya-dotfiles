@@ -59,6 +59,16 @@
 @define-color maya_warning_pink #edbcc5;
 @define-color maya_waybar_rose_ink #613e4c;
 @define-color maya_window_title_ink #635348;
+@define-color maya_tmux_fill #c8c2ac;
+@define-color maya_tmux_active_fill #dedac2;
+@define-color maya_tmux_accent #b5aa96;
+@define-color maya_tmux_prefix #fab387;
+@define-color maya_tmux_outer #dfdbc3;
+@define-color maya_tmux_aux_surface #313244;
+@define-color maya_tmux_aux_overlay #585b70;
+@define-color maya_tmux_aux_blue #89b4fa;
+@define-color maya_tmux_aux_cyan #89dceb;
+@define-color maya_tmux_aux_pink #f5c2e7;
 /* END GENERATED PALETTE */
 
 /* Maya Paper Desktop: a pastel 90s panel with hard shadows and beveled edges. */

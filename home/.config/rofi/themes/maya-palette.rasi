@@ -59,5 +59,15 @@
     maya-warning-pink: #edbcc5;
     maya-waybar-rose-ink: #613e4c;
     maya-window-title-ink: #635348;
+    maya-tmux-fill: #c8c2ac;
+    maya-tmux-active-fill: #dedac2;
+    maya-tmux-accent: #b5aa96;
+    maya-tmux-prefix: #fab387;
+    maya-tmux-outer: #dfdbc3;
+    maya-tmux-aux-surface: #313244;
+    maya-tmux-aux-overlay: #585b70;
+    maya-tmux-aux-blue: #89b4fa;
+    maya-tmux-aux-cyan: #89dceb;
+    maya-tmux-aux-pink: #f5c2e7;
     maya-title-gradient: linear-gradient(to bottom, #fffbf4, #d7cbc0);
 }

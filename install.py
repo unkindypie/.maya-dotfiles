@@ -5,6 +5,7 @@ from datetime import datetime
 import argparse, shutil, subprocess, sys, re, os, runpy, tempfile
 p = argparse.ArgumentParser()
 p.add_argument('--skip-dependencies', action='store_true', help='Skip dependency downloads (offline config-only install)')
+p.add_argument('--no-theme-apply', action='store_true', help='Link palettes without changing desktop preferences or reloading apps')
 p.add_argument('--no-services', action='store_true', help='Install links without systemd services')
 mvim = p.add_mutually_exclusive_group()
 mvim.add_argument('--with-mvim', dest='with_mvim', action='store_true', help='Install Maya Neovim and its launcher')
@@ -36,6 +37,7 @@ if a.with_mvim:
 sys.path.insert(0, str(root / 'scripts'))
 from links import backup_root, ensure_link, save_existing
 from kool import repair_dropdown
+from themes import ALIASES, install_profiles
 backup = backup_root(home)
 repair_dropdown(home, backup)
 # Preserve single-line credential assignments before replacing a pre-existing zshrc.
@@ -68,11 +70,12 @@ if not zshrc.is_file() or zshrc.is_symlink() or zshrc.read_text() != loader:
     zshrc.write_text(loader)
     zshrc.chmod(0o600)
 for src in (root / 'home').rglob('*'):
-    if src.is_file():
+    if src.is_file() and str(src.relative_to(root / "home")) not in ALIASES:
         ensure_link(src, home / src.relative_to(root / 'home'), home, backup)
 for src in (root / 'color-palette').iterdir():
-    if src.is_file():
+    if src.is_file() and ".config/maya-theme/" + src.name not in ALIASES:
         ensure_link(src, home / '.config/maya-theme' / src.name, home, backup)
+install_profiles(root, home, backup)
 subprocess.run([sys.executable, str(home / '.local/bin/maya-lock'), '--prepare'], check=True)
 if shutil.which('fc-cache'): subprocess.run(['fc-cache', '-f'], check=True)
 if not a.no_services:
@@ -86,11 +89,13 @@ PathChanged=%h/.config
 PathChanged=%h/.config/waybar
 PathChanged=%h/.config/waybar/config
 PathChanged=%h/.config/waybar/style.css
+PathChanged=%h/.config/maya-theme
 PathChanged=%h/.config/kitty
 PathChanged=%h/.config/kitty/kitty.conf
 PathChanged=%h/.local/share/kitty-personal
 PathChanged=%h/.config/hypr
 PathChanged=%h/.config/hypr/UserConfigs
+PathChanged=%h/.config/hypr/scripts
 PathChanged=%h/.config/rofi
 PathChanged=%h/.config/rofi/config.rasi
 PathChanged=%h/.config/rofi/themes
@@ -126,4 +131,6 @@ WantedBy=default.target
     subprocess.run(['pkill', '-x', 'waybar'], check=False)
     ctl('enable', '--now', 'maya-dotfiles.path', 'maya-waybar.service')
     ctl('restart', 'maya-waybar.service')
+if not a.no_theme_apply:
+    subprocess.run([str(home / '.local/bin/maya-theme'), 'apply'], check=True)
 print('Installed. Backups:', backup)

@@ -24,10 +24,13 @@ def near_colors(colors, threshold=0.02):
             if math.dist(oklab(x), oklab(y)) < threshold]
 
 
-def render(root):
+def render(root, mode="light"):
     base = root / 'color-palette'
     palette = json.loads((base / 'palette.json').read_text())
-    colors = palette['colors']
+    selected = palette['themes'][mode]
+    colors = selected['colors']
+    if set(colors) != set(palette['themes']['light']['colors']):
+        raise ValueError(f'Missing or extra {mode} color tokens')
     for name, value in colors.items():
         if not re.fullmatch(r'[a-z][a-z0-9_]*', name) or not re.fullmatch(r'#[0-9a-fA-F]{6}(?:[0-9a-fA-F]{2})?', value):
             raise ValueError(f'Invalid palette entry: {name}')
@@ -39,7 +42,7 @@ def render(root):
         if normalized in seen:
             raise ValueError(f'Duplicate palette colors: {seen[normalized]} and {name}; reuse one name')
         seen[normalized] = name
-    exceptions = {frozenset(item['colors']) for item in palette.get('similarity_exceptions', [])}
+    exceptions = {frozenset(item['colors']) for item in selected.get('similarity_exceptions', [])}
     for a, b, distance in near_colors(colors):
         if frozenset((a, b)) not in exceptions:
             raise ValueError(f'Near-duplicate colors: {a} / {b} (Oklab distance {distance:.4f}); reuse a color or document why it must differ')
@@ -63,12 +66,12 @@ def render(root):
         if len(colors[name]) != 7:
             raise ValueError(f'Kitty requires an opaque color: {name}')
         kitty += f'{option} {colors[name]}\n'
-    btop = '# Generated from color-palette/palette.json. Do not edit.\n# Maya Paper: dark ink and muted accents for cream terminals.\n'
+    btop = '# Generated from color-palette/palette.json. Do not edit.\n# Maya Paper: shared layout, mode-specific colors.\n'
     for option, name in palette.get('btop', {}).items():
         if not re.fullmatch(r'[a-z][a-z0-9_]*', option) or len(colors[name]) != 7:
             raise ValueError(f'Invalid btop color: {option}')
         btop += f'theme[{option}]="{colors[name]}"\n'
-    wofi_path = root / 'home/.config/wofi/style.css'
+    wofi_path = root / 'styles/wofi.css'
     wofi_body = wofi_path.read_text()
     wofi_body = re.sub(r'/\* BEGIN GENERATED PALETTE \*/.*?/\* END GENERATED PALETTE \*/\n*', '', wofi_body, flags=re.S)
     wofi_body = wofi_body.removeprefix('@import "palette.css";\n').lstrip('\n')
@@ -85,30 +88,69 @@ def render(root):
     }
 
 
+PROFILE_NAMES = {
+    'home/.config/waybar/palette.css': 'palette.css',
+    'home/.config/rofi/themes/maya-palette.rasi': 'rofi.rasi',
+    'color-palette/colors.conf': 'colors.conf',
+    'color-palette/colors.lua': 'colors.lua',
+    'color-palette/kitty.conf': 'kitty.conf',
+    'home/.config/btop/themes/maya-paper.theme': 'btop.theme',
+    'home/.config/wofi/style.css': 'wofi.css',
+}
+
+
+def render_all(root):
+    data = json.loads((root / 'color-palette/palette.json').read_text())
+    if data['default'] != 'light' or set(data['themes']) != {'light', 'dark'}:
+        raise ValueError('Expected Light default and Light/Dark profiles')
+    # Keep previous Light outputs as compatible source/reference artifacts.
+    outputs = render(root, 'light')
+    for mode in ('light', 'dark'):
+        native = render(root, mode)
+        prefix = f'color-palette/profiles/{mode}/'
+        for source, filename in PROFILE_NAMES.items():
+            outputs[prefix + filename] = native[source]
+        colors = data['themes'][mode]['colors']
+        outputs[prefix + 'palette.json'] = json.dumps({'name': mode, 'colors': colors}, indent=2) + '\n'
+        outputs[prefix + 'tmux.conf'] = '# Generated theme colors; layout is shared.\n' + f'set -g @theme_mode "{mode}"\n' + ''.join(
+            f'set -g @maya_{name} "{value}"\n' for name, value in colors.items())
+        outputs[prefix + 'shell.zsh'] = '# Generated shell colors; sourced at the next prompt.\n' + (
+            f"export MAYA_THEME_MODE={mode}\nexport SOBOLE_THEME_MODE={mode}\n"
+            f"export FZF_DEFAULT_OPTS=\"${{MAYA_FZF_BASE_OPTS}} --color=bg:{colors['novel_paper']},fg:{colors['novel_ink']},bg+:{colors['pink']},fg+:{colors['selection_ink']},hl:{colors['rose_ink']},hl+:{colors['selection_ink']},pointer:{colors['rose']},marker:{colors['sage_ink']},border:{colors['border']}\"\n"
+            f"ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg={colors['muted_ink']}'\n"
+            + 'typeset -gA ZSH_HIGHLIGHT_STYLES\n'
+            + ''.join(f"ZSH_HIGHLIGHT_STYLES[{key}]='fg={colors[token]}'\n" for key, token in {
+                'command': 'ansi_green', 'builtin': 'ansi_green', 'alias': 'ansi_green',
+                'unknown-token': 'ansi_red', 'path': 'ansi_cyan',
+                'single-quoted-argument': 'ansi_yellow', 'double-quoted-argument': 'ansi_yellow'}.items()))
+    return outputs
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--check', action='store_true', help='Fail if generated includes are stale')
-    parser.add_argument('--audit', action='store_true', help='Report retained near-color pairs and their reasons')
+    parser.add_argument('--check', action='store_true', help='Check both profiles without writing')
+    parser.add_argument('--audit', action='store_true', help='Review near-colors in both profiles')
     args = parser.parse_args()
     root = Path(__file__).resolve().parents[1]
+    outputs = render_all(root)
     if args.audit:
         data = json.loads((root / 'color-palette/palette.json').read_text())
-        reasons = {frozenset(item['colors']): item['reason'] for item in data.get('similarity_exceptions', [])}
-        render(root)  # Validate exact and near-duplicate policies too.
-        print(f"{len(data['colors'])} colors; near-color review:")
-        for a, b, distance in near_colors(data['colors']):
-            print(f'{a} / {b}: {distance:.4f} — {reasons[frozenset((a, b))]}')
+        for mode, selected in data['themes'].items():
+            reasons = {frozenset(item['colors']): item['reason'] for item in selected.get('similarity_exceptions', [])}
+            print(f"{mode}: {len(selected['colors'])} colors")
+            for a, b, distance in near_colors(selected['colors']):
+                print(f'{a} / {b}: {distance:.4f} — {reasons[frozenset((a, b))]}')
         return
     stale = []
-    for name, content in render(root).items():
+    for name, content in outputs.items():
         path = root / name
         if path.is_file() and path.read_text() == content: continue
         if args.check: stale.append(name)
         else:
             path.parent.mkdir(parents=True, exist_ok=True)
             path.write_text(content)
-    if stale: raise SystemExit('Run python3 scripts/generate-palette.py; stale includes: ' + ', '.join(stale))
-    print('Palette includes checked' if args.check else 'Palette includes generated; reload apps to apply')
+    if stale: raise SystemExit('Run python3 scripts/generate-palette.py; stale outputs: ' + ', '.join(stale))
+    print('Light/Dark palettes checked' if args.check else 'Light/Dark palettes generated')
 
 
 if __name__ == '__main__': main()

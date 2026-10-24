@@ -1,5 +1,5 @@
 # Generated from color-palette/palette.json. Do not edit.
-# Maya Paper: dark ink and muted accents for cream terminals.
+# Maya Paper: shared layout, mode-specific colors.
 theme[main_bg]="#fff5dc"
 theme[main_fg]="#3b2322"
 theme[title]="#3b2322"

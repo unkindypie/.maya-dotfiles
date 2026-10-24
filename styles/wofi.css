@@ -1,0 +1,60 @@
+/* Maya Paper Desktop: a pastel 90s panel with hard shadows and beveled edges. */
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    color: @maya_ink;
+}
+window {
+    background: transparent;
+    border: none;
+}
+#outer-box {
+    margin: 12px;
+    padding: 14px;
+    background: @maya_paper;
+    border: 3px solid @maya_border;
+    border-top-color: @maya_paper_white;
+    border-left-color: @maya_paper_white;
+    border-radius: 5px;
+    box-shadow: 6px 6px 0 alpha(@maya_title_ink, 0.25);
+}
+#input {
+    margin: 0 0 12px;
+    padding: 12px;
+    color: @maya_selection_ink;
+    background: @maya_pink;
+    border: 2px solid @maya_rose_border;
+    border-top-color: @maya_pink_highlight;
+    border-left-color: @maya_pink_highlight;
+    border-radius: 3px;
+    box-shadow: 2px 2px 0 @maya_taupe;
+}
+#input:focus { border-bottom-color: @maya_rose; }
+#scroll {
+    background: @maya_paper_white;
+    border: 2px solid @maya_taupe;
+    border-bottom-color: @maya_paper_white;
+    border-right-color: @maya_paper_white;
+    border-radius: 3px;
+    padding: 6px;
+}
+#inner-box { padding: 2px; background: transparent; }
+#entry {
+    margin: 2px;
+    padding: 9px 10px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+#entry:nth-child(even) { background: @maya_paper; }
+#entry:selected {
+    background: @maya_pink;
+    border-color: @maya_rose_border;
+    border-top-color: @maya_pink_highlight;
+    border-left-color: @maya_pink_highlight;
+    box-shadow: 1px 1px 0 @maya_taupe;
+}
+#text { margin: 0 8px; background: transparent; }
+#text:selected { color: @maya_selection_ink; }
+#img { margin-right: 8px; background: transparent; }
+#expander-box { background: @maya_paper_inset; border-radius: 3px; }

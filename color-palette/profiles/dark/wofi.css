@@ -1,0 +1,133 @@
+/* BEGIN GENERATED PALETTE */
+/* Generated from color-palette/palette.json. Do not edit. */
+@define-color maya_active_sage #3c4b3d;
+@define-color maya_ansi_black #38322e;
+@define-color maya_ansi_blue #90b5e0;
+@define-color maya_ansi_bright_black #a89c92;
+@define-color maya_ansi_bright_white #fff5e9;
+@define-color maya_ansi_cyan #83c5ca;
+@define-color maya_ansi_green #a4c48b;
+@define-color maya_ansi_magenta #c5a3db;
+@define-color maya_ansi_red #ee9b94;
+@define-color maya_ansi_white #d3c5b7;
+@define-color maya_ansi_yellow #e7bc7d;
+@define-color maya_bar_shadow #171412;
+@define-color maya_battery_ink #b6d4a1;
+@define-color maya_battery_warning_ink #f2c78e;
+@define-color maya_border #8f7c70;
+@define-color maya_brightness_ink #e2c691;
+@define-color maya_caps_lock #d6ac6a;
+@define-color maya_control_hover #674855;
+@define-color maya_critical_ink #ffd8dc;
+@define-color maya_failure #d78a9c;
+@define-color maya_failure_ink #f0a5b0;
+@define-color maya_faint_ink #c3ada0;
+@define-color maya_fallback_blue #9bbbe6;
+@define-color maya_fallback_dark #211e1c;
+@define-color maya_fallback_gray #c0b6ad;
+@define-color maya_focus_shadow rgba(0, 0, 0, 0.60000000);
+@define-color maya_inactive_shadow rgba(0, 0, 0, 0.20000000);
+@define-color maya_ink #f1e4d5;
+@define-color maya_lavender #3c334a;
+@define-color maya_lavender_border #ac94bc;
+@define-color maya_lavender_highlight #685273;
+@define-color maya_lavender_ink #dbc3ed;
+@define-color maya_muted_ink #c9b7a5;
+@define-color maya_nightlight #4c3b23;
+@define-color maya_nightlight_ink #f7d4a3;
+@define-color maya_novel_ink #f5e9d6;
+@define-color maya_novel_paper #262321;
+@define-color maya_novel_selection #61465a;
+@define-color maya_paper #302b28;
+@define-color maya_paper_inset #211b18;
+@define-color maya_paper_white #403831;
+@define-color maya_password_pink #4b303f;
+@define-color maya_pink #62384d;
+@define-color maya_pink_highlight #9b657d;
+@define-color maya_rose #de9eb8;
+@define-color maya_rose_border #b17991;
+@define-color maya_rose_ink #f2c2d5;
+@define-color maya_sage #283d35;
+@define-color maya_sage_border #88a891;
+@define-color maya_sage_ink #c4e1c7;
+@define-color maya_selection_ink #ffe8f1;
+@define-color maya_sheet_shadow rgba(0, 0, 0, 0.46666667);
+@define-color maya_success #8cb48a;
+@define-color maya_taupe #74675d;
+@define-color maya_title_gradient_end #362329;
+@define-color maya_title_ink #ead1bb;
+@define-color maya_warning_pink #663c48;
+@define-color maya_waybar_rose_ink #f6c8df;
+@define-color maya_window_title_ink #d8c9bb;
+@define-color maya_tmux_fill #40362f;
+@define-color maya_tmux_active_fill #594537;
+@define-color maya_tmux_accent #786455;
+@define-color maya_tmux_prefix #75474d;
+@define-color maya_tmux_outer #27211d;
+@define-color maya_tmux_aux_surface #3e3538;
+@define-color maya_tmux_aux_overlay #58454f;
+@define-color maya_tmux_aux_blue #a2b9db;
+@define-color maya_tmux_aux_cyan #a6d5d3;
+@define-color maya_tmux_aux_pink #e3b6cb;
+/* END GENERATED PALETTE */
+
+/* Maya Paper Desktop: a pastel 90s panel with hard shadows and beveled edges. */
+* {
+    font-family: "JetBrainsMono Nerd Font", sans-serif;
+    font-size: 13px;
+    color: @maya_ink;
+}
+window {
+    background: transparent;
+    border: none;
+}
+#outer-box {
+    margin: 12px;
+    padding: 14px;
+    background: @maya_paper;
+    border: 3px solid @maya_border;
+    border-top-color: @maya_paper_white;
+    border-left-color: @maya_paper_white;
+    border-radius: 5px;
+    box-shadow: 6px 6px 0 alpha(@maya_title_ink, 0.25);
+}
+#input {
+    margin: 0 0 12px;
+    padding: 12px;
+    color: @maya_selection_ink;
+    background: @maya_pink;
+    border: 2px solid @maya_rose_border;
+    border-top-color: @maya_pink_highlight;
+    border-left-color: @maya_pink_highlight;
+    border-radius: 3px;
+    box-shadow: 2px 2px 0 @maya_taupe;
+}
+#input:focus { border-bottom-color: @maya_rose; }
+#scroll {
+    background: @maya_paper_white;
+    border: 2px solid @maya_taupe;
+    border-bottom-color: @maya_paper_white;
+    border-right-color: @maya_paper_white;
+    border-radius: 3px;
+    padding: 6px;
+}
+#inner-box { padding: 2px; background: transparent; }
+#entry {
+    margin: 2px;
+    padding: 9px 10px;
+    background: transparent;
+    border: 2px solid transparent;
+    border-radius: 3px;
+}
+#entry:nth-child(even) { background: @maya_paper; }
+#entry:selected {
+    background: @maya_pink;
+    border-color: @maya_rose_border;
+    border-top-color: @maya_pink_highlight;
+    border-left-color: @maya_pink_highlight;
+    box-shadow: 1px 1px 0 @maya_taupe;
+}
+#text { margin: 0 8px; background: transparent; }
+#text:selected { color: @maya_selection_ink; }
+#img { margin-right: 8px; background: transparent; }
+#expander-box { background: @maya_paper_inset; border-radius: 3px; }
