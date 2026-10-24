@@ -121,6 +121,37 @@ settings notifications can update live; GTK 4 user stylesheets and some Qt apps
 need reopening. Flatpak/sandboxed apps or apps with explicit internal themes may
 not follow host styles. No app is forcibly restarted.
 
+## Vencord / Vesktop system24
+
+When an existing Vencord or Vesktop installation is found, `maya-theme apply`
+installs pinned, self-contained copies of refact0r's `system24.theme.css` and
+`system24-light.theme.css`. Existing copies are backed up first. Their system24
+and midnight layout CSS is bundled in this repo under MIT, with upstream notices;
+revisions and artifact hashes are recorded in `dependencies.json`. Only theme
+artifacts are included, not upstream source trees. Optional upstream web fonts
+still need network access; optional font/image asset URLs are revision-pinned.
+
+Enable either **system24** entry in Vencord's Local Themes and enable **QuickCSS**.
+Your currently enabled entry stays checked: Maya selects the upstream Light/Dark
+colors using a marked `MAYA SYSTEM24 MODE` block in `settings/quickCss.css`.
+This changes the actual appearance live through Vencord's built-in file watcher,
+without restarting Discord or changing its settings JSON. It keeps system24's
+own colors rather than recoloring it with the Maya app palette.
+
+Other themes, plugin settings, theme links, and QuickCSS outside that block are
+preserved. If neither system24 entry is enabled, the switch removes its own color
+override and leaves other themes alone. With QuickCSS disabled it reports the
+needed setting instead of enabling it silently. `--no-reload` skips this app
+integration too. Client directories are not created on machines without Vencord.
+The integration recognizes standard `vesktop`, `Vencord`, and `vencord` config
+folders plus Flatpak Vesktop's config folder.
+
+QuickCSS writes retain the existing file inode so Vencord keeps watching after
+repeated switches. If QuickCSS was a symlink, the original link is backed up and
+the amended file is materialized without editing the link target; reopen the
+client once in that case to attach its watcher to the new file. Theme application
+repairs replaced system24 files, preserving unrelated themes.
+
 ## Installation, protection and recovery
 
 Fresh installs select Light; reinstall preserves a valid existing selection.

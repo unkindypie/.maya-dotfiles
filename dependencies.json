@@ -48,5 +48,35 @@
   "zsh-syntax-highlighting": {
     "url": "https://github.com/zsh-users/zsh-syntax-highlighting.git",
     "commit": "1d85c692615a25fe2293bdd44b34c217d5d2bf04"
+  },
+  "theme_artifacts": {
+    "system24": {
+      "url": "https://github.com/refact0r/system24",
+      "commit": "35a069674115e9676316e4c0ad6aad7089436be2",
+      "files": {
+        "system24.css": "build/system24.css",
+        "system24.theme.css": "theme/system24.theme.css",
+        "system24-light.theme.css": "theme/flavors/system24-light.theme.css",
+        "LICENSE": "LICENSE"
+      },
+      "sha256": {
+        "system24.css": "7b5a1e530359752f63ed081ad50177ea4752ee574ad6ba2456c90812cdb46947",
+        "system24.theme.css": "3aa7c1ba0d5fb69b82e1114a77916b6664076262abb7bee4f84a70cbdb89c227",
+        "system24-light.theme.css": "b45df797e80809464e84faf97741dcf333f14388b4b84fc41332cebc79d52f52",
+        "LICENSE": "b4fe34e7e9d7d6099faac4b0ac744b38ca38e3c857115a23b53200a960d704d4"
+      }
+    },
+    "midnight-discord": {
+      "url": "https://github.com/refact0r/midnight-discord",
+      "commit": "8598b2d540c51b5ab06364818b405bd5c66e2509",
+      "files": {
+        "midnight.css": "build/midnight.css",
+        "LICENSE": "LICENSE"
+      },
+      "sha256": {
+        "midnight.css": "f113563587233f1e8c3771a249b9d3153dbf31ffefa494bd2ca04e3a604f721a",
+        "LICENSE": "b4fe34e7e9d7d6099faac4b0ac744b38ca38e3c857115a23b53200a960d704d4"
+      }
+    }
   }
 }

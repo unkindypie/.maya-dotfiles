@@ -87,7 +87,8 @@ Your choice persists across login and reinstall. Theme changes preserve the wall
 and let mvim follow the selected Light/Dark variant while keeping its colorscheme
 in its separate repository. Thunar and other GTK/Qt apps use generated Maya
 paper/pastel themes and matching folder icons. The system color preference follows
-the selection; some apps need reopening. See [theme details](docs/themes.md).
+the selection; some apps need reopening. Vencord/Vesktop system24 themes also
+follow the selected mode through QuickCSS. See [theme details](docs/themes.md).
 
 ## Edit your configs
 
@@ -129,6 +130,7 @@ python3 tests/check-dependencies.py
 python3 tests/check-palette.py
 python3 tests/check-themes.py
 python3 tests/check-mvim-theme.py
+python3 tests/check-vencord-theme.py
 git diff --check
 ```
 

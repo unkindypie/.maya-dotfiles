@@ -12,6 +12,7 @@ sys.path.insert(0, str(root / 'scripts'))
 from links import backup_root, ensure_alias
 from themes import install_profiles, mode
 from theme_runtime import toolkits, refresh
+from vencord_theme import apply as apply_vencord
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument('action', choices=['light', 'dark', 'toggle', 'status', 'apply'])
@@ -39,7 +40,7 @@ if args.action != 'status':
         ensure_alias(home / '.config/maya-theme/profiles' / selected,
                      home / '.config/maya-theme/current', home, backup)
         if not args.no_reload:
-            for warning in toolkits(home, selected, backup):
+            for warning in toolkits(home, selected, backup) + apply_vencord(root, home, selected, backup):
                 print(warning, file=sys.stderr)
             refresh(home)
 selected = mode(home)

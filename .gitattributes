@@ -6,3 +6,5 @@ reference/** -whitespace
 home/.oh-my-zsh/** -whitespace
 home/.config/hypr/UserConfigs/** -whitespace
 home/.config/hypr/lua/** -whitespace
+
+assets/themes/** -whitespace

@@ -50,6 +50,9 @@ and the [GNU compatibility FAQ](https://www.gnu.org/licenses/gpl-faq.html#WhatDo
 - The Sobole Zsh theme retains its WTFPL notice; other third-party themes retain
   their upstream notices. Dependencies downloaded by the installer keep their
   upstream licenses and pinned revisions in `dependencies.json`.
+- system24 and midnight-discord theme artifacts in `assets/themes/` remain MIT,
+  with refact0r’s full copyright/license notices included in their folders and
+  in the assembled local themes. Maya’s integration does not relicense them as GPL.
 - Screenshots illustrate the desktop; third-party content depicted in them is
   not granted a new software license by this repository's default notice.
 

@@ -34,3 +34,14 @@ See [licensing details](docs/licensing.md) for scope and upstream references.
 - Maya GTK overrides and pastel folder SVG artwork in `styles/` are original
   project assets under GPL-3.0-or-later. GTK uses its installed Adwaita foundation;
   its upstream source is not copied into this repository.
+
+- system24 by refact0r: https://github.com/refact0r/system24 at
+  `35a069674115e9676316e4c0ad6aad7089436be2`, MIT. Includes its built stylesheet
+  and original Dark/Light option files in `assets/themes/system24/`.
+- midnight-discord by refact0r (system24's foundation):
+  https://github.com/refact0r/midnight-discord at
+  `8598b2d540c51b5ab06364818b405bd5c66e2509`, MIT. Its built stylesheet is in
+  `assets/themes/midnight-discord/`. Each folder retains upstream's full LICENSE.
+  Maya combines these artifacts locally, removes remote theme imports, pins
+  optional upstream asset URLs, and applies the chosen system24 color variables
+  through a marked QuickCSS block. Optional Google web-font imports are retained.
