@@ -1,0 +1,7 @@
+<!-- Original Maya folder artwork. Colors supplied by the shared palette. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 64 64">
+  <path d="M6 15Q6 11 10 11H25L31 17H54Q58 17 58 21V50Q58 54 54 54H10Q6 54 6 50Z" fill="#283d35" stroke="#88a891" stroke-width="2"/>
+  <path d="M6 23H58V50Q58 54 54 54H10Q6 54 6 50Z" fill="#302b28" stroke="#b17991" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M14 29H50" stroke="#62384d" stroke-width="3" stroke-linecap="round"/>
+  <g fill="none" stroke="#f2c2d5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M24 40L32 33L40 40 M27 39V48H37V39 M31 48V43H34V48"/></g>
+</svg>

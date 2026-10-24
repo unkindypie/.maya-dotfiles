@@ -30,3 +30,7 @@ See [licensing details](docs/licensing.md) for scope and upstream references.
   https://github.com/adi1090x/rofi . Its upstream LICENSE grants GPL version 3;
   no later-version grant is assumed for that source. Original headers and layout
   credit retained. See https://github.com/adi1090x/rofi/blob/master/LICENSE .
+
+- Maya GTK overrides and pastel folder SVG artwork in `styles/` are original
+  project assets under GPL-3.0-or-later. GTK uses its installed Adwaita foundation;
+  its upstream source is not copied into this repository.

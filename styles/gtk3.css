@@ -1,0 +1,66 @@
+/* Maya paper widgets. Geometry is shared by Light and Dark. */
+@define-color theme_bg_color @maya_paper;
+@define-color theme_fg_color @maya_ink;
+@define-color theme_base_color @maya_paper_white;
+@define-color theme_text_color @maya_ink;
+@define-color theme_selected_bg_color @maya_pink;
+@define-color theme_selected_fg_color @maya_selection_ink;
+@define-color theme_unfocused_bg_color @maya_paper;
+@define-color theme_unfocused_fg_color @maya_muted_ink;
+@define-color theme_unfocused_base_color @maya_paper_white;
+@define-color theme_unfocused_text_color @maya_ink;
+@define-color theme_unfocused_selected_bg_color @maya_password_pink;
+@define-color theme_unfocused_selected_fg_color @maya_ink;
+@define-color insensitive_fg_color @maya_window_title_ink;
+@define-color insensitive_bg_color @maya_paper_inset;
+@define-color insensitive_base_color @maya_paper_inset;
+@define-color borders @maya_border;
+@define-color unfocused_borders @maya_border;
+@define-color warning_color @maya_brightness_ink;
+@define-color error_color @maya_failure_ink;
+@define-color success_color @maya_sage_ink;
+window, dialog, .background { background-color: @maya_paper; color: @maya_ink; }
+headerbar, toolbar, menubar, statusbar, .primary-toolbar {
+  background-image: none; background-color: @maya_paper; color: @maya_ink;
+  border-color: @maya_border; box-shadow: none;
+}
+.view, treeview, iconview, textview text, list, flowbox {
+  background-color: @maya_paper_white; color: @maya_ink;
+}
+.sidebar, .sidebar .view, .sidebar treeview, placessidebar, placessidebar list {
+  background-color: @maya_paper_inset; color: @maya_ink;
+}
+.view:selected, .view:selected:focus, treeview:selected, treeview:selected:focus,
+treeview.view:selected, treeview.view:selected:focus, treeview.view:selected:backdrop,
+iconview:selected, row:selected, row:selected:hover, flowboxchild:selected, selection {
+  background-image: none; background-color: @maya_pink; color: @maya_selection_ink;
+}
+button, entry, spinbutton, combobox button {
+  background-image: none; background-color: @maya_paper_white; color: @maya_ink;
+  border: 1px solid @maya_border; border-radius: 7px;
+  box-shadow: none; text-shadow: none;
+}
+button:hover, combobox button:hover { background-color: @maya_control_hover; }
+button:active, button:checked { background-color: @maya_pink; color: @maya_selection_ink; }
+button:disabled, entry:disabled, spinbutton:disabled {
+  background-color: @maya_paper_inset; color: @maya_window_title_ink;
+}
+button:focus, entry:focus, spinbutton:focus { border-color: @maya_rose; box-shadow: inset 0 0 0 1px @maya_rose; }
+button.suggested-action { background-color: @maya_sage; color: @maya_sage_ink; border-color: @maya_sage_border; }
+button.destructive-action { background-color: @maya_warning_pink; color: @maya_failure_ink; }
+menu, .menu, popover, popover.background {
+  background-color: @maya_paper; color: @maya_ink; border-color: @maya_border;
+}
+menuitem:hover, modelbutton:hover { background-color: @maya_pink; color: @maya_selection_ink; }
+separator { background-color: @maya_border; }
+check, radio { background-image: none; background-color: @maya_paper_white; border-color: @maya_border; color: @maya_ink; }
+check:checked, radio:checked, switch:checked { background-image: none; background-color: @maya_pink; color: @maya_selection_ink; border-color: @maya_rose_border; }
+scale trough, progressbar trough, scrollbar trough { background-color: @maya_paper_inset; border-color: @maya_border; }
+scale highlight, progressbar progress { background-image: none; background-color: @maya_sage; border-color: @maya_sage_border; }
+scrollbar slider { background-color: @maya_taupe; border-radius: 8px; }
+scrollbar slider:hover { background-color: @maya_rose_border; }
+notebook > header { background-color: @maya_paper_inset; }
+notebook > header tab:checked { background-color: @maya_paper; box-shadow: inset 0 -2px @maya_rose; }
+tooltip, tooltip.background { background-color: @maya_lavender; color: @maya_lavender_ink; border: 1px solid @maya_lavender_border; }
+label:disabled { color: @maya_window_title_ink; }
+*:link, button:link, label:link { color: @maya_rose_ink; }

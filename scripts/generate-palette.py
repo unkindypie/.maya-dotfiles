@@ -2,6 +2,9 @@
 """Generate tiny native color includes from the shared palette; no dependencies."""
 from pathlib import Path
 import argparse, json, re, math, itertools
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from toolkit_assets import render as render_toolkits
 
 
 def oklab(color):
@@ -114,6 +117,8 @@ def render_all(root):
         for source, filename in PROFILE_NAMES.items():
             outputs[prefix + filename] = native[source]
         colors = data['themes'][mode]['colors']
+        output_header = native['home/.config/waybar/palette.css']
+        outputs.update(render_toolkits(root, mode, colors, output_header))
         outputs[prefix + 'palette.json'] = json.dumps({'name': mode, 'colors': colors}, indent=2) + '\n'
         outputs[prefix + 'tmux.conf'] = '# Generated theme colors; layout is shared.\n' + f'set -g @theme_mode "{mode}"\n' + ''.join(
             f'set -g @maya_{name} "{value}"\n' for name, value in colors.items())

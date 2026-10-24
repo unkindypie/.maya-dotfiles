@@ -6,8 +6,8 @@ hl.on("hyprland.start", function()
     local f = io.open(path, "r")
     if f then f:close(); hl.exec_cmd(string.format("%q", path) .. (args or "")) end
   end
-  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
-  hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_STYLE_OVERRIDE QT_QPA_PLATFORMTHEME")
+  hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP QT_STYLE_OVERRIDE QT_QPA_PLATFORMTHEME")
   script("initial-boot.sh")
   script("scripts/WallpaperDaemon.sh")
   script("scripts/Polkit.sh")

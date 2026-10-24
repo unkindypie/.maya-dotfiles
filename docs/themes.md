@@ -78,22 +78,48 @@ Both generated Wofi stylesheets contain exactly the same layout body.
 
 ## GTK, Qt and applications
 
-The custom Maya components use only palette changes. For other apps, the switch
-selects matching installed toolkit themes:
+Desktop apps use generated **Maya Paper** themes from the same palette as Waybar
+and the terminal. Light uses cream paper and brown text; Dark uses warm charcoal
+and cream text. Both use pink selections and sage/lavender accents with identical
+widget geometry.
 
 | Integration | Light | Dark |
 | --- | --- | --- |
-| GTK | Flat-Remix-GTK-Blue-Light | Flat-Remix-GTK-Blue-Dark |
-| Qt5ct / Qt6ct palette | Catppuccin-Latte | Catppuccin-Mocha |
-| Kvantum | catppuccin-latte-blue | catppuccin-mocha-blue |
+| GTK 3 / Thunar | Maya-Paper-Light | Maya-Paper-Dark |
+| GTK 4 / libadwaita | Maya Light surface/accent colors | Maya Dark surface/accent colors |
+| Qt5ct / Qt6ct | Maya Light palette, Fusion controls | Maya Dark palette, Fusion controls |
+| Folder icon overlay | Maya-Paper-Light | Maya-Paper-Dark |
 | Desktop / portal preference | prefer-light | prefer-dark |
 
-These installed theme assets remain outside this repository. Fonts, icons and
-unrelated toolkit preferences are preserved. If an asset is missing, the switch
-reports the unavailable integration and preserves its previous setting; it does
-not download or replace theme installations. Apps following the system preference
-can update live; others need reopening. An app with an explicit internal theme
-may override the system choice. No app is forcibly restarted.
+Editable widget styles are `styles/gtk3.css` and `styles/gtk4.css`; original folder
+artwork is `styles/folder.svg`. Regenerate after editing them. GTK 3 wraps the
+system GTK Adwaita foundation; no upstream theme source tree is bundled. GTK 4
+uses its native foundation and libadwaita surface/accent variables. The generated
+GTK 4 import is added to `~/.config/gtk-4.0/gtk.css` inside a marked Maya block;
+existing user rules are backed up and retained after that import, keeping their
+precedence. `maya-theme apply` repairs a missing import.
+
+Qt palettes include the color roles for each Qt version. Qt5ct and Qt6ct provide
+the platform integrations; install the one needed by your apps. The Hyprland
+config clears KooL's forced Kvantum style and selects `qt5ct` as the platform
+key (also supported by qt6ct). Qt settings select Fusion, leaving installed
+Kvantum themes untouched. Existing terminal sessions can retain the old Qt
+environment; reopen them before launching Qt apps from those shells. Outside
+Hyprland, configure `QT_QPA_PLATFORMTHEME=qt5ct` in your session and remove any
+`QT_STYLE_OVERRIDE` that forces another style.
+
+The original pastel folder SVGs include common special folders and open-folder
+variants. Other icons inherit the original icon theme, remembered once in
+`~/.local/state/maya-dotfiles/theme-icon-base.json`. Application icons and the
+original icon installation are preserved; switching never makes Maya themes
+inherit one another.
+
+Fonts, scaling and unrelated toolkit preferences are preserved. Replaced settings
+are backed up. No third-party theme download is required. Missing generated assets
+are reported rather than replaced with an unrelated theme. GTK apps that follow
+settings notifications can update live; GTK 4 user stylesheets and some Qt apps
+need reopening. Flatpak/sandboxed apps or apps with explicit internal themes may
+not follow host styles. No app is forcibly restarted.
 
 ## Installation, protection and recovery
 

@@ -31,7 +31,7 @@ if args.action != 'status':
         elif args.action in ('light', 'dark'):
             selected = args.action
         profile = root / 'color-palette/profiles' / selected
-        required = ['palette.json', 'palette.css', 'colors.conf', 'colors.lua', 'kitty.conf', 'wofi.css', 'btop.theme', 'rofi.rasi', 'tmux.conf', 'shell.zsh']
+        required = ['palette.json', 'palette.css', 'colors.conf', 'colors.lua', 'kitty.conf', 'wofi.css', 'btop.theme', 'rofi.rasi', 'tmux.conf', 'shell.zsh', 'qt5.conf', 'qt6.conf', 'gtk3.css', 'gtk4.css', 'gtk-theme/gtk-3.0/gtk.css', 'gtk-theme/gtk-4.0/gtk.css', 'icons/scalable/places/folder.svg']
         if not all((profile / name).is_file() for name in required):
             raise SystemExit('Incomplete theme profiles. Run scripts/generate-palette.py and reinstall.')
         backup = backup_root(home)

@@ -1,0 +1,82 @@
+/* Maya GTK4/libadwaita colors. Keep application widget layouts intact. */
+:root {
+  --window-bg-color: @maya_paper;
+  --window-fg-color: @maya_ink;
+  --view-bg-color: @maya_paper_white;
+  --view-fg-color: @maya_ink;
+  --headerbar-bg-color: @maya_paper;
+  --headerbar-fg-color: @maya_ink;
+  --headerbar-backdrop-color: @maya_paper_inset;
+  --headerbar-shade-color: alpha(@maya_border, 0.3);
+  --sidebar-bg-color: @maya_paper_inset;
+  --sidebar-fg-color: @maya_ink;
+  --sidebar-backdrop-color: @maya_paper_inset;
+  --secondary-sidebar-bg-color: @maya_paper;
+  --secondary-sidebar-fg-color: @maya_ink;
+  --card-bg-color: @maya_paper_white;
+  --card-fg-color: @maya_ink;
+  --dialog-bg-color: @maya_paper;
+  --dialog-fg-color: @maya_ink;
+  --popover-bg-color: @maya_paper;
+  --popover-fg-color: @maya_ink;
+  --accent-bg-color: @maya_pink;
+  --accent-fg-color: @maya_selection_ink;
+  --accent-color: @maya_rose_ink;
+  --destructive-bg-color: @maya_warning_pink;
+  --destructive-fg-color: @maya_failure_ink;
+  --destructive-color: @maya_failure_ink;
+  --success-color: @maya_sage_ink;
+  --warning-color: @maya_brightness_ink;
+  --error-color: @maya_failure_ink;
+  --borders: @maya_border;
+}
+@define-color window_bg_color @maya_paper;
+@define-color window_fg_color @maya_ink;
+@define-color view_bg_color @maya_paper_white;
+@define-color view_fg_color @maya_ink;
+@define-color headerbar_bg_color @maya_paper;
+@define-color headerbar_fg_color @maya_ink;
+@define-color sidebar_bg_color @maya_paper_inset;
+@define-color sidebar_fg_color @maya_ink;
+@define-color card_bg_color @maya_paper_white;
+@define-color card_fg_color @maya_ink;
+@define-color popover_bg_color @maya_paper;
+@define-color popover_fg_color @maya_ink;
+@define-color dialog_bg_color @maya_paper;
+@define-color dialog_fg_color @maya_ink;
+@define-color accent_bg_color @maya_pink;
+@define-color accent_fg_color @maya_selection_ink;
+@define-color accent_color @maya_rose_ink;
+@define-color theme_bg_color @maya_paper;
+@define-color theme_fg_color @maya_ink;
+@define-color theme_base_color @maya_paper_white;
+@define-color theme_text_color @maya_ink;
+@define-color theme_selected_bg_color @maya_pink;
+@define-color theme_selected_fg_color @maya_selection_ink;
+
+/* Plain GTK4 widgets also need rules: its Default theme uses literal colors. */
+window.background { background-color: @maya_paper; color: @maya_ink; }
+headerbar { background: @maya_paper; color: @maya_ink; border-color: @maya_border; }
+.view, textview text, listview, columnview, gridview, list {
+  background-color: @maya_paper_white; color: @maya_ink;
+}
+.navigation-sidebar, placessidebar, placessidebar list {
+  background-color: @maya_paper_inset; color: @maya_ink;
+}
+row:selected, row:selected:hover, listview > row:selected, gridview > child:selected,
+.view:selected, selection {
+  background-color: @maya_pink; color: @maya_selection_ink;
+}
+button, entry, spinbutton {
+  background-image: none; background-color: @maya_paper_white; color: @maya_ink;
+  border-color: @maya_border; border-radius: 7px; box-shadow: none;
+}
+button:hover { background-color: @maya_control_hover; }
+button:checked, button:active { background-color: @maya_pink; color: @maya_selection_ink; }
+button.suggested-action { background-color: @maya_sage; color: @maya_sage_ink; }
+button.destructive-action { background-color: @maya_warning_pink; color: @maya_failure_ink; }
+button:disabled, entry:disabled { background-color: @maya_paper_inset; color: @maya_window_title_ink; }
+entry:focus-within, button:focus-visible { outline-color: @maya_rose; border-color: @maya_rose; }
+menu, popover contents { background-color: @maya_paper; color: @maya_ink; border-color: @maya_border; }
+scrollbar slider { background-color: @maya_taupe; }
+tooltip { background-color: @maya_lavender; color: @maya_lavender_ink; }

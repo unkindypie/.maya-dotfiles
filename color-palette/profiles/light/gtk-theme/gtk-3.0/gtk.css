@@ -1,0 +1,137 @@
+@import url("resource:///org/gtk/libgtk/theme/Adwaita/gtk-contained.css");
+/* Generated from color-palette/palette.json. Do not edit. */
+@define-color maya_active_sage #d8e3d5;
+@define-color maya_ansi_black #000000;
+@define-color maya_ansi_blue #0000cc;
+@define-color maya_ansi_bright_black #7f7f7f;
+@define-color maya_ansi_bright_white #ffffff;
+@define-color maya_ansi_cyan #0087cc;
+@define-color maya_ansi_green #009600;
+@define-color maya_ansi_magenta #cc00cc;
+@define-color maya_ansi_red #cc0000;
+@define-color maya_ansi_white #cccccc;
+@define-color maya_ansi_yellow #d06b00;
+@define-color maya_bar_shadow #c4b4a7;
+@define-color maya_battery_ink #4b643e;
+@define-color maya_battery_warning_ink #8c7041;
+@define-color maya_border #aa9588;
+@define-color maya_brightness_ink #7e602d;
+@define-color maya_caps_lock #b48d54;
+@define-color maya_control_hover #f5d5e1;
+@define-color maya_critical_ink #794550;
+@define-color maya_failure #b55b70;
+@define-color maya_failure_ink #9f435a;
+@define-color maya_faint_ink #8b8077;
+@define-color maya_fallback_blue #8db4ff;
+@define-color maya_fallback_dark #0f111a;
+@define-color maya_fallback_gray #5f6578;
+@define-color maya_focus_shadow rgba(81, 71, 64, 0.26666667);
+@define-color maya_inactive_shadow rgba(81, 71, 64, 0.07843137);
+@define-color maya_ink #3b302c;
+@define-color maya_lavender #e7e1ef;
+@define-color maya_lavender_border #a195b2;
+@define-color maya_lavender_highlight #f8f2ff;
+@define-color maya_lavender_ink #63516f;
+@define-color maya_muted_ink #74675e;
+@define-color maya_nightlight #f3dba8;
+@define-color maya_nightlight_ink #6e4b22;
+@define-color maya_novel_ink #3b2322;
+@define-color maya_novel_paper #fff5dc;
+@define-color maya_novel_selection #a4a390;
+@define-color maya_paper #f4f0e5;
+@define-color maya_paper_inset #e8e0d2;
+@define-color maya_paper_white #fffbf4;
+@define-color maya_password_pink #eee2e6;
+@define-color maya_pink #e6b5c6;
+@define-color maya_pink_highlight #ffe5ee;
+@define-color maya_rose #a95878;
+@define-color maya_rose_border #aa788c;
+@define-color maya_rose_ink #835f70;
+@define-color maya_sage #e1e9e4;
+@define-color maya_sage_border #9aa99b;
+@define-color maya_sage_ink #3d5d4d;
+@define-color maya_selection_ink #50313e;
+@define-color maya_sheet_shadow rgba(81, 71, 64, 0.21960784);
+@define-color maya_success #819877;
+@define-color maya_taupe #b3a594;
+@define-color maya_title_gradient_end #d7cbc0;
+@define-color maya_title_ink #514740;
+@define-color maya_warning_pink #edbcc5;
+@define-color maya_waybar_rose_ink #613e4c;
+@define-color maya_window_title_ink #635348;
+@define-color maya_tmux_fill #c8c2ac;
+@define-color maya_tmux_active_fill #dedac2;
+@define-color maya_tmux_accent #b5aa96;
+@define-color maya_tmux_prefix #fab387;
+@define-color maya_tmux_outer #dfdbc3;
+@define-color maya_tmux_aux_surface #313244;
+@define-color maya_tmux_aux_overlay #585b70;
+@define-color maya_tmux_aux_blue #89b4fa;
+@define-color maya_tmux_aux_cyan #89dceb;
+@define-color maya_tmux_aux_pink #f5c2e7;
+/* Maya paper widgets. Geometry is shared by Light and Dark. */
+@define-color theme_bg_color @maya_paper;
+@define-color theme_fg_color @maya_ink;
+@define-color theme_base_color @maya_paper_white;
+@define-color theme_text_color @maya_ink;
+@define-color theme_selected_bg_color @maya_pink;
+@define-color theme_selected_fg_color @maya_selection_ink;
+@define-color theme_unfocused_bg_color @maya_paper;
+@define-color theme_unfocused_fg_color @maya_muted_ink;
+@define-color theme_unfocused_base_color @maya_paper_white;
+@define-color theme_unfocused_text_color @maya_ink;
+@define-color theme_unfocused_selected_bg_color @maya_password_pink;
+@define-color theme_unfocused_selected_fg_color @maya_ink;
+@define-color insensitive_fg_color @maya_window_title_ink;
+@define-color insensitive_bg_color @maya_paper_inset;
+@define-color insensitive_base_color @maya_paper_inset;
+@define-color borders @maya_border;
+@define-color unfocused_borders @maya_border;
+@define-color warning_color @maya_brightness_ink;
+@define-color error_color @maya_failure_ink;
+@define-color success_color @maya_sage_ink;
+window, dialog, .background { background-color: @maya_paper; color: @maya_ink; }
+headerbar, toolbar, menubar, statusbar, .primary-toolbar {
+  background-image: none; background-color: @maya_paper; color: @maya_ink;
+  border-color: @maya_border; box-shadow: none;
+}
+.view, treeview, iconview, textview text, list, flowbox {
+  background-color: @maya_paper_white; color: @maya_ink;
+}
+.sidebar, .sidebar .view, .sidebar treeview, placessidebar, placessidebar list {
+  background-color: @maya_paper_inset; color: @maya_ink;
+}
+.view:selected, .view:selected:focus, treeview:selected, treeview:selected:focus,
+treeview.view:selected, treeview.view:selected:focus, treeview.view:selected:backdrop,
+iconview:selected, row:selected, row:selected:hover, flowboxchild:selected, selection {
+  background-image: none; background-color: @maya_pink; color: @maya_selection_ink;
+}
+button, entry, spinbutton, combobox button {
+  background-image: none; background-color: @maya_paper_white; color: @maya_ink;
+  border: 1px solid @maya_border; border-radius: 7px;
+  box-shadow: none; text-shadow: none;
+}
+button:hover, combobox button:hover { background-color: @maya_control_hover; }
+button:active, button:checked { background-color: @maya_pink; color: @maya_selection_ink; }
+button:disabled, entry:disabled, spinbutton:disabled {
+  background-color: @maya_paper_inset; color: @maya_window_title_ink;
+}
+button:focus, entry:focus, spinbutton:focus { border-color: @maya_rose; box-shadow: inset 0 0 0 1px @maya_rose; }
+button.suggested-action { background-color: @maya_sage; color: @maya_sage_ink; border-color: @maya_sage_border; }
+button.destructive-action { background-color: @maya_warning_pink; color: @maya_failure_ink; }
+menu, .menu, popover, popover.background {
+  background-color: @maya_paper; color: @maya_ink; border-color: @maya_border;
+}
+menuitem:hover, modelbutton:hover { background-color: @maya_pink; color: @maya_selection_ink; }
+separator { background-color: @maya_border; }
+check, radio { background-image: none; background-color: @maya_paper_white; border-color: @maya_border; color: @maya_ink; }
+check:checked, radio:checked, switch:checked { background-image: none; background-color: @maya_pink; color: @maya_selection_ink; border-color: @maya_rose_border; }
+scale trough, progressbar trough, scrollbar trough { background-color: @maya_paper_inset; border-color: @maya_border; }
+scale highlight, progressbar progress { background-image: none; background-color: @maya_sage; border-color: @maya_sage_border; }
+scrollbar slider { background-color: @maya_taupe; border-radius: 8px; }
+scrollbar slider:hover { background-color: @maya_rose_border; }
+notebook > header { background-color: @maya_paper_inset; }
+notebook > header tab:checked { background-color: @maya_paper; box-shadow: inset 0 -2px @maya_rose; }
+tooltip, tooltip.background { background-color: @maya_lavender; color: @maya_lavender_ink; border: 1px solid @maya_lavender_border; }
+label:disabled { color: @maya_window_title_ink; }
+*:link, button:link, label:link { color: @maya_rose_ink; }
