@@ -5,6 +5,7 @@
 
 ---@type MayaConfig
 return {
+	codex_ide_context = true,
 	transparent_background = true,
 	pokemon_sound_on_start_volume_percentage = 50, -- 0–100; 0 mutes playback.
 	reopen_tabs = true, -- Restore saved files, tabs, and splits for this folder.
