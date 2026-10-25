@@ -60,7 +60,7 @@
     maya-waybar-rose-ink: #f6c8df;
     maya-window-title-ink: #d8c9bb;
     maya-tmux-fill: #40362f;
-    maya-tmux-active-fill: #594537;
+    maya-tmux-active-fill: #89b4fa;
     maya-tmux-accent: #786455;
     maya-tmux-prefix: #75474d;
     maya-tmux-outer: #27211d;

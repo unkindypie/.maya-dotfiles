@@ -110,7 +110,11 @@
           "reason": "Retain separate tmux plugin roles while matching the shared theme."
         }
       ],
-      "kitty_background_tint": 0.35
+      "kitty_background_tint": 0.35,
+      "tmux_active": {
+        "text": "novel_ink",
+        "number": "tmux_prefix"
+      }
     },
     "dark": {
       "colors": {
@@ -174,7 +178,7 @@
         "waybar_rose_ink": "#f6c8df",
         "window_title_ink": "#d8c9bb",
         "tmux_fill": "#40362f",
-        "tmux_active_fill": "#594537",
+        "tmux_active_fill": "#89b4fa",
         "tmux_accent": "#786455",
         "tmux_prefix": "#75474d",
         "tmux_outer": "#27211d",
@@ -284,7 +288,11 @@
           "reason": "Retain separate tmux plugin roles while matching the shared theme."
         }
       ],
-      "kitty_background_tint": 0.78
+      "kitty_background_tint": 0.78,
+      "tmux_active": {
+        "text": "novel_paper",
+        "number": "tmux_active_fill"
+      }
     }
   },
   "kitty": {

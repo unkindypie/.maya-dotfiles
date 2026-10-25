@@ -4,7 +4,8 @@ import subprocess
 import json
 from pathlib import Path
 
-colors = json.loads((Path.home() / ".config/maya-theme/palette.json").read_text())["colors"]
+profile = json.loads((Path.home() / ".config/maya-theme/palette.json").read_text())
+colors = profile["colors"]
 
 
 def get(name):
@@ -37,11 +38,11 @@ for option in ("status-left", "status-right", "window-status-format", "window-st
             f"#[fg={accent},bg={background}] "
         )
     if option == "window-status-current-format":
-        # Match the normal rounded tab with one consistent light fill.
+        # Use palette-selected foreground and number colors for the active tab.
         # Avoid Kitty applying default-background transparency to the label.
         fill = colors["tmux_active_fill"]
-        text = colors["novel_ink"]
-        accent = colors["tmux_prefix"]
+        text = colors[profile["tmux_active"]["text"]]
+        accent = colors[profile["tmux_active"]["number"]]
         value = (
             f"#[fg={fill},bg={background},nobold,nounderscore,noitalics]"
             f"#[fg={text},bg={fill}]#W#{{?window_zoomed_flag,(),}} "

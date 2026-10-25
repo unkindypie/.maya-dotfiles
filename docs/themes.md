@@ -64,7 +64,9 @@ Both generated Wofi stylesheets contain exactly the same layout body.
   stronger background-color tint (`0.78`, versus Light’s original `0.35`) so the
   notebook lines remain subtle behind text. Adjust `kitty_background_tint` in
   each palette profile to tune this. tmux uses the
-  same rounded status layout in both modes; btop keeps its CPU/GPU layout.
+  same rounded status layout in both modes; the active Dark tab uses the original
+  Catppuccin light blue with dark text. Its text/number roles are selected by
+  each profile’s `tmux_active` mapping. btop keeps its CPU/GPU layout.
 - Zsh prompt colors, syntax highlighting and fzf colors refresh at the next prompt.
   After first installing this feature, existing shells need reopening once to load
   the new prompt hook. Additional custom tmux servers pick up colors on config reload.

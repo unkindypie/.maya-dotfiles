@@ -119,7 +119,10 @@ def render_all(root):
         colors = data['themes'][mode]['colors']
         output_header = native['home/.config/waybar/palette.css']
         outputs.update(render_toolkits(root, mode, colors, output_header))
-        outputs[prefix + 'palette.json'] = json.dumps({'name': mode, 'colors': colors}, indent=2) + '\n'
+        active = data['themes'][mode]['tmux_active']
+        if set(active) != {'text', 'number'} or any(token not in colors for token in active.values()):
+            raise ValueError(f'Invalid {mode} tmux active color mapping')
+        outputs[prefix + 'palette.json'] = json.dumps({'name': mode, 'colors': colors, 'tmux_active': active}, indent=2) + '\n'
         outputs[prefix + 'tmux.conf'] = '# Generated theme colors; layout is shared.\n' + f'set -g @theme_mode "{mode}"\n' + ''.join(
             f'set -g @maya_{name} "{value}"\n' for name, value in colors.items())
         outputs[prefix + 'shell.zsh'] = '# Generated shell colors; sourced at the next prompt.\n' + (

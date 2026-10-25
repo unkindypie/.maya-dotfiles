@@ -34,8 +34,11 @@ for name, profile in manifest['themes'].items():
     c=profile['colors']
     for fg,bg in [('novel_ink','novel_paper'),('ink','paper')]:
         assert contrast(c[fg],c[bg]) >= 7, (name, fg,bg)
-    for bg in ('tmux_fill', 'tmux_active_fill', 'tmux_accent', 'tmux_prefix', 'novel_selection'):
+    for bg in ('tmux_fill', 'tmux_accent', 'tmux_prefix', 'novel_selection'):
         assert contrast(c['novel_ink'], c[bg]) >= 4.5,(name,bg)
+    active = profile['tmux_active']
+    for bg in ('tmux_active_fill', active['number']):
+        assert contrast(c[active['text']], c[bg]) >= 4.5, (name, 'active tab', bg)
     for fg,bg in [('muted_ink','paper'),('faint_ink','novel_paper'),('window_title_ink','paper'),('selection_ink','pink')]:
         # The existing Light faint text is intentionally retained unchanged.
         if name == 'light' and fg == 'faint_ink': continue

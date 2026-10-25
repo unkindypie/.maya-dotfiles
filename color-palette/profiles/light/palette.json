@@ -70,5 +70,9 @@
     "tmux_aux_blue": "#89b4fa",
     "tmux_aux_cyan": "#89dceb",
     "tmux_aux_pink": "#f5c2e7"
+  },
+  "tmux_active": {
+    "text": "novel_ink",
+    "number": "tmux_prefix"
   }
 }

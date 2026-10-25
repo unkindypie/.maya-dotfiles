@@ -60,7 +60,7 @@ return {
   waybar_rose_ink = "rgb(f6c8df)",
   window_title_ink = "rgb(d8c9bb)",
   tmux_fill = "rgb(40362f)",
-  tmux_active_fill = "rgb(594537)",
+  tmux_active_fill = "rgb(89b4fa)",
   tmux_accent = "rgb(786455)",
   tmux_prefix = "rgb(75474d)",
   tmux_outer = "rgb(27211d)",
