@@ -8,7 +8,8 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
     shutil.copytree(source_root, root, ignore=shutil.ignore_patterns('.git', '__pycache__'))
     target = Path(d) / 'user'
     target.mkdir()
-    env = dict(os.environ, HOME=str(target))
+    env = dict(os.environ, HOME=str(target),
+               XDG_STATE_HOME=str(target / '.local/state'))
     def run(*args):
         if len(args) > 1 and args[1] == str(root / 'install.py'):
             args = (*args, '--skip-dependencies', '--no-theme-apply')
@@ -73,6 +74,21 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
     assert (bar / 'config').resolve() == root / 'home/.config/waybar/config'
     assert not (target / '.zshrc').is_symlink()
     assert (target / '.config/zsh/shared.zsh').is_symlink()
+    state = target / '.local/state/maya-dotfiles/rofi-launcher'
+    assert state.read_text().strip() == 'maya'
+    assert (target / '.local/bin/maya-rofi').is_symlink()
+    for keyboard in ('.config/hypr/UserConfigs/UserKeybinds.conf',
+                     '.config/hypr/UserConfigs/user_keybinds.lua'):
+        assert 'maya-rofi' in (target / keyboard).read_text()
+    (target / '.local/bin/maya-rofi').unlink()
+    run('python3', str(root / 'scripts/restore-managed.py'))
+    assert (target / '.local/bin/maya-rofi').is_symlink()
+    conflict = subprocess.run(
+        ['python3', str(root / 'install.py'), '--with-rofi-universal',
+         '--without-rofi-universal', '--skip-dependencies', '--no-theme-apply',
+         '--no-services', '--without-mvim'],
+        env=env, text=True, capture_output=True)
+    assert conflict.returncode != 0
     run('python3', str(root / 'install.py'), '--no-services')
     # Reuse a fake existing checkout: optional path must invoke it once, then
     # restore the personal override without recursive dotfiles installation.
@@ -86,7 +102,7 @@ with tempfile.TemporaryDirectory(prefix='maya-dotfiles-test-') as d:
     assert (target / '.config/mvim/init.lua').read_bytes() == (root / 'home/.config/mvim/init.lua').read_bytes()
 root = source_root
 json.loads((root / 'home/.config/waybar/config').read_text())
-for name in ['bootstrap-mvim.sh', 'home/.local/bin/maya-bar-action', 'home/.local/bin/maya-waybar', 'home/.local/bin/maya-git-status', 'home/scripts/tmux-sessionizer', 'home/scripts/tmux-sessionpicker']:
+for name in ['bootstrap-mvim.sh', 'home/.local/bin/maya-bar-action', 'home/.local/bin/maya-rofi', 'home/.local/bin/maya-waybar', 'home/.local/bin/maya-git-status', 'home/scripts/tmux-sessionizer', 'home/scripts/tmux-sessionpicker']:
     subprocess.run(['bash', '-n', str(root / name)], check=True)
 subprocess.run(['zsh', '-n', str(root / 'home/.config/zsh/shared.zsh')], check=True)
 print('Fresh-home install, credential preservation, optional editor, recovery and syntax checks passed')

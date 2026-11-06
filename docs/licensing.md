@@ -39,6 +39,9 @@ and the [GNU compatibility FAQ](https://www.gnu.org/licenses/gpl-faq.html#WhatDo
   rules, appearance and Lua integration; development dates are recorded in Git.
 - `home/.config/rofi/themes/maya-paper.rasi`: GPLv3-derived layout; preserve its
   KooL and adi1090x credits.
+- Optional `rofi-universal` is installed from its official MIT-licensed Fedora
+  RPM only when explicitly selected. Its source tree is not stored here; see
+  ATTRIBUTION.md.
 - `home/.config/kitty/kitty-themes/`: retain the included
   [MIT license](../home/.config/kitty/kitty-themes/LICENSE.md) and author notices.
 - Bundled Fantasque Sans Mono and JetBrains Mono fonts: retain each family's

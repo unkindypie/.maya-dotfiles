@@ -1,0 +1,20 @@
+#!/bin/sh
+# Launch the selected Maya Rofi experience without compiling anything.
+set -eu
+state="${XDG_STATE_HOME:-$HOME/.local/state}/maya-dotfiles/rofi-launcher"
+selected=maya
+if [ -f "$state" ]; then
+    IFS= read -r selected < "$state" || selected=maya
+fi
+case "$selected" in
+    universal)
+        if ! command -v rofi-universal >/dev/null 2>&1; then
+            rofi -e "rofi-universal is selected but not installed. Run the Maya installer or install the rofi-universal package."
+            exit 1
+        fi
+        exec rofi-universal "$@"
+        ;;
+    maya|*)
+        exec rofi -show drun -modi drun,filebrowser,run,window -config "$HOME/.config/rofi/config.rasi" "$@"
+        ;;
+esac

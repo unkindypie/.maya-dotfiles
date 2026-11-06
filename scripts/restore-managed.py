@@ -10,7 +10,7 @@ home = Path.home()
 backup = backup_root(home)
 repair_dropdown(home, backup)
 waybar_changed = False
-managed = ['.config/hypr/scripts/DarkLight.sh', '.config/hypr/hyprland.lua', '.config/waybar/config', '.config/waybar/style.css', '.config/kitty/kitty.conf', '.config/hypr/maya-appearance.conf', '.config/rofi/config.rasi', '.config/hypr/hyprlock.conf', '.config/hypr/hypridle.conf', '.config/wofi/config', '.config/wofi/style.css', '.config/waybar/palette.css']
+managed = ['.local/bin/maya-rofi', '.config/hypr/scripts/DarkLight.sh', '.config/hypr/hyprland.lua', '.config/waybar/config', '.config/waybar/style.css', '.config/kitty/kitty.conf', '.config/hypr/maya-appearance.conf', '.config/rofi/config.rasi', '.config/hypr/hyprlock.conf', '.config/hypr/hypridle.conf', '.config/wofi/config', '.config/wofi/style.css', '.config/waybar/palette.css']
 for name in managed:
     if name in ALIASES:
         continue

@@ -14,10 +14,14 @@ same file. Reload the application afterward. Run the installer to link new files
 - **Rofi:** `~/.config/rofi/themes/maya-paper.rasi` keeps KooL Style 4’s layout
   with a slim classic-macOS-style frame, cat icon, right-hand rose dot,
   paper surfaces and dusty pink selections.
-  Super+D preserves usage history/ranking and the apps/files/term/window tabs.
-  It has no KooL or
-  Wallust dependency. Applies to the main launcher; KooL’s separate menus keep
-  their own themes.
+  Super+D launches `~/.local/bin/maya-rofi`, which selects the launcher chosen
+  during installation. Maya Rofi is the default and preserves the original
+  apps/files/term/window tabs. The optional rofi-universal selection keeps the
+  same Maya theme, adds the universal tab with native calculator/currency, and
+  is installed only from a matching verified Fedora 42/44 x86_64 RPM. The launcher
+  choice persists in `~/.local/state/maya-dotfiles/rofi-launcher`. Neither
+  launcher has a KooL or Wallust dependency; KooL’s separate menus keep their own
+  themes.
 - **Emoji picker (KooL):** **Super+M** opens the Rofi emoji picker.
 - **Wallpaper (KooL):** press **Super+W** to open the wallpaper picker. It reads
   `~/Pictures/wallpapers/` (including subfolders), or `wallpapers/` inside your

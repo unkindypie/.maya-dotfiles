@@ -27,6 +27,11 @@ internet; use `--skip-dependencies` for an offline install with dependencies rea
 `--no-theme-apply` to link profiles without changing toolkit preferences or
 reloading running apps.
 
+The installer asks which Rofi launcher to use. **Maya Rofi is the default and
+recommended choice.** Select rofi-universal only if you want the optional tabbed
+unified launcher; the non-interactive default is always Maya Rofi. Explicit
+flags are `--with-rofi-universal` and `--without-rofi-universal`.
+
 Install the following dependencies first. These are the versions installed on the
 reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
 
@@ -47,6 +52,8 @@ reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
 
 - Rofi **2.0.0**, with Wayland support (`rofi` on this Fedora setup;
   some distributions name the Wayland package `rofi-wayland`).
+- Optional **rofi-universal 1.2.0** for Fedora 42/44 x86_64; the installer
+  downloads and verifies the matching prebuilt RPM only when explicitly selected.
 - brightnessctl **0.5.1**
 - WirePlumber **0.5.18** (provides `wpctl`)
 - pavucontrol **6.2**
@@ -71,6 +78,52 @@ reference Fedora desktop on **2026-10-18**, not enforced minimum versions.
 
 The installer’s Git-based dependencies are pinned separately by commit in
 [`dependencies.json`](dependencies.json). Existing installations are preserved.
+
+## Rofi launcher choice
+
+Maya keeps its original Rofi setup as the default. The installer can optionally
+switch the Super+D launcher to [rofi-universal v1.2.0](https://github.com/Fl1pMoniz/rofi-universal/releases/tag/v1.2.0),
+a native tabbed launcher with applications, files, terminal, window and native
+calculator/currency tabs.
+
+Select it interactively or with:
+
+```sh
+python3 install.py --with-rofi-universal
+```
+
+Return to the original launcher with:
+
+```sh
+python3 install.py --without-rofi-universal
+```
+
+The non-interactive default is original Maya Rofi. Selecting Maya Rofi does not
+uninstall an already installed rofi-universal RPM; package removal is separate.
+Removing the package does not change the selected launcher, so switch back first:
+
+```sh
+python3 install.py --without-rofi-universal
+sudo dnf remove rofi-universal
+```
+
+### Fedora binaries
+
+The installer uses only a matching x86_64 RPM:
+
+- Fedora 42 — requires Rofi **1.7.9**
+- Fedora 44 — requires Rofi **2.0.0**
+- Nobara — conditional only when its Fedora base and installed Rofi version match
+  one of the tested Fedora environments; Nobara has not been directly tested.
+
+Other Fedora versions, ARM64/aarch64 and non-Fedora systems are not supported by
+this binary path and are rejected rather than installing an incompatible RPM.
+The previous launcher choice remains selected when package setup fails.
+
+Downloads are verified against the official `SHA256SUMS` and the pinned release
+checksum before `dnf install`. The RPMs are unsigned; SHA-256 confirms file
+integrity but does not authenticate the publisher. Do not disable DNF GPG checks
+globally. If DNF policy requires signed packages, keep Maya Rofi selected.
 
 ## Light and Dark
 
@@ -131,6 +184,7 @@ python3 tests/check-palette.py
 python3 tests/check-themes.py
 python3 tests/check-mvim-theme.py
 python3 tests/check-vencord-theme.py
+python3 tests/check-rofi-universal.py
 git diff --check
 ```
 

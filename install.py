@@ -11,6 +11,10 @@ mvim = p.add_mutually_exclusive_group()
 mvim.add_argument('--with-mvim', dest='with_mvim', action='store_true', help='Install Maya Neovim and its launcher')
 mvim.add_argument('--without-mvim', dest='with_mvim', action='store_false', help='Skip the optional Maya Neovim installation')
 p.set_defaults(with_mvim=None)
+rofi = p.add_mutually_exclusive_group()
+rofi.add_argument('--with-rofi-universal', dest='rofi_universal', action='store_true', help='Use rofi-universal as the Super+D launcher')
+rofi.add_argument('--without-rofi-universal', dest='rofi_universal', action='store_false', help='Keep the original Maya Rofi launcher (default)')
+p.set_defaults(rofi_universal=None)
 a = p.parse_args()
 root = Path(__file__).resolve().parent
 subprocess.run([sys.executable, str(root / "scripts/generate-palette.py")], check=True)
@@ -19,6 +23,20 @@ if not a.skip_dependencies:
     # Do this before copying custom themes, which also live under .oh-my-zsh.
     deps = runpy.run_path(str(root / 'scripts/install-dependencies.py'))
     deps['install_all'](root, home)
+if a.rofi_universal is None:
+    if sys.stdin.isatty():
+        print('Which Rofi launcher would you like to use?')
+        print('  1. Maya Rofi (recommended/default)')
+        print('  2. rofi-universal (tabbed unified launcher)')
+        choice = input('Select [1]: ').strip().lower()
+        if choice in ('2', 'rofi-universal', 'universal'):
+            a.rofi_universal = True
+        elif choice in ('', '1', 'maya', 'maya-rofi'):
+            a.rofi_universal = False
+        else:
+            raise SystemExit('Invalid launcher selection; choose 1 or 2')
+    else:
+        a.rofi_universal = False
 if a.with_mvim is None:
     a.with_mvim = (sys.stdin.isatty() and
                    input('Install Maya Neovim (maya-nvim) too? [y/N] ').strip().lower() in ('y', 'yes'))
@@ -36,6 +54,12 @@ if a.with_mvim:
     subprocess.run(['bash', str(root / 'bootstrap-mvim.sh'), '--from-installer'], check=True)
 sys.path.insert(0, str(root / 'scripts'))
 from links import backup_root, ensure_link, save_existing
+from rofi_universal import RofiUniversalError, install as install_rofi_universal, write_launcher
+if a.rofi_universal:
+    try:
+        install_rofi_universal(home, skip_dependencies=a.skip_dependencies)
+    except RofiUniversalError as error:
+        raise SystemExit(f'rofi-universal: {error}')
 from kool import repair_dropdown
 from themes import ALIASES, install_profiles
 backup = backup_root(home)
@@ -133,4 +157,6 @@ WantedBy=default.target
     ctl('restart', 'maya-waybar.service')
 if not a.no_theme_apply:
     subprocess.run([str(home / '.local/bin/maya-theme'), 'apply'], check=True)
+write_launcher(home, a.rofi_universal)
+print(f'Rofi launcher: {"rofi-universal" if a.rofi_universal else "Maya Rofi"}')
 print('Installed. Backups:', backup)

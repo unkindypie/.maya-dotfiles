@@ -31,6 +31,10 @@ See [licensing details](docs/licensing.md) for scope and upstream references.
   no later-version grant is assumed for that source. Original headers and layout
   credit retained. See https://github.com/adi1090x/rofi/blob/master/LICENSE .
 
+- rofi-universal by Fl1pMoniz: https://github.com/Fl1pMoniz/rofi-universal ,
+  release v1.2.0, MIT. Maya optionally installs the official Fedora RPM when
+  explicitly selected; its source tree is not stored here. Currency reference
+  data is provided by Frankfurter.
 - Maya GTK overrides and pastel folder SVG artwork in `styles/` are original
   project assets under GPL-3.0-or-later. GTK uses its installed Adwaita foundation;
   its upstream source is not copied into this repository.
